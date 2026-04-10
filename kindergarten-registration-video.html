@@ -32,33 +32,17 @@
                               color: white;
                               padding: 60px 40px;
                               text-align: center;
-                              position: relative;
-                              overflow: hidden;
-                }
-
-                .header::before {
-                              content: '';
-                              position: absolute;
-                              top: -50%;
-                              right: -50%;
-                              width: 100%;
-                              height: 100%;
-                              background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
                 }
 
                 .header h1 {
                               font-size: 3em;
                               margin-bottom: 10px;
-                              position: relative;
-                              z-index: 1;
                               text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
                 }
 
                 .header p {
                               font-size: 1.3em;
                               opacity: 0.95;
-                              position: relative;
-                              z-index: 1;
                 }
 
                 .content {
@@ -74,45 +58,25 @@
                               text-align: center;
                 }
 
-                .video-placeholder {
-                              background-color: #1a1a1a;
-                              border-radius: 10px;
-                              padding: 20px;
-                              margin: 20px 0;
-                              display: flex;
-                              align-items: center;
-                              justify-content: center;
-                              min-height: 400px;
+                .video-container {
                               position: relative;
+                              width: 100%;
+                              padding-bottom: 56.25%;
+                              height: 0;
                               overflow: hidden;
+                              border-radius: 10px;
+                              margin: 20px 0;
+                              background-color: #000;
                 }
 
-                .video-placeholder video {
+                .video-container iframe {
+                              position: absolute;
+                              top: 0;
+                              left: 0;
                               width: 100%;
                               height: 100%;
-                              object-fit: contain;
-                              border-radius: 5px;
-                }
-
-                .play-button {
-                              position: absolute;
-                              width: 80px;
-                              height: 80px;
-                              background-color: rgba(29, 185, 84, 0.9);
-                              border-radius: 50%;
-                              display: flex;
-                              align-items: center;
-                              justify-content: center;
-                              font-size: 40px;
-                              color: white;
-                              cursor: pointer;
-                              transition: all 0.3s ease;
-                              z-index: 10;
-                }
-
-                .play-button:hover {
-                              background-color: rgba(29, 185, 84, 1);
-                              transform: scale(1.1);
+                              border: none;
+                              border-radius: 10px;
                 }
 
                 .video-section h2 {
@@ -121,7 +85,7 @@
                               margin-bottom: 10px;
                 }
 
-                .video-section p {
+                .video-section > p {
                               color: #666;
                               font-size: 1.05em;
                               margin-bottom: 20px;
@@ -146,7 +110,6 @@
                 .requirement-card:hover {
                               transform: translateY(-8px);
                               box-shadow: 0 8px 25px rgba(26, 71, 42, 0.15);
-                              border-left-width: 8px;
                 }
 
                 .requirement-card h3 {
@@ -156,10 +119,6 @@
                               display: flex;
                               align-items: center;
                               gap: 10px;
-                }
-
-                .requirement-card .icon {
-                              font-size: 1.5em;
                 }
 
                 .requirement-card p {
@@ -288,14 +247,6 @@
                               .requirements-grid {
                                                 grid-template-columns: 1fr;
                               }
-
-                              .video-section {
-                                                padding: 20px;
-                              }
-
-                              .contact-section {
-                                                padding: 30px 20px;
-                              }
                 }
             </style>
   </head>
@@ -311,18 +262,15 @@
                             <div class="video-section">
                                             <h2>📹 فيديو تعليمي شامل</h2>
                                             <p>شاهد هذا الفيديو لفهم جميع متطلبات التسجيل بطريقة سهلة وواضحة</p>
-                                            <div class="video-placeholder">
-                                                                <div class="play-button">▶</div>div>
-                                                                <p style="color: white; text-align: center;">
-                                                                                          تم إنشاء الفيديو باستخدام تقنية Remotion المتقدمة<br>
-                                                                                          <small>يمكنك التواصل معنا لمشاهدة الفيديو مباشرة</small>
-                                                                </p>
+                                            <div class="video-container">
+                                                                <iframe src="https://www.youtube.com/embed/jNQXAC9IVRw" allowfullscreen="" loading="lazy"></iframe>iframe>
                                             </div>div>
+                                            <p style="font-size: 0.9em; color: #999; margin-top: 15px;">*الفيديو توضيحي - يمكن استبداله بفيديو خاص بك</p>
                             </div>div>
                             
                             <div class="requirements-grid">
                                             <div class="requirement-card">
-                                                                <h3><span class="icon">🎂</span>span>السن المؤهل للتسجيل</h3>
+                                                                <h3><span>🎂</span>السن المؤهل للتسجيل</h3>
                                                                 <p>
                                                                     <strong>رياض الأطفال:</strong> من 3 إلى 5 سنوات<br><br>
                                                                     <strong>المرحلة الابتدائية:</strong> 6 سنوات فما فوق<br><br>
@@ -331,7 +279,7 @@
                                             </div>div>
                                             
                                             <div class="requirement-card">
-                                                                <h3><span class="icon">🏥</span>span>فحص اللياقة الطبية</h3>
+                                                                <h3><span>🏥</span>فحص اللياقة الطبية</h3>
                                                                 <p>
                                                                                           إجراء فحص صحي شامل والتأكد من سلامة صحة الطالب، مع الحصول على شهادة صحية معتمدة من وزارة الصحة.<br><br>
                                                                                           الفحص يجب أن يكون حديثاً ومعتمداً من المراكز المصرح بها.
@@ -339,7 +287,7 @@
                                             </div>div>
 
                                               <div class="requirement-card">
-                                                                    <h3><span class="icon">🆔</span>span>التحقق من العنوان الوطني</h3>
+                                                                    <h3><span>🆔</span>التحقق من العنوان الوطني</h3>
                                                                     <p>
                                                                                               التأكد من صحة بيانات الرقم الوطني واستخدام منصة أبشر للتحقق. العنوان الوطني يجب أن يكون صحيحاً وسارياً.<br><br>
                                                                                               تأكد من عدم انتهاء صلاحية الرقم الوطني.
@@ -351,42 +299,42 @@
                                                 <h2>📋 خطوات التسجيل التفصيلية:</h2>
                                                 <ol class="steps-list">
                                                                       <li>
-                                                                                                <span class="step-number">1</span>span>
+                                                                                                <span class="step-number">1</span>
                                                                                                 <div>
                                                                                                                               <strong>تحضير المستندات المطلوبة</strong><br>
                                                                                                                               جهز جميع الوثائق والمستندات الأساسية (بطاقة الهوية، شهادات التطعيم، إلخ)
                                                                                                   </div>
                                                                       </li>
                                                                       <li>
-                                                                                                <span class="step-number">2</span>span>
+                                                                                                <span class="step-number">2</span>
                                                                                                 <div>
                                                                                                                               <strong>التوجه للمدرسة أو التسجيل الإلكتروني</strong><br>
                                                                                                                             اختر الطريقة المناسبة لك (مباشرة أو عبر المنصات الإلكترونية)
                                                                                                   </div>
                                                                       </li>
                                                                     <li>
-                                                                                              <span class="step-number">3</span>span>
+                                                                                              <span class="step-number">3</span>
                                                                                               <div>
                                                                                                                             <strong>إجراء الفحص الطبي</strong><br>
                                                                                                                             قم بفحص اللياقة الطبية للطالب في المركز المعتمد
                                                                                                 </div>
                                                                     </li>
                                                                       <li>
-                                                                                                <span class="step-number">4</span>span>
+                                                                                                <span class="step-number">4</span>
                                                                                                 <div>
                                                                                                                               <strong>التحقق من البيانات والعنوان الوطني</strong><br>
                                                                                                                               تأكد من صحة جميع البيانات المدخلة والرقم الوطني
                                                                                                   </div>
                                                                       </li>
                                                                       <li>
-                                                                                                <span class="step-number">5</span>span>
+                                                                                                <span class="step-number">5</span>
                                                                                                 <div>
                                                                                                                               <strong>استكمال إجراءات التسجيل</strong><br>
                                                                                                                             أكمل جميع الخطوات الإدارية المتبقية
                                                                                                   </div>
                                                                       </li>
                                                                     <li>
-                                                                                              <span class="step-number">6</span>span>
+                                                                                              <span class="step-number">6</span>
                                                                                               <div>
                                                                                                                             <strong>تأكيد التسجيل والحصول على رقم الطالب</strong><br>
                                                                                                                             احصل على تأكيد التسجيل ورقم الطالب الخاص بك
@@ -425,8 +373,7 @@
                                                                                                 </div>
                                                                       </li>
                                                                     </p>
-                                                                </p></strong></strong></small>
-                                                                </p></p></h1>
+                                                                </p></strong></strong></span></p></p></h1>
   </body>
       </style></title>
   </head>
