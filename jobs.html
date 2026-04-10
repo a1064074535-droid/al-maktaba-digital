@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>فرص التوظيف - المكتبة الرقمية</title>
+      <style>
+                * {
+                              margin: 0;
+                              padding: 0;
+                              box-sizing: border-box;
+                }
+
+                body {
+                              font-family: 'Arial', 'Segoe UI', sans-serif;
+                              background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                              padding: 20px;
+                              min-height: 100vh;
+                }
+
+                .container {
+                              max-width: 1400px;
+                              margin: 0 auto;
+                }
+
+                .header {
+                              background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+                              color: white;
+                              padding: 60px 40px;
+                              text-align: center;
+                              border-radius: 20px;
+                              margin-bottom: 40px;
+                              box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+                }
+
+                .header h1 {
+                              font-size: 3em;
+                              margin-bottom: 10px;
+                              text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                }
+
+                .header p {
+                              font-size: 1.2em;
+                              opacity: 0.95;
+                }
+
+                .controls {
+                              background: white;
+                              padding: 30px;
+                              border-radius: 15px;
+                              margin-bottom: 40px;
+                              box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                              display: grid;
+                              grid-template-columns: 1fr 1fr 1fr;
+                              gap: 20px;
+                }
+
+                .search-box, .filter-select {
+                              padding: 15px;
+                              border: 2px solid #ddd;
+                              border-radius: 10px;
+                              font-size: 1em;
+                              transition: all 0.3s ease;
+                }
+
+                .search-box:focus, .filter-select:focus {
+                              border-color: #1a472a;
+                              outline: none;
+                              box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+                }
+
+                .jobs-grid {
+                              display: grid;
+                              grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                              gap: 25px;
+                              margin-bottom: 40px;
+                }
+
+                .job-card {
+                              background: white;
+                              border-radius: 15px;
+                              padding: 25px;
+                              box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                              transition: all 0.3s ease;
+                              border-left: 5px solid #1a472a;
+                              cursor: pointer;
+                }
+
+                .job-card:hover {
+                              transform: translateY(-8px);
+                              box-shadow: 0 12px 30px rgba(26, 71, 42, 0.2);
+                }
+
+                .job-title {
+                              color: #1a472a;
+                              font-size: 1.3em;
+                              margin-bottom: 10px;
+                              font-weight: bold;
+                }
+
+                .job-company {
+                              color: #666;
+                              font-size: 1em;
+                              margin-bottom: 15px;
+                }
+
+                .job-details {
+                              display: flex;
+                              gap: 15px;
+                              margin-bottom: 15px;
+                              flex-wrap: wrap;
+                }
+
+                .detail-tag {
+                              background: #f0f8f5;
+                              color: #1a472a;
+                              padding: 8px 15px;
+                              border-radius: 25px;
+                              font-size: 0.9em;
+                }
+
+                .job-description {
+                              color: #555;
+                              line-height: 1.6;
+                              margin-bottom: 15px;
+                              font-size: 0.95em;
+                }
+
+                .job-footer {
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+                              padding-top: 15px;
+                              border-top: 1px solid #eee;
+                }
+
+                .apply-btn {
+                              background: #25D366;
+                              color: white;
+                              padding: 10px 20px;
+                              border: none;
+                              border-radius: 25px;
+                              cursor: pointer;
+                              font-weight: bold;
+                              transition: all 0.3s ease;
+                }
+
+                .apply-btn:hover {
+                              background: #20BA5A;
+                              transform: scale(1.05);
+                }
+
+                .date {
+                              color: #999;
+                              font-size: 0.9em;
+                }
+
+                .admin-panel {
+                              background: white;
+                              padding: 30px;
+                              border-radius: 15px;
+                              box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                              margin-bottom: 40px;
+                }
+
+                .admin-panel h2 {
+                              color: #1a472a;
+                              margin-bottom: 20px;
+                }
+
+                .form-group {
+                              margin-bottom: 15px;
+                }
+
+                .form-group label {
+                              display: block;
+                              margin-bottom: 8px;
+                              color: #1a472a;
+                              font-weight: bold;
+                }
+
+                .form-group input,
+                .form-group textarea,
+                .form-group select {
+                              width: 100%;
+                              padding: 12px;
+                              border: 2px solid #ddd;
+                              border-radius: 8px;
+                              font-size: 1em;
+                              font-family: inherit;
+                }
+
+                .form-group textarea {
+                              resize: vertical;
+                              min-height: 100px;
+                }
+
+                .add-job-btn {
+                              background: #1a472a;
+                              color: white;
+                              padding: 15px 40px;
+                              border: none;
+                              border-radius: 8px;
+                              font-size: 1.1em;
+                              font-weight: bold;
+                              cursor: pointer;
+                              transition: all 0.3s ease;
+                }
+
+                .add-job-btn:hover {
+                              background: #2d5a3d;
+                              transform: translateY(-2px);
+                              box-shadow: 0 4px 15px rgba(26, 71, 42, 0.3);
+                }
+
+                .empty-state {
+                              text-align: center;
+                              padding: 60px 20px;
+                              color: #999;
+                }
+
+                .empty-state-icon {
+                              font-size: 4em;
+                              margin-bottom: 20px;
+                }
+
+                @media (max-width: 768px) {
+                              .header h1 {
+                                                font-size: 2em;
+                              }
+
+                              .controls {
+                                                grid-template-columns: 1fr;
+                              }
+
+                              .jobs-grid {
+                                                grid-template-columns: 1fr;
+                              }
+                }
+            </style>
+  </head>
+  <body>
+        <div class="container">
+                  <div class="header">
+                                <h1>💼 فرص التوظيف</h1>
+                              <p>أحدث الفرص الوظيفية لعام 2024-2025</p>
+                  </div>div>
+                
+                <!-- البحث والتصفية -->
+                <div class="controls">
+                            <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن وظيفة...">
+                            <select id="categoryFilter" class="filter-select">
+                                            <option value="">جميع التخصصات</option>option>
+                                            <option value="تكنولوجيا">تكنولوجيا</option>option>
+                                            <option value="مبيعات">مبيعات</option>option>
+                                            <option value="تسويق">تسويق</option>option>
+                                            <option value="تدريس">تدريس</option>option>
+                                            <option value="هندسة">هندسة</option>option>
+                                            <option value="أخرى">أخرى</option>option>
+                            </select>select>
+                            <select id="locationFilter" class="filter-select">
+                                            <option value="">جميع المدن</option>option>
+                                            <option value="الرياض">الرياض</option>option>
+                                            <option value="جدة">جدة</option>option>
+                                            <option value="الدمام">الدمام</option>option>
+                                            <option value="أونلاين">أونلاين</option>option>
+                                            <option value="أخرى">أخرى</option>option>
+                            </select>select>
+                </div>div>
+                
+                <!-- لوحة إضافة الوظائف (للإدارة) -->
+                <div class="admin-panel">
+                            <h2>➕ إضافة وظيفة جديدة</h2>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                            <div class="form-group">
+                                                                <label>المسمى الوظيفي</label>
+                                                                <input type="text" id="jobTitle" placeholder="مثال: مهندس برمجيات">
+                                            </div>div>
+                                            <div class="form-group">
+                                                                <label>اسم الشركة</label>
+                                                                <input type="text" id="jobCompany" placeholder="مثال: شركة تقنية">
+                                            </div>div>
+                                            <div class="form-group">
+                                                                <label>التخصص</label>
+                                                                <select id="jobCategory">
+                                                                                        <option value="تكنولوجيا">تكنولوجيا</option>option>
+                                                                                        <option value="مبيعات">مبيعات</option>option>
+                                                                                        <option value="تسويق">تسويق</option>option>
+                                                                                        <option value="تدريس">تدريس</option>option>
+                                                                                        <option value="هندسة">هندسة</option>option>
+                                                                                        <option value="أخرى">أخرى</option>option>
+                                                                </select>select>
+                                            </div>div>
+                                            <div class="form-group">
+                                                                <label>المدينة</label>
+                                                                <input type="text" id="jobLocation" placeholder="مثال: الرياض">
+                                            </div>div>
+                                            <div class="form-group" style="grid-column: 1 / -1;">
+                                                                <label>وصف الوظيفة</label>
+                                                                <textarea id="jobDescription" placeholder="اكتب وصف الوظيفة والمتطلبات..."></textarea>
+                                            </div>div>
+                                            <div class="form-group">
+                                                                <label>الراتب (اختياري)</label>
+                                                                <input type="text" id="jobSalary" placeholder="مثال: 5000 - 8000 ريال">
+                                            </div>div>
+                                            <div class="form-group">
+                                                                <label>رابط التقديم</label>
+                                                                <input type="url" id="jobLink" placeholder="https://example.com/apply">
+                                            </div>div>
+                                            <button class="add-job-btn" onclick="addJob()" style="grid-column: 1 / -1;">إضافة الوظيفة</button>button>
+                            </div>div>
+                </div>div>
+                
+                <!-- قائمة الوظائف -->
+                <div id="jobsList" class="jobs-grid"></div>div>
+                
+                <div id="emptyState" class="empty-state" style="display: none;">
+                            <div class="empty-state-icon">📭</div>div>
+                            <h2>لا توجد وظائف حالياً</h2>
+                            <p>سيتم إضافة الوظائف قريباً...</p>
+                </div>div>
+        </div>div>
+      
+      <script>
+                // تحميل الوظائف من localStorage
+                let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+
+                // عرض الوظائف عند تحميل الصفحة
+                displayJobs();
+
+                // دالة إضافة وظيفة
+                function addJob() {
+                              const title = document.getElementById('jobTitle').value;
+                              const company = document.getElementById('jobCompany').value;
+                              const category = document.getElementById('jobCategory').value;
+                              const location = document.getElementById('jobLocation').value;
+                              const description = document.getElementById('jobDescription').value;
+                              const salary = document.getElementById('jobSalary').value;
+                              const link = document.getElementById('jobLink').value;
+
+                              if (!title || !company || !description) {
+                                                alert('الرجاء ملء الحقول المطلوبة');
+                                                return;
+                              }
+
+                              const job = {
+                                                id: Date.now(),
+                                                title,
+                                                company,
+                                                category,
+                                                location,
+                                                description,
+                                                salary,
+                                                link,
+                                                date: new Date().toLocaleDateString('ar-SA')
+                              };
+
+                              jobs.unshift(job);
+                              localStorage.setItem('jobs', JSON.stringify(jobs));
+
+                              // مسح النموذج
+                              document.getElementById('jobTitle').value = '';
+                              document.getElementById('jobCompany').value = '';
+                              document.getElementById('jobLocation').value = '';
+                              document.getElementById('jobDescription').value = '';
+                              document.getElementById('jobSalary').value = '';
+                              document.getElementById('jobLink').value = '';
+
+                              displayJobs();
+                              alert('تم إضافة الوظيفة بنجاح!');
+                }
+
+                // دالة عرض الوظائف
+                function displayJobs(jobsToDisplay = jobs) {
+                              const jobsList = document.getElementById('jobsList');
+                              const emptyState = document.getElementById('emptyState');
+
+                              if (jobsToDisplay.length === 0) {
+                                                jobsList.innerHTML = '';
+                                                emptyState.style.display = 'block';
+                                                return;
+                              }
+
+                              emptyState.style.display = 'none';
+                              jobsList.innerHTML = jobsToDisplay.map(job => `
+                                              <div class="job-card">
+                                                                  <div class="job-title">${job.title}</div>
+                                                                                      <div class="job-company">🏢 ${job.company}</div>
+                                                                                                          <div class="job-details">
+                                                                                                                                  <div class="detail-tag">📍 ${job.location}</div>
+                                                                                                                                                          <div class="detail-tag">${job.category}</div>
+                                                                                                                                                                                  ${job.salary ? `<div class="detail-tag">💰 ${job.salary}</div>` : ''}
+                                                                                                                                                                                                      </div>
+                                                                                                                                                                                                                          <div class="job-description">${job.description}</div>
+                                                                                                                                                                                                                                              <div class="job-footer">
+                                                                                                                                                                                                                                                                      <span class="date">${job.date}</span>
+                                                                                                                                                                                                                                                                                              ${job.link ? `<a href="${job.link}" target="_blank" class="apply-btn">تقديم</a>` : '<button class="apply-btn" onclick="alert(\'سيتم التحديث قريباً\')">تقديم</button>'}
+                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                  </div>
+                                                                                                                                                                                                                                                                                                                                              `).join('');
+                }
+
+                // البحث
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                              const query = e.target.value.toLowerCase();
+                              const filtered = jobs.filter(job => 
+                                                job.title.includes(query) || 
+                                                job.company.includes(query) ||
+                                                job.description.includes(query)
+                                                                       );
+                              displayJobs(filtered);
+                });
+
+                // التصفية حسب التخصص
+                document.getElementById('categoryFilter').addEventListener('change', (e) => {
+                              filterJobs();
+                });
+
+                // التصفية حسب المدينة
+                document.getElementById('locationFilter').addEventListener('change', (e) => {
+                              filterJobs();
+                });
+
+                // دالة التصفية المتقدمة
+                function filterJobs() {
+                              const category = document.getElementById('categoryFilter').value;
+                              const location = document.getElementById('locationFilter').value;
+
+                              const filtered = jobs.filter(job => {
+                                                const matchCategory = !category || job.category === category;
+                                                const matchLocation = !location || job.location === location;
+                                                return matchCategory && matchLocation;
+                              });
+
+                              displayJobs(filtered);
+                }
+      </script>
+  </body>
+</html>html>
+      </script></p></label></label></p></h1>
+  </body>
+      </style></title>
+  </head>
