@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+  <html lang="ar" dir="rtl">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>تكامل TikTok - النشر التلقائي</title>
+      <style>
+          * {
+              margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+}
+
+        :root {
+                      --primary: #000;
+            --secondary: #00f7ef;
+            --accent: #fe2c55;
+                          --light: #ecf0f1;
+                          --dark: #2c3e50;
+            --text: #34495e;
+}
+
+        body {
+                      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+}
+
+        .container {
+                      max-width: 1200px;
+            margin: 0 auto;
+}
+
+        header {
+                      background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: var(--secondary);
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 247, 239, 0.2);
+            text-align: center;
+            border: 2px solid var(--secondary);
+}
+
+        header h1 {
+                      font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 247, 239, 0.5);
+}
+
+        header p {
+                      font-size: 1.1em;
+            opacity: 0.95;
+}
+
+        .card {
+                      background: #0f0f0f;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--secondary);
+            margin-bottom: 20px;
+}
+
+        .card h2 {
+                      color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 15px;
+        }
+
+        .form-group {
+                      margin-bottom: 20px;
+}
+
+        label {
+                      display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+}
+
+        input, textarea, select {
+                      width: 100%;
+            padding: 12px;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            background: #1a1a1a;
+            color: white;
+            transition: border-color 0.3s ease;
+}
+
+        input:focus, textarea:focus, select:focus {
+                      outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(254, 44, 85, 0.2);
+        }
+
+        textarea {
+                      resize: vertical;
+            min-height: 100px;
+}
+
+        .btn {
+                      padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+                      background: linear-gradient(135deg, var(--accent) 0%, #fe2c55 100%);
+                      color: white;
+}
+
+        .btn-primary:hover {
+                      transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(254, 44, 85, 0.4);
+        }
+
+        .btn-secondary {
+                      background: var(--secondary);
+            color: #000;
+}
+
+        .btn-secondary:hover {
+                      background: #00d9d0;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+                      background: var(--accent);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9em;
+}
+
+        .btn-danger:hover {
+                      background: #e91d4d;
+                      }
+
+        .status {
+                      padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .status.error {
+            background: #e74c3c;
+                        color: white;
+        }
+
+        .status.info {
+            background: #3498db;
+            color: white;
+        }
+
+        .account-info {
+                      background: #0f0f0f;
+            border: 2px solid var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+}
+
+        .account-header {
+                      display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+}
+
+        .account-name {
+                      font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.2em;
+}
+
+        .schedule-list {
+                      list-style: none;
+}
+
+                  .schedule-item {
+                      background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-right: 4px solid var(--accent);
+}
+
+        .schedule-time {
+                      color: var(--secondary);
+            font-weight: bold;
+}
+
+        .schedule-status {
+                      font-size: 0.9em;
+            margin-top: 8px;
+}
+
+        .progress-bar {
+                      background: #1a1a1a;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            overflow: hidden;
+            height: 20px;
+            margin: 10px 0;
+}
+
+        .progress-fill {
+                      background: linear-gradient(90deg, var(--secondary), var(--accent));
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+}
+
+        .stats-grid {
+                      display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            }
+
+        .stat-card {
+                      background: #0f0f0f;
+            border: 2px solid var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+}
+
+        .stat-label {
+                      color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 8px;
+}
+
+        .stat-value {
+                      font-size: 2em;
+            color: var(--accent);
+            font-weight: bold;
+}
+
+        .hidden {
+                      display: none;
+}
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+      </head>
+      <body>
+          <div class="container">
+              <header>
+                  <h1>🎵 تكامل TikTok - النشر التلقائي</h1>
+                  <p>قم بتوصيل حسابك على TikTok والنشر بشكل تلقائي حسب الجدول الزمني</p>
+              </header>
+
+              <!-- حالة الاتصال -->
+              <div id="statusMessage" class="status"></div>
+
+              <div class="grid-2">
+                  <!-- قسم تسجيل الدخول إلى TikTok -->
+                  <div class="card">
+                      <h2>🔐 توصيل حساب TikTok</h2>
+
+                      <div class="form-group">
+                          <label>حالة الاتصال</label>
+                          <div id="connectionStatus">
+                              <p style="color: var(--accent);">❌ لم تقم بالاتصال بعد</p>
+                          </div>
+                      </div>
+
+                      <button class="btn btn-primary" onclick="connectTikTok()" style="width: 100%; margin-bottom: 10px;">
+                          🔑 اتصل بـ TikTok
+                      </button>
+
+                      <button class="btn btn-secondary" id="disconnectBtn" onclick="disconnectTikTok()" style="width: 100%; display: none;">
+                          ❌ قطع الاتصال
+                      </button>
+
+                      <div id="tiktokAccountInfo" class="account-info hidden">
+                          <div class="account-header">
+                              <div>
+                                  <div class="account-name" id="tiktokUsername"></div>
+                                  <small style="color: #999;">معرّف TikTok</small>
+                              </div>
+                          </div>
+                          <div class="stats-grid">
+                              <div class="stat-card">
+                                  <div class="stat-label">المتابعون</div>
+                                  <div class="stat-value" id="followerCount">0</div>
+                              </div>
+                              <div class="stat-card">
+                                  <div class="stat-label">المنشورات</div>
+                                  <div class="stat-value" id="videoCount">0</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- قسم حالة النشر التلقائي -->
+                  <div class="card">
+                      <h2>📊 حالة النظام</h2>
+                      <div class="stats-grid">
+                          <div class="stat-card">
+                              <div class="stat-label">المنشورات المجدولة</div>
+                              <div class="stat-value" id="scheduledCount">0</div>
+                          </div>
+                          <div class="stat-card">
+                              <div class="stat-label">المنشورة بنجاح</div>
+                              <div class="stat-value" id="publishedCount">0</div>
+                          </div>
+                          <div class="stat-card">
+                              <div class="stat-label">نسبة النجاح</div>
+                              <div class="stat-value" id="successRate">0%</div>
+                          </div>
+                          <div class="stat-card">
+                              <div class="stat-label">أخطاء</div>
+                              <div class="stat-value" id="errorCount">0</div>
+                          </div>
+                      </div>
+
+                      <div style="margin-top: 20px;">
+                          <label>تفعيل النشر التلقائي</label>
+                          <label style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+                              <input type="checkbox" id="autoPublishToggle" onchange="toggleAutoPublish(this)">
+                              <span style="color: var(--secondary);">تفعيل النشر التلقائي</span>
+                          </label>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- قسم جدولة الفيديو -->
+              <div class="card">
+                  <h2>📹 جدول الفيديو للنشر</h2>
+
+                  <div class="form-group">
+                      <label for="videoTitle">عنوان الفيديو</label>
+                      <input type="text" id="videoTitle" placeholder="أدخل عنوان الفيديو">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="videoDescription">وصف الفيديو</label>
+                      <textarea id="videoDescription" placeholder="اكتب وصف الفيديو..."></textarea>
+                      <small style="color: #999;">الحد الأقصى: 150 حرف</small>
+                  </div>
+
+                  <div class="grid-2">
+                      <div class="form-group">
+                          <label for="scheduleDate">التاريخ</label>
+                          <input type="date" id="scheduleDate">
+                      </div>
+                      <div class="form-group">
+                          <label for="scheduleTime">الوقت</label>
+                          <input type="time" id="scheduleTime">
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="videoHashtags">الهاشتاجات</label>
+                      <input type="text" id="videoHashtags" placeholder="#مثال #مثال2 #مثال3">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="videoUrl">رابط الفيديو (يدعم URL من YouTube, TikTok, إلخ)</label>
+                      <input type="url" id="videoUrl" placeholder="https://www.youtube.com/watch?v=...">
+                  </div>
+
+                  <button class="btn btn-primary" onclick="scheduleVideo()" style="width: 100%;">
+                      ⏱️ جدول الفيديو
+                  </button>
+              </div>
+
+              <!-- قسم قائمة الفيديوهات المجدولة -->
+              <div class="card">
+                  <h2>📋 الفيديوهات المجدولة</h2>
+                  <ul class="schedule-list" id="scheduleList"></ul>
+                  <div id="emptySchedule" style="text-align: center; color: #999; padding: 40px 20px;">
+                      <p>📭 لا توجد فيديوهات مجدولة</p>
+                  </div>
+              </div>
+
+              <!-- قسم السجل والإحصائيات -->
+              <div class="card">
+                  <h2>📈 سجل النشر والإحصائيات</h2>
+                  <div id="logList" style="max-height: 300px; overflow-y: auto;">
+                      <p style="color: #999; text-align: center; padding: 20px;">لا توجد بيانات حتى الآن</p>
+                  </div>
+              </div>
+          </div>
+
+          <script>
+              // متغيرات النظام
+              let tiktokAuth = {
+                  isConnected: false,
+                  accessToken: null,
+                  username: null,
+                  userId: null,
+                  followers: 0,
+                  videos: 0
+      };
+
+        let scheduledVideos = JSON.parse(localStorage.getItem('tiktokScheduled')) || [];
+        let publishLog = JSON.parse(localStorage.getItem('tiktokLog')) || [];
+        let autoPublishEnabled = localStorage.getItem('autoPublishEnabled') === 'true';
+
+        // تحميل البيانات عند فتح الصفحة
+        window.addEventListener('DOMContentLoaded', function() {
+                      loadTikTokAuth();
+            updateStatusDisplay();
+            updateScheduleList();
+            checkAndPublishVideos();
+
+            // التحقق من الفيديوهات كل دقيقة
+            setInterval(checkAndPublishVideos, 60000);
+        });
+
+        // اتصال TikTok
+        function connectTikTok() {
+                      showStatus('جاري الاتصال بـ TikTok...', 'info');
+
+            // محاكاة عملية التوثيق (في التطبيق الفعلي، ستستخدم TikTok OAuth API)
+            setTimeout(() => {
+                              // البيانات الوهمية (يجب استبدالها بـ API حقيقي)
+                              tiktokAuth = {
+                                  isConnected: true,
+                                  accessToken: 'sample_token_' + Date.now(),
+                                  username: 'username_' + Math.random().toString(36).substr(2, 9),
+                                  userId: Math.random().toString(36).substr(2, 9),
+                                  followers: Math.floor(Math.random() * 100000) + 1000,
+                                  videos: Math.floor(Math.random() * 500)
+              };
+
+                saveTikTokAuth();
+                updateStatusDisplay();
+                showStatus('✅ تم الاتصال بـ TikTok بنجاح!', 'success');
+        }, 2000);
+}
+
+        // قطع الاتصال
+        function disconnectTikTok() {
+                      if (confirm('هل أنت متأكد من رغبتك في قطع الاتصال؟')) {
+                tiktokAuth = {
+                                      isConnected: false,
+                                      accessToken: null,
+                                      username: null,
+                                      userId: null,
+                                      followers: 0,
+                                      videos: 0
+                  };
+                localStorage.removeItem('tiktokAuth');
+                updateStatusDisplay();
+                showStatus('✅ تم قطع الاتصال', 'success');
+                      }
+        }
+
+        // حفظ بيانات التوثيق
+        function saveTikTokAuth() {
+                      localStorage.setItem('tiktokAuth', JSON.stringify(tiktokAuth));
+        }
+
+        // تحميل بيانات التوثيق
+        function loadTikTokAuth() {
+                      const saved = localStorage.getItem('tiktokAuth');
+            if (saved) {
+                tiktokAuth = JSON.parse(saved);
+            }
+        }
+
+        // تحديث عرض الحالة
+        function updateStatusDisplay() {
+                      const status = document.getElementById('connectionStatus');
+            const accountInfo = document.getElementById('tiktokAccountInfo');
+            const disconnectBtn = document.getElementById('disconnectBtn');
+
+            if (tiktokAuth.isConnected) {
+                status.innerHTML = `<p style="color: var(--secondary);">✅ متصل</p>`;
+                document.getElementById('tiktokUsername').textContent = '@' + tiktokAuth.username;
+                document.getElementById('followerCount').textContent = tiktokAuth.followers.toLocaleString();
+                document.getElementById('videoCount').textContent = tiktokAuth.videos;
+                accountInfo.classList.remove('hidden');
+                disconnectBtn.style.display = 'block';
+            } else {
+                status.innerHTML = `<p style="color: var(--accent);">❌ غير متصل</p>`;
+                accountInfo.classList.add('hidden');
+                disconnectBtn.style.display = 'none';
+            }
+        }
+
+        // جدولة الفيديو
+        function scheduleVideo() {
+                      const title = document.getElementById('videoTitle').value;
+            const description = document.getElementById('videoDescription').value;
+            const date = document.getElementById('scheduleDate').value;
+            const time = document.getElementById('scheduleTime').value;
+            const hashtags = document.getElementById('videoHashtags').value;
+            const videoUrl = document.getElementById('videoUrl').value;
+
+            if (!title || !date || !time || !videoUrl) {
+                showStatus('⚠️ يرجى ملء جميع الحقول المطلوبة', 'error');
+                return;
+            }
+
+            if (!tiktokAuth.isConnected) {
+                showStatus('⚠️ يرجى الاتصال بـ TikTok أولاً', 'error');
+                return;
+            }
+
+            const scheduleDateTime = new Date(date + 'T' + time);
+            const video = {
+                              id: Date.now(),
+                                                title,
+                                                description: description.substring(0, 150),
+                                                scheduledTime: scheduleDateTime.toISOString(),
+                                                hashtags,
+                                                videoUrl,
+                                                status: 'scheduled',
+                                                createdAt: new Date().toISOString(),
+                                                publishedAt: null
+                                };
+
+            scheduledVideos.push(video);
+            localStorage.setItem('tiktokScheduled', JSON.stringify(scheduledVideos));
+
+            // مسح النموذج
+            document.getElementById('videoTitle').value = '';
+                          document.getElementById('videoDescription').value = '';
+                                        document.getElementById('scheduleDate').value = '';
+                                                      document.getElementById('scheduleTime').value = '';
+                                                                    document.getElementById('videoHashtags').value = '';
+                                                                                  document.getElementById('videoUrl').value = '';
+
+            updateScheduleList();
+            showStatus('✅ تم جدولة الفيديو بنجاح!', 'success');
+            addLog('جدولة', title, 'success');
+        }
+
+        // تحديث قائمة الفيديوهات
+        function updateScheduleList() {
+                      const list = document.getElementById('scheduleList');
+            const empty = document.getElementById('emptySchedule');
+
+            if (scheduledVideos.length === 0) {
+                list.innerHTML = '';
+                                  empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            list.innerHTML = scheduledVideos.map(video => `
+                              <li class="schedule-item">
+                                  <div style="color: var(--secondary); font-weight: bold;">${video.title}</div>
+                                  <div class="schedule-time">⏰ ${new Date(video.scheduledTime).toLocaleString('ar-SA')}</div>
+                                  <div class="schedule-status">
+                                      حالة: ${video.status === 'scheduled' ? '⏱️ مجدول' : video.status === 'published' ? '✅ منشور' : '❌ فشل'}
+                    </div>
+                                  <button class="btn btn-danger" onclick="deleteVideo(${video.id})" style="margin-top: 8px;">حذف</button>
+                              </li>
+                          `).join('');
+
+            document.getElementById('scheduledCount').textContent = scheduledVideos.length;
+        }
+
+        // حذف فيديو
+        function deleteVideo(id) {
+                      if (confirm('هل تريد حذف هذا الفيديو؟')) {
+                scheduledVideos = scheduledVideos.filter(v => v.id !== id);
+                localStorage.setItem('tiktokScheduled', JSON.stringify(scheduledVideos));
+                updateScheduleList();
+                showStatus('✅ تم حذف الفيديو', 'success');
+                      }
+        }
+
+        // التحقق والنشر التلقائي
+        function checkAndPublishVideos() {
+                      if (!autoPublishEnabled || !tiktokAuth.isConnected) {
+                return;
+                      }
+
+            const now = new Date();
+            scheduledVideos.forEach(video => {
+                              if (video.status === 'scheduled') {
+                                  const scheduleTime = new Date(video.scheduledTime);
+                                  if (scheduleTime <= now) {
+                        publishVideo(video.id);
+                                  }
+        }
+});
+}
+
+        // نشر الفيديو
+        function publishVideo(videoId) {
+                      const video = scheduledVideos.find(v => v.id === videoId);
+            if (!video) return;
+
+            // محاكاة عملية النشر
+            const success = Math.random() > 0.1; // 90% نسبة النجاح
+
+            if (success) {
+                video.status = 'published';
+                video.publishedAt = new Date().toISOString();
+                showStatus(`✅ تم نشر الفيديو: ${video.title}`, 'success');
+                addLog('نشر', video.title, 'success');
+            } else {
+                video.status = 'failed';
+                showStatus(`❌ فشل نشر الفيديو: ${video.title}`, 'error');
+                addLog('نشر', video.title, 'error');
+            }
+
+            localStorage.setItem('tiktokScheduled', JSON.stringify(scheduledVideos));
+            updateScheduleList();
+            updateStats();
+        }
+
+        // تبديل النشر التلقائي
+        function toggleAutoPublish(checkbox) {
+                      autoPublishEnabled = checkbox.checked;
+            localStorage.setItem('autoPublishEnabled', autoPublishEnabled);
+            showStatus(autoPublishEnabled ? '✅ تم تفعيل النشر التلقائي' : '✅ تم تعطيل النشر التلقائي', 'info');
+        }
+
+        // إضافة سجل
+        function addLog(action, title, status) {
+                      publishLog.unshift({
+                action,
+                title,
+                status,
+                timestamp: new Date().toISOString()
+});
+
+            if (publishLog.length > 20) {
+                publishLog = publishLog.slice(0, 20);
+            }
+
+            localStorage.setItem('tiktokLog', JSON.stringify(publishLog));
+            updateLogDisplay();
+        }
+
+        // عرض السجل
+        function updateLogDisplay() {
+                      const logList = document.getElementById('logList');
+            if (publishLog.length === 0) {
+                logList.innerHTML = '<p style="color: #999; text-align: center; padding: 20px;">لا توجد بيانات حتى الآن</p>';
+                return;
+            }
+
+            logList.innerHTML = publishLog.map(log => `
+                              <div style="padding: 10px; border-bottom: 1px solid #333; color: ${log.status === 'success' ? '#27ae60' : '#e74c3c'};">
+                                  <strong>${log.action}</strong> - ${log.title}<br>
+                                  <small>${new Date(log.timestamp).toLocaleString('ar-SA')}</small>
+                              </div>
+                          `).join('');
+        }
+
+        // تحديث الإحصائيات
+        function updateStats() {
+                      const total = scheduledVideos.length;
+            const published = scheduledVideos.filter(v => v.status === 'published').length;
+            const failed = scheduledVideos.filter(v => v.status === 'failed').length;
+            const successRate = total > 0 ? Math.round((published / total) * 100) : 0;
+
+            document.getElementById('scheduledCount').textContent = total;
+            document.getElementById('publishedCount').textContent = published;
+            document.getElementById('successRate').textContent = successRate + '%';
+            document.getElementById('errorCount').textContent = failed;
+        }
+
+        // عرض الرسائل
+        function showStatus(message, type) {
+                      const status = document.getElementById('statusMessage');
+            status.textContent = message;
+            status.className = 'status show ' + type;
+            setTimeout(() => status.classList.remove('show'), 5000);
+        }
+
+        // تحديث الإحصائيات عند التحميل
+        updateStats();
+        updateLogDisplay();
+    </script>
+      </body>
+      </html>
