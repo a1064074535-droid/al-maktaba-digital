@@ -1,448 +1,333 @@
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-<div class="container">
-<div class="section-title">
-<h2>ماذا يقول عملاؤنا؟</h2>
-<div class="line"></div>
-<p>آراء حقيقية من عملاء استفادوا من خدماتنا</p>
-</div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المكتبة الرقمية | خدمات رقمية ومساندة إلكترونية</title>
+<meta name="description" content="منصة المكتبة الرقمية - خدمات رقمية ومساندة إلكترونية بخبرة 15 سنة وأكثر من 6000 عميل">
+<meta property="og:title" content="المكتبة الرقمية">
+<meta property="og:description" content="منصة عربية مستقلة تقدم خدمات رقمية ومساندة إلكترونية">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_SA">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#0d9488;--pl:#14b8a6;--pd:#0f766e;--p50:#f0fdfa;--a:#22c55e;--d:#0f172a;--d7:#334155;--d6:#475569;--d5:#64748b;--d4:#94a3b8;--d3:#cbd5e1;--d2:#e2e8f0;--d1:#f1f5f9;--d0:#f8fafc;--g:#d4a853;--r:12px;--rl:20px;--rf:9999px;--s:0 1px 3px rgba(0,0,0,.1);--sm:0 4px 6px -1px rgba(0,0,0,.1);--sl:0 10px 25px -5px rgba(0,0,0,.1);--sx:0 20px 50px -10px rgba(0,0,0,.15);--t:all .3s ease}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:#fff;color:var(--d);line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit;transition:var(--t)}ul{list-style:none}img{max-width:100%;display:block}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}section{padding:80px 0}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--r);font-weight:700;font-size:.95rem;transition:var(--t);cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;box-shadow:0 4px 15px rgba(13,148,136,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(13,148,136,.4)}
+.btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 4px 15px rgba(37,211,102,.3)}
+.btn-whatsapp:hover{background:#1da851;transform:translateY(-2px)}
+.btn-sm{padding:8px 20px;font-size:.85rem}
+.section-title{text-align:center;margin-bottom:50px}
+.section-title h2{font-size:2rem;font-weight:800;color:var(--d);margin-bottom:10px}
+.section-title p{color:var(--d5);font-size:1.05rem;max-width:600px;margin:0 auto}
+.section-title .line{width:60px;height:4px;background:linear-gradient(90deg,var(--p),var(--a));border-radius:2px;margin:15px auto}
+.header{position:fixed;top:0;right:0;left:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--d2);transition:var(--t)}
+.header.scrolled{box-shadow:var(--sm)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.logo{display:flex;align-items:center;gap:10px;font-size:1.4rem;font-weight:800;color:var(--pd)}.logo i{font-size:1.6rem}
+.nav-links{display:flex;align-items:center;gap:25px}
+.nav-links a{font-weight:500;color:var(--d6);position:relative;padding:5px 0}
+.nav-links a:hover{color:var(--p)}
+.nav-links a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:2px;background:var(--p);transition:var(--t)}
+.nav-links a:hover::after{width:100%}
+.header-btns{display:flex;gap:10px;align-items:center}
+.mobile-toggle{display:none;background:none;border:none;font-size:1.5rem;color:var(--d);cursor:pointer}
+.mobile-nav{position:fixed;top:0;right:-300px;width:300px;height:100vh;background:#fff;z-index:2000;padding:30px 20px;transition:var(--t);box-shadow:var(--sx)}
+.mobile-nav.open{right:0}
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1999;opacity:0;visibility:hidden;transition:var(--t)}
+.mobile-overlay.open{opacity:1;visibility:visible}
+.mobile-nav-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid var(--d2)}
+.mobile-nav-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--d5)}
+.mobile-nav ul{display:flex;flex-direction:column;gap:5px}
+.mobile-nav ul a{display:block;padding:12px 15px;border-radius:var(--r);font-weight:500;color:var(--d6)}
+.mobile-nav ul a:hover{background:var(--p50);color:var(--p)}
+.mobile-nav-btns{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.hero{padding:140px 0 80px;background:linear-gradient(135deg,#f0fdfa 0%,#ccfbf1 30%,#e0f2fe 70%,#f0fdf4 100%);position:relative;overflow:hidden}
+.hero-content{text-align:center;position:relative;z-index:1}
+.hero-greeting{font-size:1.3rem;color:var(--p);font-weight:700;margin-bottom:15px;animation:fadeInUp .6s ease both}
+.hero h1{font-size:2.8rem;font-weight:900;color:var(--d);line-height:1.5;margin-bottom:20px;animation:fadeInUp .6s ease .1s both}
+.hero h1 span{color:var(--p)}
+.hero-desc{font-size:1.15rem;color:var(--d5);max-width:700px;margin:0 auto 35px;line-height:1.9;animation:fadeInUp .6s ease .2s both}
+.hero-btns{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .6s ease .3s both}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;padding:8px 18px;border-radius:var(--rf);font-size:.85rem;color:var(--d5);box-shadow:var(--s);margin-top:30px;animation:fadeInUp .6s ease .4s both}
+.hero-badge i{color:var(--a)}
+.stats{padding:40px 0;background:#fff;margin-top:-30px;position:relative;z-index:2}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat-card{text-align:center;padding:30px 15px;background:#fff;border-radius:var(--rl);box-shadow:var(--sl);border:1px solid var(--d1);transition:var(--t)}
+.stat-card:hover{transform:translateY(-5px);box-shadow:var(--sx)}
+.stat-icon{width:55px;height:55px;border-radius:50%;background:linear-gradient(135deg,var(--p50),#ccfbf1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.3rem;color:var(--p)}
+.stat-number{font-size:2rem;font-weight:900;color:var(--pd);direction:ltr}
+.stat-label{font-size:.9rem;color:var(--d5);margin-top:3px}
+.services{background:var(--d0)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.service-card{background:#fff;border-radius:var(--rl);padding:28px 24px;box-shadow:var(--s);border:1px solid var(--d1);transition:var(--t);position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:0;background:linear-gradient(180deg,var(--p),var(--a));transition:var(--t)}
+.service-card:hover::before{height:100%}
+.service-card:hover{transform:translateY(-5px);box-shadow:var(--sx)}
+.service-icon{width:55px;height:55px;border-radius:var(--r);background:linear-gradient(135deg,var(--p50),#ccfbf1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--p);margin-bottom:15px}
+.service-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;color:var(--d)}
+.service-card p{font-size:.9rem;color:var(--d5);margin-bottom:18px;line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.service-btns{display:flex;gap:8px;flex-wrap:wrap}
+.service-category{display:inline-block;padding:3px 10px;background:var(--p50);color:var(--p);font-size:.75rem;border-radius:var(--rf);font-weight:600;margin-bottom:12px}
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+.filter-btn{padding:8px 20px;border-radius:var(--rf);border:2px solid var(--d2);background:#fff;cursor:pointer;font-family:inherit;font-weight:600;font-size:.85rem;color:var(--d5);transition:var(--t)}
+.filter-btn:hover,.filter-btn.active{border-color:var(--p);background:var(--p);color:#fff}
+.search-box{display:flex;align-items:center;gap:10px;max-width:500px;margin:0 auto 30px;background:#fff;border:2px solid var(--d2);border-radius:var(--rf);padding:10px 20px;transition:var(--t)}
+.search-box:focus-within{border-color:var(--p);box-shadow:0 0 0 3px rgba(13,148,136,.1)}
+.search-box input{flex:1;border:none;outline:none;font-family:inherit;font-size:.95rem;background:none}
+.search-box i{color:var(--d4)}
+.why-us{background:#fff}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-card{text-align:center;padding:30px 20px;border-radius:var(--rl);border:1px solid var(--d1);transition:var(--t)}
+.why-card:hover{border-color:var(--p);box-shadow:var(--sl);transform:translateY(-3px)}
+.why-card i{font-size:2rem;color:var(--p);margin-bottom:15px}
+.why-card h4{font-weight:700;margin-bottom:8px}
+.why-card p{font-size:.9rem;color:var(--d5)}
+.steps-section{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;position:relative;overflow:hidden}
+.steps-section .section-title h2,.steps-section .section-title p{color:#fff}
+.steps-section .section-title .line{background:linear-gradient(90deg,var(--g),#e8c97a)}
+.steps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px;position:relative}
+.step-card{text-align:center;position:relative;z-index:1}
+.step-num{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;margin:0 auto 12px}
+.step-card h4{font-weight:700;margin-bottom:5px;font-size:.95rem}
+.step-card p{font-size:.8rem;opacity:.8}
+.testimonials{background:var(--d0)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.test-card{background:#fff;padding:25px;border-radius:var(--rl);box-shadow:var(--s);border:1px solid var(--d1);transition:var(--t)}
+.test-card:hover{box-shadow:var(--sl)}
+.test-stars{color:var(--g);margin-bottom:10px;font-size:.9rem}
+.test-text{font-size:.9rem;color:var(--d6);line-height:1.8;margin-bottom:15px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--a));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.9rem}
+.test-info h5{font-weight:700;font-size:.85rem}
+.test-info span{font-size:.75rem;color:var(--d4)}
+.faq-section{background:#fff}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border:1px solid var(--d2);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:var(--t)}
+.faq-item.active{border-color:var(--p);box-shadow:0 0 0 3px rgba(13,148,136,.08)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;font-weight:700;color:var(--d);background:#fff;transition:var(--t)}
+.faq-q:hover{color:var(--p)}
+.faq-q i{transition:var(--t);color:var(--p)}
+.faq-item.active .faq-q i{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 20px}
+.faq-a-inner{padding:0 0 18px;color:var(--d5);font-size:.95rem;line-height:1.8}
+.payment{background:linear-gradient(135deg,#fefce8,#fef9c3,#fef3c7)}
+.payment-warning{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1px solid #fecaca;border-radius:var(--r);padding:18px 22px;display:flex;align-items:flex-start;gap:12px;margin-bottom:30px;max-width:700px;margin-left:auto;margin-right:auto}
+.payment-warning i{color:#ef4444;font-size:1.2rem;margin-top:3px}
+.payment-warning p{font-size:.9rem;color:#991b1b;line-height:1.7}
+.payment-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:700px;margin:0 auto}
+.pay-card{background:#fff;border-radius:var(--rl);padding:25px;text-align:center;box-shadow:var(--sl);border:1px solid rgba(212,168,83,.2);transition:var(--t)}
+.pay-card:hover{transform:translateY(-3px);box-shadow:var(--sx)}
+.pay-card .bank-icon{width:55px;height:55px;border-radius:50%;background:linear-gradient(135deg,var(--p50),#ccfbf1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.3rem;color:var(--p)}
+.pay-card h4{font-weight:700;margin-bottom:10px;color:var(--d)}
+.iban-box{background:var(--d0);border:1px dashed var(--d3);border-radius:var(--r);padding:12px;font-family:monospace;direction:ltr;font-size:.82rem;color:var(--d7);margin-bottom:12px;word-break:break-all}
+.copy-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:var(--p);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;font-weight:600;font-size:.85rem;transition:var(--t)}
+.copy-btn:hover{background:var(--pd)}.copy-btn.copied{background:var(--a)}
+.contact{background:var(--d0)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto}
+.contact-form{background:#fff;padding:30px;border-radius:var(--rl);box-shadow:var(--s)}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 15px;border:2px solid var(--d2);border-radius:var(--r);font-family:inherit;font-size:.95rem;transition:var(--t);background:#fff}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(13,148,136,.1)}
+.form-group textarea{height:100px;resize:vertical}
+.contact-info{display:flex;flex-direction:column;gap:20px;justify-content:center}
+.contact-card{display:flex;align-items:center;gap:15px;padding:20px;background:#fff;border-radius:var(--r);box-shadow:var(--s)}
+.contact-card i{font-size:1.5rem;color:var(--p);width:45px;height:45px;display:flex;align-items:center;justify-content:center;background:var(--p50);border-radius:50%}
+.contact-card h4{font-weight:700;font-size:.95rem;margin-bottom:3px}
+.contact-card p{font-size:.85rem;color:var(--d5)}
+.disclaimer{background:linear-gradient(135deg,#eff6ff,#dbeafe);padding:20px 0}
+.disclaimer-inner{display:flex;align-items:center;gap:12px;justify-content:center;text-align:center}
+.disclaimer i{color:var(--p);font-size:1.2rem}
+.disclaimer p{color:var(--d6);font-size:.9rem}
+.footer{background:var(--d);color:#fff;padding:60px 0 20px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:40px}
+.footer-col h4{font-weight:700;margin-bottom:15px;font-size:1rem}
+.footer-col p{color:var(--d4);font-size:.9rem;line-height:1.8}
+.footer-col ul li{margin-bottom:8px}
+.footer-col ul a{color:var(--d4);font-size:.9rem;transition:var(--t)}
+.footer-col ul a:hover{color:var(--pl);padding-right:5px}
+.footer-bottom{border-top:1px solid var(--d7);padding-top:20px;text-align:center;color:var(--d4);font-size:.85rem}
+.footer-legal{background:var(--d7);color:var(--d3);padding:3px 10px;border-radius:var(--r);font-size:.8rem;display:inline-block;margin-top:10px}
+.wa-float{position:fixed;bottom:25px;left:25px;z-index:999;display:flex;flex-direction:column;align-items:center;gap:8px}
+.wa-float a{display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:#25D366;border-radius:50%;color:#fff;font-size:1.8rem;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:var(--t);animation:pulse 2s infinite}
+.wa-float a:hover{transform:scale(1.1)}
+.wa-float span{background:var(--d);color:#fff;padding:4px 12px;border-radius:var(--rf);font-size:.75rem;font-weight:600;white-space:nowrap}
+.scroll-top{position:fixed;bottom:25px;right:25px;z-index:999;width:45px;height:45px;background:var(--p);color:#fff;border:none;border-radius:50%;font-size:1.1rem;cursor:pointer;box-shadow:var(--sl);transition:var(--t);opacity:0;visibility:hidden;transform:translateY(20px)}
+.scroll-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+.scroll-top:hover{background:var(--pd);transform:translateY(-3px)}
+.mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#fff;padding:10px 15px;box-shadow:0 -4px 15px rgba(0,0,0,.1);border-top:1px solid var(--d2)}
+.mobile-cta-inner{display:flex;gap:10px}
+.mobile-cta .btn{flex:1;justify-content:center;padding:12px;font-size:.9rem}
+.page-overlay{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.5);overflow-y:auto}
+.page-overlay.open{display:block}
+.page-content{background:#fff;max-width:900px;margin:30px auto;border-radius:var(--rl);padding:40px;position:relative;animation:fadeInUp .4s ease}
+.page-close{position:absolute;top:15px;left:15px;width:40px;height:40px;border-radius:50%;background:var(--d1);border:none;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:var(--t)}
+.page-close:hover{background:var(--d2)}
+.page-hero-i{text-align:center;padding-bottom:30px;border-bottom:1px solid var(--d2);margin-bottom:30px}
+.page-hero-i .service-icon{width:70px;height:70px;font-size:1.8rem;margin:0 auto 15px}
+.page-hero-i h2{font-size:1.8rem;font-weight:800;margin-bottom:10px}
+.page-hero-i p{color:var(--d5);max-width:600px;margin:0 auto}
+.page-s{margin-bottom:30px}
+.page-s h3{font-size:1.2rem;font-weight:700;margin-bottom:15px;color:var(--pd);display:flex;align-items:center;gap:8px}
+.page-s ul{display:grid;gap:8px}
+.page-s ul li{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:var(--d0);border-radius:var(--r);font-size:.9rem}
+.page-s ul li i{color:var(--p);margin-top:4px;font-size:.8rem}
+.pf{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.pn{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a;border-radius:var(--r);padding:15px 20px}
+.pn li{background:transparent!important}.pn li i{color:var(--g)!important}
+.empty-state{text-align:center;padding:60px 20px}
+.empty-state i{font-size:3rem;color:var(--d3);margin-bottom:15px}
+.empty-state h3{font-weight:700;margin-bottom:8px;color:var(--d5)}
+.empty-state p{color:var(--d4);font-size:.9rem}
+@media(max-width:1024px){.nav-links{display:none}.mobile-toggle{display:block}.footer-grid{grid-template-columns:1fr 1fr}.steps-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){section{padding:50px 0}.hero{padding:120px 0 60px}.hero h1{font-size:2rem}.stats-grid{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr 1fr}.test-grid{grid-template-columns:1fr}.payment-cards{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.mobile-cta{display:block}body{padding-bottom:70px}.page-content{margin:10px;padding:25px}.pf{grid-template-columns:1fr}.header-btns .btn{display:none}}
+@media(max-width:480px){.hero h1{font-size:1.6rem}.stats-grid{gap:10px}.why-grid{grid-template-columns:1fr}.steps-grid{grid-template-columns:1fr}.filter-bar{gap:5px}.filter-btn{padding:6px 14px;font-size:.8rem}}
+</style>
+</head>
+<body>
+<header class="header" id="header"><div class="container"><div class="header-inner">
+<a href="#" class="logo"><i class="fas fa-book-open"></i> المكتبة الرقمية</a>
+<nav class="nav-links"><a href="#home">الرئيسية</a><a href="#services">الخدمات</a><a href="#why-us">لماذا نحن</a><a href="#faq">الأسئلة الشائعة</a><a href="#payment">الدفع</a><a href="#contact">تواصل معنا</a></nav>
+<div class="header-btns"><a href="https://wa.me/966545888559" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fab fa-whatsapp"></i> واتساب</a><a href="#contact" class="btn btn-primary btn-sm"><i class="fas fa-paper-plane"></i> اطلب الخدمة</a><button class="mobile-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button></div>
+</div></div></header>
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-header"><span class="logo" style="font-size:1.1rem"><i class="fas fa-book-open"></i> المكتبة الرقمية</span><button class="mobile-nav-close" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button></div><ul><li><a href="#home" onclick="toggleMobileNav()">الرئيسية</a></li><li><a href="#services" onclick="toggleMobileNav()">الخدمات</a></li><li><a href="#why-us" onclick="toggleMobileNav()">لماذا نحن</a></li><li><a href="#faq" onclick="toggleMobileNav()">الأسئلة الشائعة</a></li><li><a href="#payment" onclick="toggleMobileNav()">الدفع</a></li><li><a href="#contact" onclick="toggleMobileNav()">تواصل معنا</a></li></ul><div class="mobile-nav-btns"><a href="https://wa.me/966545888559" target="_blank" class="btn btn-whatsapp" style="justify-content:center"><i class="fab fa-whatsapp"></i> تواصل واتساب</a></div></div>
+<section class="hero" id="home"><div class="container"><div class="hero-content">
+<p class="hero-greeting">السلام عليكم ورحمة الله وبركاته</p>
+<h1>أهلاً وسهلاً بك في منصة <span>المكتبة الرقمية</span></h1>
+<p class="hero-desc">نفخر بخدمة أكثر من 6000 عميل على مدار 15 سنة، وثقتكم هي شعار استمرارنا. نقدم لكم مجموعة متكاملة من الخدمات الرقمية وخدمات المساندة الإلكترونية بكل احترافية وسرعة.</p>
+<div class="hero-btns"><a href="#services" class="btn btn-primary"><i class="fas fa-th-large"></i> تصفح الخدمات</a><a href="https://wa.me/966545888559" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> تواصل الآن</a></div>
+<div class="hero-badge"><i class="fas fa-check-circle"></i> منصة خاصة مستقلة - خبرة 15 سنة في الخدمات الرقمية</div>
+</div></div></section>
+<section class="stats"><div class="container"><div class="stats-grid">
+<div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-number">+6000</div><div class="stat-label">عميل سعيد</div></div>
+<div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-check"></i></div><div class="stat-number">15</div><div class="stat-label">سنة خبرة</div></div>
+<div class="stat-card"><div class="stat-icon"><i class="fas fa-concierge-bell"></i></div><div class="stat-number">18</div><div class="stat-label">خدمة متاحة</div></div>
+<div class="stat-card"><div class="stat-icon"><i class="fas fa-headset"></i></div><div class="stat-number"><i class="fas fa-bolt"></i></div><div class="stat-label">دعم سريع</div></div>
+</div></div></section>
+<section class="services" id="services"><div class="container">
+<div class="section-title"><h2>خدماتنا المتميزة</h2><div class="line"></div><p>نقدم لكم مجموعة شاملة من الخدمات الرقمية والمساندة الإلكترونية</p></div>
+<div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="ابحث عن خدمة..." oninput="filterServices()"></div>
+<div class="filter-bar" id="filterBar"><button class="filter-btn active" onclick="setFilter('all',this)">الكل</button><button class="filter-btn" onclick="setFilter('support',this)">دعم وبرامج</button><button class="filter-btn" onclick="setFilter('education',this)">تعليمية</button><button class="filter-btn" onclick="setFilter('employment',this)">توظيف</button><button class="filter-btn" onclick="setFilter('marketing',this)">تسويق وأعمال</button><button class="filter-btn" onclick="setFilter('digital',this)">تطوير رقمي</button><button class="filter-btn" onclick="setFilter('general',this)">عامة</button></div>
+<div class="services-grid" id="servicesGrid"></div>
+<div class="empty-state" id="emptyState" style="display:none"><i class="fas fa-search"></i><h3>لا توجد نتائج</h3><p>جرّب البحث بكلمات مختلفة</p></div>
+</div></section>
+<section class="why-us" id="why-us"><div class="container">
+<div class="section-title"><h2>لماذا تختار المكتبة الرقمية؟</h2><div class="line"></div><p>نتميز بتقديم خدمات عالية الجودة مع التزام كامل بالمصداقية</p></div>
+<div class="why-grid">
+<div class="why-card"><i class="fas fa-award"></i><h4>خبرة طويلة</h4><p>أكثر من 15 سنة في تقديم الخدمات الرقمية والمساندة الإلكترونية</p></div>
+<div class="why-card"><i class="fas fa-rocket"></i><h4>سرعة إنجاز</h4><p>ننجز خدماتك في أسرع وقت مع الحفاظ على أعلى مستويات الجودة</p></div>
+<div class="why-card"><i class="fas fa-sync-alt"></i><h4>متابعة مستمرة</h4><p>نتابع طلبك خطوة بخطوة ونُبقيك على اطلاع دائم</p></div>
+<div class="why-card"><i class="fas fa-hand-pointer"></i><h4>سهولة الطلب</h4><p>طلب الخدمة سهل وبسيط عبر واتساب أو نموذج الطلب</p></div>
+<div class="why-card"><i class="fab fa-whatsapp"></i><h4>دعم عبر واتساب</h4><p>فريق الدعم متاح عبر واتساب للإجابة على استفساراتك</p></div>
+<div class="why-card"><i class="fas fa-shield-alt"></i><h4>موثوقية وخصوصية</h4><p>نتعامل مع بياناتك بسرية تامة وأعلى معايير الخصوصية</p></div>
+</div></div></section>
+<section class="steps-section"><div class="container">
+<div class="section-title"><h2>كيف تطلب الخدمة؟</h2><div class="line"></div><p>خطوات بسيطة وسريعة للحصول على خدمتك</p></div>
+<div class="steps-grid">
+<div class="step-card"><div class="step-num">1</div><h4>اختر الخدمة</h4><p>تصفح خدماتنا واختر ما يناسبك</p></div>
+<div class="step-card"><div class="step-num">2</div><h4>أرسل الطلب</h4><p>تواصل معنا عبر واتساب أو النموذج</p></div>
+<div class="step-card"><div class="step-num">3</div><h4>التواصل معك</h4><p>نتواصل معك لتأكيد التفاصيل</p></div>
+<div class="step-card"><div class="step-num">4</div><h4>السداد</h4><p>تحويل المبلغ على الحساب البنكي</p></div>
+<div class="step-card"><div class="step-num">5</div><h4>بدء التنفيذ</h4><p>نبدأ تنفيذ خدمتك فوراً</p></div>
+</div></div></section>
+<section class="testimonials"><div class="container">
+<div class="section-title"><h2>ماذا يقول عملاؤنا؟</h2><div class="line"></div><p>آراء حقيقية من عملاء استفادوا من خدماتنا</p></div>
 <div class="test-grid">
-<div class="test-card">
-<div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-<p class="test-text">خدمة ممتازة واحترافية عالية. تم تسجيلي في الضمان الاجتماعي بسرعة وسهولة. أنصح الجميع بالتعامل معهم.</p>
-<div class="test-author"><div class="test-avatar">أم</div><div class="test-info"><h5>أبو محمد</h5><span>خدمة الضمان الاجتماعي</span></div></div>
-</div>
-<div class="test-card">
-<div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-<p class="test-text">أنشأوا لي متجر إلكتروني احترافي وجميل. الفريق متعاون جداً وسريع في الاستجابة. شكراً لكم.</p>
-<div class="test-author"><div class="test-avatar">سع</div><div class="test-info"><h5>سعاد العتيبي</h5><span>إنشاء متجر إلكتروني</span></div></div>
-</div>
-<div class="test-card">
-<div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-<p class="test-text">ساعدوني في التسجيل بحافز ومتابعة كل الإجراءات. تواصل مستمر وخدمة راقية. جزاهم الله خيراً.</p>
-<div class="test-author"><div class="test-avatar">خا</div><div class="test-info"><h5>خالد الدوسري</h5><span>خدمة حافز</span></div></div>
-</div>
-<div class="test-card">
-<div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-<p class="test-text">سيرتي الذاتية أصبحت احترافية جداً بفضلهم. حصلت على مقابلات عمل أكثر بعد تحديثها. خدمة رائعة!</p>
-<div class="test-author"><div class="test-avatar">نو</div><div class="test-info"><h5>نورة الشمري</h5><span>إعداد السيرة الذاتية</span></div></div>
-</div>
-<div class="test-card">
-<div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-<p class="test-text">دورة التجارة الإلكترونية كانت مفيدة جداً. المحتوى عملي ومباشر. أنصح كل من يريد دخول عالم التجارة الإلكترونية.</p>
-<div class="test-author"><div class="test-avatar">فه</div><div class="test-info"><h5>فهد القحطاني</h5><span>دورة التجارة الإلكترونية</span></div></div>
-</div>
-<div class="test-card">
-<div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-<p class="test-text">تعاملت معهم في حساب المواطن وكانت التجربة ممتازة. سرعة في الإنجاز ومتابعة دقيقة. شكراً المكتبة الرقمية.</p>
-<div class="test-author"><div class="test-avatar">عب</div><div class="test-info"><h5>عبدالله الحربي</h5><span>خدمة حساب المواطن</span></div></div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- FAQ -->
-<section class="faq-section" id="faq">
-<div class="container">
-<div class="section-title">
-<h2>الأسئلة الشائعة</h2>
-<div class="line"></div>
-<p>إجابات على أكثر الأسئلة شيوعاً</p>
-</div>
+<div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="test-text">خدمة ممتازة واحترافية عالية. تم تسجيلي في الضمان الاجتماعي بسرعة وسهولة. أنصح الجميع بالتعامل معهم.</p><div class="test-author"><div class="test-avatar">أم</div><div class="test-info"><h5>أبو محمد</h5><span>خدمة الضمان الاجتماعي</span></div></div></div>
+<div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="test-text">أنشأوا لي متجر إلكتروني احترافي وجميل. الفريق متعاون جداً وسريع في الاستجابة. شكراً لكم.</p><div class="test-author"><div class="test-avatar">سع</div><div class="test-info"><h5>سعاد العتيبي</h5><span>إنشاء متجر إلكتروني</span></div></div></div>
+<div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="test-text">ساعدوني في التسجيل بحافز ومتابعة كل الإجراءات. تواصل مستمر وخدمة راقية. جزاهم الله خيراً.</p><div class="test-author"><div class="test-avatar">خا</div><div class="test-info"><h5>خالد الدوسري</h5><span>خدمة حافز</span></div></div></div>
+<div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="test-text">سيرتي الذاتية أصبحت احترافية جداً بفضلهم. حصلت على مقابلات عمل أكثر بعد تحديثها.</p><div class="test-author"><div class="test-avatar">نو</div><div class="test-info"><h5>نورة الشمري</h5><span>إعداد السيرة الذاتية</span></div></div></div>
+<div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="test-text">دورة التجارة الإلكترونية كانت مفيدة جداً. المحتوى عملي ومباشر.</p><div class="test-author"><div class="test-avatar">فه</div><div class="test-info"><h5>فهد القحطاني</h5><span>دورة التجارة الإلكترونية</span></div></div></div>
+<div class="test-card"><div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="test-text">تعاملت معهم في حساب المواطن وكانت التجربة ممتازة. سرعة في الإنجاز ومتابعة دقيقة.</p><div class="test-author"><div class="test-avatar">عب</div><div class="test-info"><h5>عبدالله الحربي</h5><span>خدمة حساب المواطن</span></div></div></div>
+</div></div></section>
+<section class="faq-section" id="faq"><div class="container">
+<div class="section-title"><h2>الأسئلة الشائعة</h2><div class="line"></div><p>إجابات على أكثر الأسئلة شيوعاً</p></div>
 <div class="faq-list">
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)"><span>كيف أطلب الخدمة؟</span><i class="fas fa-chevron-down"></i></div>
-<div class="faq-a"><div class="faq-a-inner">يمكنك طلب الخدمة بسهولة عبر التواصل معنا على واتساب أو تعبئة نموذج الطلب في الموقع. بعد استلام طلبك نتواصل معك لتأكيد التفاصيل والبدء في التنفيذ.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)"><span>ما طرق الدفع المتاحة؟</span><i class="fas fa-chevron-down"></i></div>
-<div class="faq-a"><div class="faq-a-inner">نقبل التحويل البنكي على حسابات البنك الأهلي ومصرف الراجحي. يُرجى التواصل معنا قبل التحويل لتأكيد المبلغ وتفاصيل الخدمة.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)"><span>كم مدة تنفيذ الخدمة؟</span><i class="fas fa-chevron-down"></i></div>
-<div class="faq-a"><div class="faq-a-inner">تختلف مدة التنفيذ حسب نوع الخدمة. بعض الخدمات تُنفذ خلال ساعات وبعضها قد يستغرق عدة أيام. سنُبلغك بالمدة المتوقعة عند تأكيد الطلب.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)"><span>هل المنصة جهة حكومية؟</span><i class="fas fa-chevron-down"></i></div>
-<div class="faq-a"><div class="faq-a-inner">لا، المكتبة الرقمية منصة خاصة مستقلة تقدم خدمات مساندة رقمية. نحن لسنا جهة حكومية ولا نمثل أي جهة رسمية. نساعدكم في إتمام الإجراءات الإلكترونية بخبرة واحترافية.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)"><span>كيف أتواصل معكم؟</span><i class="fas fa-chevron-down"></i></div>
-<div class="faq-a"><div class="faq-a-inner">يمكنك التواصل معنا عبر واتساب على الرقم 966545888559+ أو من خلال نموذج التواصل في الموقع. فريقنا جاهز لخدمتك.</div></div>
-</div>
-</div>
-</div>
-</section>
-<!-- PAYMENT -->
-<section class="payment" id="payment">
-<div class="container">
-<div class="section-title">
-<h2>طريقة الدفع</h2>
-<div class="line"></div>
-<p>للسداد يرجى التحويل على الحسابات التالية</p>
-</div>
-<div class="payment-warning">
-<i class="fas fa-exclamation-triangle"></i>
-<p><strong>تنبيه مهم:</strong> يُرجى التواصل معنا عبر واتساب قبل التحويل لتأكيد تفاصيل الخدمة والمبلغ المطلوب. لا تقم بالتحويل قبل التأكد من تفاصيل طلبك.</p>
-</div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>كيف أطلب الخدمة؟</span><i class="fas fa-chevron-down"></i></div><div class="faq-a"><div class="faq-a-inner">يمكنك طلب الخدمة بسهولة عبر التواصل معنا على واتساب أو تعبئة نموذج الطلب في الموقع. بعد استلام طلبك نتواصل معك لتأكيد التفاصيل.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>ما طرق الدفع المتاحة؟</span><i class="fas fa-chevron-down"></i></div><div class="faq-a"><div class="faq-a-inner">نقبل التحويل البنكي على حسابات البنك الأهلي ومصرف الراجحي. يُرجى التواصل معنا قبل التحويل لتأكيد المبلغ.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>كم مدة تنفيذ الخدمة؟</span><i class="fas fa-chevron-down"></i></div><div class="faq-a"><div class="faq-a-inner">تختلف المدة حسب نوع الخدمة. بعضها يُنفذ خلال ساعات وبعضها قد يستغرق عدة أيام.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>هل المنصة جهة حكومية؟</span><i class="fas fa-chevron-down"></i></div><div class="faq-a"><div class="faq-a-inner">لا، المكتبة الرقمية منصة خاصة مستقلة تقدم خدمات مساندة رقمية. نحن لسنا جهة حكومية ولا نمثل أي جهة رسمية.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>كيف أتواصل معكم؟</span><i class="fas fa-chevron-down"></i></div><div class="faq-a"><div class="faq-a-inner">يمكنك التواصل عبر واتساب على الرقم 966545888559+ أو من خلال نموذج التواصل في الموقع.</div></div></div>
+</div></div></section>
+<section class="payment" id="payment"><div class="container">
+<div class="section-title"><h2>طريقة الدفع</h2><div class="line"></div><p>للسداد يرجى التحويل على الحسابات التالية</p></div>
+<div class="payment-warning"><i class="fas fa-exclamation-triangle"></i><p><strong>تنبيه مهم:</strong> يُرجى التواصل معنا عبر واتساب قبل التحويل لتأكيد تفاصيل الخدمة والمبلغ المطلوب.</p></div>
 <div class="payment-cards">
-<div class="pay-card">
-<div class="bank-icon"><i class="fas fa-university"></i></div>
-<h4>البنك الأهلي السعودي</h4>
-<div class="iban-box" id="iban1">SA6210000024200000066707</div>
-<button class="copy-btn" onclick="copyIban('iban1',this)"><i class="fas fa-copy"></i> نسخ رقم الحساب</button>
-</div>
-<div class="pay-card">
-<div class="bank-icon"><i class="fas fa-landmark"></i></div>
-<h4>مصرف الراجحي</h4>
-<div class="iban-box" id="iban2">SA5480000245608016161270</div>
-<button class="copy-btn" onclick="copyIban('iban2',this)"><i class="fas fa-copy"></i> نسخ رقم الحساب</button>
-</div>
-</div>
-</div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-<div class="container">
-<div class="section-title">
-<h2>تواصل معنا</h2>
-<div class="line"></div>
-<p>نسعد بتواصلكم ونرد على استفساراتكم في أسرع وقت</p>
-</div>
+<div class="pay-card"><div class="bank-icon"><i class="fas fa-university"></i></div><h4>البنك الأهلي السعودي</h4><div class="iban-box" id="iban1">SA6210000024200000066707</div><button class="copy-btn" onclick="copyIban('iban1',this)"><i class="fas fa-copy"></i> نسخ رقم الحساب</button></div>
+<div class="pay-card"><div class="bank-icon"><i class="fas fa-landmark"></i></div><h4>مصرف الراجحي</h4><div class="iban-box" id="iban2">SA5480000245608016161270</div><button class="copy-btn" onclick="copyIban('iban2',this)"><i class="fas fa-copy"></i> نسخ رقم الحساب</button></div>
+</div></div></section>
+<section class="contact" id="contact"><div class="container">
+<div class="section-title"><h2>تواصل معنا</h2><div class="line"></div><p>نسعد بتواصلكم ونرد على استفساراتكم في أسرع وقت</p></div>
 <div class="contact-grid">
-<div class="contact-form">
-<h3 style="font-weight:700;margin-bottom:20px;font-size:1.1rem"><i class="fas fa-paper-plane" style="color:var(--primary)"></i> نموذج طلب سريع</h3>
+<div class="contact-form"><h3 style="font-weight:700;margin-bottom:20px;font-size:1.1rem"><i class="fas fa-paper-plane" style="color:var(--p)"></i> نموذج طلب سريع</h3>
 <form id="contactForm" onsubmit="handleSubmit(event)">
-<div class="form-group">
-<label>الاسم الكريم</label>
-<input type="text" placeholder="أدخل اسمك" required>
-</div>
-<div class="form-group">
-<label>رقم الجوال</label>
-<input type="tel" placeholder="05xxxxxxxx" required>
-</div>
-<div class="form-group">
-<label>الخدمة المطلوبة</label>
-<select required>
-<option value="">اختر الخدمة</option>
-<option>الضمان الاجتماعي المطور</option>
-<option>حافز</option>
-<option>حساب المواطن</option>
-<option>ساند</option>
-<option>قياس</option>
-<option>جدارات</option>
-<option>تمهير</option>
-<option>توطين</option>
-<option>إنشاء متجر إلكتروني</option>
-<option>دورة التجارة الإلكترونية</option>
-<option>التدريس من المنزل</option>
-<option>التسويق الرقمي</option>
-<option>زيادة المتابعين</option>
-<option>إعداد السيرة الذاتية</option>
-<option>متابعة التوظيف</option>
-<option>جديد الوظائف</option>
-<option>الدورات التعليمية لمنسوبي وزارة التعليم</option>
-<option>أذكار الصباح والمساء</option>
-<option>خدمة أخرى</option>
-</select>
-</div>
-<div class="form-group">
-<label>تفاصيل إضافية</label>
-<textarea placeholder="اكتب أي تفاصيل أو ملاحظات..."></textarea>
-</div>
+<div class="form-group"><label>الاسم الكريم</label><input type="text" placeholder="أدخل اسمك" required></div>
+<div class="form-group"><label>رقم الجوال</label><input type="tel" placeholder="05xxxxxxxx" required></div>
+<div class="form-group"><label>الخدمة المطلوبة</label><select required><option value="">اختر الخدمة</option><option>الضمان الاجتماعي المطور</option><option>حافز</option><option>حساب المواطن</option><option>ساند</option><option>قياس</option><option>جدارات</option><option>تمهير</option><option>توطين</option><option>إنشاء متجر إلكتروني</option><option>دورة التجارة الإلكترونية</option><option>التدريس من المنزل</option><option>التسويق الرقمي</option><option>زيادة المتابعين</option><option>إعداد السيرة الذاتية</option><option>متابعة التوظيف</option><option>جديد الوظائف</option><option>الدورات التعليمية لمنسوبي وزارة التعليم</option><option>أذكار الصباح والمساء</option></select></div>
+<div class="form-group"><label>تفاصيل إضافية</label><textarea placeholder="اكتب أي تفاصيل أو ملاحظات..."></textarea></div>
 <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> إرسال الطلب</button>
-</form>
-</div>
+</form></div>
 <div class="contact-info">
-<div class="contact-card">
-<i class="fab fa-whatsapp"></i>
-<div><h4>واتساب</h4><p>966545888559+</p></div>
-</div>
-<div class="contact-card">
-<i class="fas fa-clock"></i>
-<div><h4>أوقات الرد</h4><p>نرد على رسائلكم في أسرع وقت ممكن خلال ساعات العمل</p></div>
-</div>
-<div class="contact-card">
-<i class="fas fa-shield-alt"></i>
-<div><h4>سرية تامة</h4><p>جميع بياناتكم محفوظة بسرية تامة ولا تُشارك مع أي طرف</p></div>
-</div>
-<a href="https://wa.me/966545888559?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85" target="_blank" class="btn btn-whatsapp" style="justify-content:center;padding:16px"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب مباشرة</a>
-</div>
-</div>
-</div>
-</section>
-
-<!-- DISCLAIMER -->
-<div class="disclaimer">
-<div class="container">
-<div class="disclaimer-inner">
-<i class="fas fa-info-circle"></i>
-<p><strong>تنويه:</strong> المكتبة الرقمية منصة خاصة مستقلة تقدم خدمات مساندة رقمية، وليست جهة حكومية ولا تمثل أي جهة رسمية.</p>
-</div>
-</div>
-</div>
-<!-- FOOTER -->
-<footer class="footer" id="footer">
-<div class="container">
-<div class="footer-grid">
-<div class="footer-col">
-<h4><i class="fas fa-book-open" style="color:var(--primary-light)"></i> المكتبة الرقمية</h4>
-<p>منصة عربية مستقلة تقدم خدمات رقمية وخدمات مساندة إلكترونية بخبرة تتجاوز 15 سنة. نسعى لتسهيل الإجراءات الإلكترونية وتقديم حلول رقمية احترافية لعملائنا الكرام.</p>
-</div>
-<div class="footer-col">
-<h4>روابط مهمة</h4>
-<ul>
-<li><a href="#home">الرئيسية</a></li>
-<li><a href="#services">الخدمات</a></li>
-<li><a href="#why-us">لماذا نحن</a></li>
-<li><a href="#faq">الأسئلة الشائعة</a></li>
-<li><a href="#contact">تواصل معنا</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h4>من خدماتنا</h4>
-<ul>
-<li><a href="#services">الضمان الاجتماعي</a></li>
-<li><a href="#services">حافز</a></li>
-<li><a href="#services">حساب المواطن</a></li>
-<li><a href="#services">إنشاء متجر إلكتروني</a></li>
-<li><a href="#services">إعداد السيرة الذاتية</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h4>تواصل معنا</h4>
-<ul>
-<li><a href="https://wa.me/966545888559" target="_blank"><i class="fab fa-whatsapp"></i> واتساب: 966545888559+</a></li>
-<li><a href="#contact"><i class="fas fa-envelope"></i> نموذج التواصل</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<p>جميع الحقوق محفوظة &copy; 2024 المكتبة الرقمية</p>
-<div class="footer-legal">المكتبة الرقمية منصة خاصة مستقلة - ليست جهة حكومية</div>
-</div>
-</div>
-</footer>
-
-<!-- WHATSAPP FLOAT -->
-<div class="wa-float">
-<span>تواصل معنا</span>
-<a href="https://wa.me/966545888559" target="_blank" aria-label="تواصل واتساب"><i class="fab fa-whatsapp"></i></a>
-</div>
-
-<!-- SCROLL TO TOP -->
+<div class="contact-card"><i class="fab fa-whatsapp"></i><div><h4>واتساب</h4><p>966545888559+</p></div></div>
+<div class="contact-card"><i class="fas fa-clock"></i><div><h4>أوقات الرد</h4><p>نرد على رسائلكم في أسرع وقت ممكن</p></div></div>
+<div class="contact-card"><i class="fas fa-shield-alt"></i><div><h4>سرية تامة</h4><p>جميع بياناتكم محفوظة بسرية تامة</p></div></div>
+<a href="https://wa.me/966545888559" target="_blank" class="btn btn-whatsapp" style="justify-content:center;padding:16px"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب مباشرة</a>
+</div></div></div></section>
+<div class="disclaimer"><div class="container"><div class="disclaimer-inner"><i class="fas fa-info-circle"></i><p><strong>تنويه:</strong> المكتبة الرقمية منصة خاصة مستقلة تقدم خدمات مساندة رقمية، وليست جهة حكومية.</p></div></div></div>
+<footer class="footer"><div class="container"><div class="footer-grid">
+<div class="footer-col"><h4><i class="fas fa-book-open" style="color:var(--pl)"></i> المكتبة الرقمية</h4><p>منصة عربية مستقلة تقدم خدمات رقمية ومساندة إلكترونية بخبرة تتجاوز 15 سنة.</p></div>
+<div class="footer-col"><h4>روابط مهمة</h4><ul><li><a href="#home">الرئيسية</a></li><li><a href="#services">الخدمات</a></li><li><a href="#why-us">لماذا نحن</a></li><li><a href="#contact">تواصل معنا</a></li></ul></div>
+<div class="footer-col"><h4>من خدماتنا</h4><ul><li><a href="#services">الضمان الاجتماعي</a></li><li><a href="#services">حافز</a></li><li><a href="#services">حساب المواطن</a></li><li><a href="#services">إنشاء متجر إلكتروني</a></li></ul></div>
+<div class="footer-col"><h4>تواصل معنا</h4><ul><li><a href="https://wa.me/966545888559" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a></li><li><a href="#contact"><i class="fas fa-envelope"></i> نموذج التواصل</a></li></ul></div>
+</div><div class="footer-bottom"><p>جميع الحقوق محفوظة &copy; 2024 المكتبة الرقمية</p><div class="footer-legal">المكتبة الرقمية منصة خاصة مستقلة - ليست جهة حكومية</div></div></div></footer>
+<div class="wa-float"><span>تواصل معنا</span><a href="https://wa.me/966545888559" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></button>
-
-<!-- MOBILE CTA -->
-<div class="mobile-cta">
-<div class="mobile-cta-inner">
-<a href="https://wa.me/966545888559" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</a>
-<a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> اطلب الخدمة</a>
-</div>
-</div>
-
-<!-- SERVICE DETAIL OVERLAY -->
-<div class="page-overlay" id="serviceOverlay">
-<div class="page-content" id="serviceDetail"></div>
-</div>
+<div class="mobile-cta"><div class="mobile-cta-inner"><a href="https://wa.me/966545888559" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</a><a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> اطلب الخدمة</a></div></div>
+<div class="page-overlay" id="serviceOverlay"><div class="page-content" id="serviceDetail"></div></div>
 <script>
-// ===== SERVICES DATA =====
-const services = [
-{id:1,slug:'social-security',title:'الضمان الاجتماعي المطور',short:'مساعدة في التسجيل والمتابعة في برنامج الضمان الاجتماعي المطور وتقديم الدعم اللازم لإتمام الإجراءات.',full:'نقدم لك خدمة شاملة للمساعدة في التسجيل ومتابعة طلبك في برنامج الضمان الاجتماعي المطور. يتولى فريقنا المتخصص مراجعة بياناتك والتأكد من استيفاء الشروط مع متابعة حالة الطلب حتى صدور النتيجة.',icon:'fas fa-shield-alt',cat:'support',features:['مساعدة في التسجيل الإلكتروني','مراجعة البيانات والمستندات','متابعة حالة الطلب','إرشادات حول الشروط والمتطلبات','دعم فني مستمر حتى القبول','تحديثات فورية عن حالة الطلب'],target:['المواطنون السعوديون المستحقون للدعم','الأسر ذات الدخل المحدود','من يحتاج مساعدة في إجراءات التسجيل الإلكتروني'],steps:['تواصل معنا عبر واتساب أو النموذج','أرسل البيانات الأساسية المطلوبة','يقوم فريقنا بمراجعة البيانات','نبدأ في تقديم الطلب ومتابعته','نُبلغك بأي تحديثات أولاً بأول'],notes:['الخدمة مساندة وليست بديلاً عن الجهات الرسمية','القبول يعتمد على استيفاء الشروط الرسمية','جميع البيانات تُعامل بسرية تامة']},
-{id:2,slug:'hafiz',title:'حافز',short:'دعم كامل في التسجيل والمتابعة في برنامج حافز لدعم الباحثين عن عمل.',full:'نقدم خدمة متكاملة للتسجيل في برنامج حافز والمتابعة المستمرة. نساعدك في إكمال جميع المتطلبات واجتياز البرامج التدريبية المطلوبة مع متابعة دورية لضمان استمرار صرف الدعم.',icon:'fas fa-wallet',cat:'support',features:['تسجيل في البرنامج بشكل صحيح','متابعة الحضور والبرامج التدريبية','إرشادات لاجتياز المتطلبات','تنبيهات بمواعيد التحديث','دعم مستمر طوال فترة البرنامج'],target:['الباحثون عن عمل','حديثو التخرج'],steps:['تواصل معنا وأرسل بياناتك','نقوم بالتسجيل في البرنامج','نتابع المتطلبات والبرامج التدريبية','نُرسل لك تنبيهات دورية','دعم مستمر حتى الحصول على وظيفة'],notes:['يجب أن يكون المتقدم سعودي الجنسية','القبول يخضع لشروط البرنامج الرسمية','نحن نقدم خدمة مساندة فقط']},
-{id:3,slug:'citizen-account',title:'حساب المواطن',short:'خدمة التسجيل والمتابعة في برنامج حساب المواطن لضمان حصولك على الدعم المستحق.',full:'نساعدك في التسجيل الصحيح في برنامج حساب المواطن ومتابعة حالة طلبك. نتأكد من إدخال جميع البيانات بدقة وتحديثها عند الحاجة لضمان استمرار صرف الدعم دون انقطاع.',icon:'fas fa-user-check',cat:'support',features:['تسجيل جديد في البرنامج','تحديث البيانات الحالية','إضافة التابعين','متابعة حالة الأهلية','حل مشاكل عدم الأهلية','تقديم الاعتراضات'],target:['المواطنون السعوديون','الأسر التي تحتاج دعماً مالياً'],steps:['تواصل معنا عبر واتساب','أرسل البيانات المطلوبة','نقوم بالتسجيل أو التحديث','نتابع حالة الأهلية','نُبلغك بالنتائج فوراً'],notes:['الخدمة مساندة ولا تمثل جهة حكومية','القبول يعتمد على معايير البرنامج الرسمية']},
-{id:4,slug:'sanad',title:'ساند',short:'مساعدة في التسجيل والمتابعة في نظام ساند للتأمين ضد التعطل عن العمل.',full:'نوفر لك الدعم الكامل في التسجيل بنظام ساند ومتابعة صرف التعويض. نساعدك في فهم الشروط والمتطلبات وتقديم الطلب بالشكل الصحيح.',icon:'fas fa-life-ring',cat:'support',features:['التسجيل في نظام ساند','متابعة حالة الطلب','التأكد من استيفاء الشروط','المساعدة في تقديم المستندات','متابعة صرف التعويض'],target:['الموظفون المتعطلون عن العمل','من فُصل من عمله لأسباب غير تأديبية'],steps:['تواصل معنا لتقييم حالتك','نتحقق من استيفاء الشروط','نقدم الطلب إلكترونياً','نتابع حالة الطلب','نُبلغك عند صدور القرار'],notes:['يشترط الاشتراك في التأمينات','مدة الصرف محددة حسب نظام ساند']},
-{id:5,slug:'qiyas',title:'قياس',short:'خدمات التسجيل في اختبارات قياس والتحضير لها بما يشمل القدرات والتحصيلي.',full:'نقدم خدمة شاملة للتسجيل في اختبارات هيئة تقويم التعليم والتدريب تشمل اختبارات القدرات العامة والتحصيلي وSTEP وغيرها.',icon:'fas fa-file-alt',cat:'education',features:['التسجيل في اختبارات القدرات','التسجيل في الاختبار التحصيلي','التسجيل في اختبار STEP','اختيار أقرب مركز اختبار','إرشادات للتحضير','تنبيهات بمواعيد الاختبارات'],target:['طلاب الثانوية العامة','المتقدمون للجامعات'],steps:['حدد نوع الاختبار المطلوب','أرسل بياناتك عبر واتساب','نقوم بالتسجيل واختيار الموعد','نُرسل لك تأكيد التسجيل','نقدم نصائح للتحضير'],notes:['رسوم الاختبارات تُدفع للجهة الرسمية','المواعيد تعتمد على التوفر']},
-{id:6,slug:'jadarat',title:'جدارات',short:'مساعدة في إنشاء حساب وتحديث الملف الشخصي على منصة جدارات للتوظيف.',full:'نساعدك في التسجيل على منصة جدارات وإنشاء ملف شخصي احترافي يزيد من فرصك في الحصول على وظيفة مناسبة.',icon:'fas fa-award',cat:'employment',features:['إنشاء حساب على جدارات','بناء ملف شخصي احترافي','تحديث المؤهلات والخبرات','التقديم على الوظائف المناسبة','متابعة حالة الطلبات'],target:['الباحثون عن عمل','الراغبون في وظائف حكومية'],steps:['تواصل معنا وحدد احتياجك','أرسل بيانات مؤهلاتك','ننشئ أو نحدث ملفك','نبحث عن فرص مناسبة','نقدم لك على الوظائف'],notes:['القبول يخضع لمعايير جهة التوظيف']},
-{id:7,slug:'tamheer',title:'تمهير',short:'خدمة التسجيل في برنامج تمهير للتدريب على رأس العمل لحديثي التخرج.',full:'نقدم لك المساعدة الكاملة في التسجيل ببرنامج تمهير للتدريب على رأس العمل واختيار الفرص التدريبية المناسبة.',icon:'fas fa-graduation-cap',cat:'employment',features:['التسجيل في برنامج تمهير','البحث عن فرص تدريبية','التقديم على الفرص المتاحة','متابعة حالة الطلبات','إرشادات للقبول'],target:['حديثو التخرج من الجامعات','حملة الدبلومات'],steps:['تواصل معنا وأرسل مؤهلاتك','نسجلك في البرنامج','نبحث عن فرص تدريبية','نقدم لك على الفرص','نتابع معك حتى القبول'],notes:['البرنامج مخصص لحديثي التخرج','المكافأة تُصرف من هدف']},
-{id:8,slug:'tawteen',title:'توطين',short:'خدمات مساندة متعلقة ببرامج التوطين وتوظيف السعوديين في القطاع الخاص.',full:'نقدم استشارات وخدمات مساندة في مجال التوطين وبرامج دعم التوظيف لمساعدة الأفراد في الاستفادة من برامج الدعم المتاحة.',icon:'fas fa-users',cat:'employment',features:['إرشادات برامج التوطين','المساعدة في التسجيل في برامج الدعم','البحث عن فرص في القطاع الخاص','تجهيز الملف الوظيفي'],target:['الباحثون عن عمل في القطاع الخاص'],steps:['تواصل معنا لتقييم وضعك','نحدد البرامج المناسبة','نساعدك في التسجيل','نتابع حالة الطلبات','نقدم التوجيه المهني'],notes:['القبول يخضع لشروط كل برنامج']},
-{id:9,slug:'ecommerce-store',title:'إنشاء متجر إلكتروني',short:'تصميم وإنشاء متجر إلكتروني احترافي جاهز لبدء البيع عبر الإنترنت.',full:'نقوم بإنشاء متجرك الإلكتروني بشكل كامل واحترافي مع تصميم جذاب وربط وسائل الدفع والشحن وتدريب على الإدارة.',icon:'fas fa-store',cat:'digital',features:['تصميم متجر احترافي وجذاب','إضافة المنتجات والتصنيفات','ربط بوابات الدفع الإلكتروني','تفعيل خيارات الشحن','تهيئة لمحركات البحث SEO','تدريب على إدارة المتجر'],target:['رواد الأعمال','أصحاب المشاريع الصغيرة'],steps:['تواصل معنا وحدد نوع متجرك','نتفق على التصميم والمميزات','نبني المتجر ونضيف المنتجات','نربط الدفع والشحن','نسلمك المتجر مع تدريب كامل'],notes:['يمكن البناء على سلة أو زد أو شوبيفاي','رسوم المنصات يدفعها العميل']},
-{id:10,slug:'ecommerce-course',title:'دورة التجارة الإلكترونية',short:'دورة تدريبية شاملة تؤهلك لدخول عالم التجارة الإلكترونية من الصفر.',full:'دورة عملية متكاملة تشمل أساسيات التجارة الإلكترونية واختيار المنتجات والتسويق وإدارة المتجر بأسلوب مبسط وعملي.',icon:'fas fa-chalkboard-teacher',cat:'education',features:['أساسيات التجارة الإلكترونية','اختيار المنتجات المربحة','إنشاء المتجر خطوة بخطوة','استراتيجيات التسويق','إدارة الطلبات والشحن'],target:['المبتدئون في التجارة الإلكترونية','الراغبون في مصدر دخل إضافي'],steps:['سجّل في الدورة','احضر الجلسات التدريبية','طبّق ما تعلمته عملياً','احصل على متابعة ودعم','ابدأ متجرك الإلكتروني'],notes:['الدورة عملية وليست نظرية فقط']},
-{id:11,slug:'home-teaching',title:'التدريس من المنزل',short:'خدمة تساعدك في بدء مشروع التدريس من المنزل بشكل احترافي ومنظم.',full:'نساعدك في تأسيس مشروع التدريس من المنزل بدءاً من التخطيط وحتى التسويق واستقبال الطلاب مع أدوات وأنظمة تسهل عملك.',icon:'fas fa-home',cat:'education',features:['تخطيط مشروع التدريس','إنشاء منصة تعليمية','أدوات التدريس عن بُعد','استراتيجيات التسويق','نظام إدارة الطلاب'],target:['المعلمون والمعلمات','الراغبون في التدريس الخاص'],steps:['تواصل معنا وحدد تخصصك','نساعدك في التخطيط','نجهز الأدوات اللازمة','ندربك على الأنظمة','نساعدك في التسويق'],notes:['يتطلب خبرة في مجال التدريس']},
-{id:12,slug:'digital-marketing',title:'التسويق الرقمي',short:'خدمات التسويق الرقمي الاحترافي لتنمية مشروعك وزيادة مبيعاتك.',full:'نقدم حلول تسويق رقمي متكاملة تشمل إدارة حسابات التواصل الاجتماعي والإعلانات المدفوعة وتحسين محركات البحث.',icon:'fas fa-bullhorn',cat:'marketing',features:['إدارة حسابات التواصل الاجتماعي','إعلانات مدفوعة احترافية','تحسين محركات البحث SEO','تصميم محتوى جذاب','تحليل الأداء وإعداد التقارير'],target:['أصحاب المشاريع','المتاجر الإلكترونية'],steps:['تواصل معنا وحدد أهدافك','نضع خطة تسويقية مناسبة','ننفذ الحملات التسويقية','نتابع الأداء ونحسّنه','نقدم تقارير دورية'],notes:['الميزانية الإعلانية منفصلة عن رسوم الخدمة']},
-{id:13,slug:'followers',title:'زيادة المتابعين',short:'خدمة زيادة المتابعين على منصات التواصل الاجتماعي بطرق آمنة وفعالة.',full:'نساعدك في زيادة عدد متابعينك على منصات التواصل الاجتماعي المختلفة باستخدام استراتيجيات تسويقية فعالة وآمنة.',icon:'fas fa-chart-line',cat:'marketing',features:['زيادة متابعين حقيقيين','دعم جميع المنصات','استراتيجيات آمنة وفعالة','نتائج ملموسة وسريعة','متابعة ودعم مستمر'],target:['أصحاب الحسابات التجارية','المؤثرون وصناع المحتوى'],steps:['حدد المنصة والهدف','نضع خطة مناسبة','نبدأ في التنفيذ','نتابع النتائج','نقدم تقرير بالإنجاز'],notes:['النتائج تختلف حسب المنصة والمحتوى']},
-{id:14,slug:'cv',title:'إعداد السيرة الذاتية',short:'تصميم سيرة ذاتية احترافية تزيد من فرصك في الحصول على الوظيفة المناسبة.',full:'نصمم لك سيرة ذاتية احترافية بتصميم عصري ومحتوى متميز يبرز مؤهلاتك وخبراتك بأفضل صورة لزيادة فرصك الوظيفية.',icon:'fas fa-file-invoice',cat:'employment',features:['تصميم احترافي وعصري','محتوى متميز ومنظم','متوافقة مع أنظمة التوظيف ATS','نسخة عربية وإنجليزية','تنسيقات متعددة PDF وWord','مراجعة وتعديل مجاني'],target:['الباحثون عن عمل','الراغبون في تحسين سيرتهم الذاتية'],steps:['أرسل بياناتك ومؤهلاتك','نصمم السيرة الذاتية','نُرسلها لك للمراجعة','نعدّل حسب ملاحظاتك','نسلمك النسخة النهائية'],notes:['يُفضل إرسال سيرتك الحالية إن وجدت']},
-{id:15,slug:'job-follow',title:'متابعة التوظيف',short:'خدمة متابعة فرص التوظيف والتقديم عليها نيابة عنك بشكل مستمر.',full:'نتابع فرص التوظيف المناسبة لك ونقدم عليها نيابة عنك مع متابعة حالة الطلبات وإبلاغك بأي تحديثات.',icon:'fas fa-briefcase',cat:'employment',features:['البحث عن فرص وظيفية مناسبة','التقديم على الوظائف نيابة عنك','متابعة حالة الطلبات','تنبيهات بالفرص الجديدة','نصائح لمقابلات العمل'],target:['الباحثون عن عمل بشكل فعال','من يرغب في توفير وقته'],steps:['أرسل سيرتك الذاتية','حدد تفضيلاتك الوظيفية','نبحث عن الفرص المناسبة','نقدم عليها نيابة عنك','نُبلغك بالتحديثات'],notes:['القبول يخضع لشروط جهة التوظيف']},
-{id:16,slug:'new-jobs',title:'جديد الوظائف',short:'اطّلع على أحدث الفرص الوظيفية المتاحة في مختلف القطاعات.',full:'نوفر لك قائمة محدثة بأحدث الفرص الوظيفية في القطاعات المختلفة مع تفاصيل كل وظيفة وطريقة التقديم.',icon:'fas fa-newspaper',cat:'employment',features:['فرص وظيفية محدثة يومياً','تغطية جميع القطاعات','تفاصيل كاملة لكل وظيفة','روابط التقديم المباشرة','تنبيهات بالوظائف الجديدة'],target:['الباحثون عن عمل','الراغبون في تغيير وظائفهم'],steps:['تابعنا للحصول على آخر الوظائف','اختر الوظيفة المناسبة','اطلع على التفاصيل والشروط','قدّم على الوظيفة','تابع حالة طلبك'],notes:['الوظائف من مصادر رسمية وموثوقة']},
-{id:17,slug:'education-courses',title:'الدورات التعليمية لمنسوبي وزارة التعليم',short:'دورات تدريبية معتمدة لمنسوبي وزارة التعليم لتطوير مهاراتهم المهنية.',full:'نقدم مساعدة في التسجيل في الدورات التدريبية المعتمدة لمنسوبي وزارة التعليم عبر المنصات الرسمية لتطوير المهارات المهنية.',icon:'fas fa-user-graduate',cat:'education',features:['التسجيل في الدورات المعتمدة','متابعة إتمام الدورات','الحصول على الشهادات','اختيار الدورات المناسبة','دعم فني مستمر'],target:['المعلمون والمعلمات','منسوبو وزارة التعليم'],steps:['تواصل معنا وحدد الدورات المطلوبة','نسجلك في الدورات المناسبة','نتابع معك حتى إتمام الدورة','نساعدك في الحصول على الشهادة'],notes:['بعض الدورات لها رسوم رسمية منفصلة']},
-{id:18,slug:'azkar',title:'أذكار الصباح والمساء',short:'تطبيق وخدمة تذكير يومي بأذكار الصباح والمساء لتبقى على صلة بذكر الله.',full:'نقدم خدمة تذكير يومي بأذكار الصباح والمساء عبر واتساب أو وسائل التواصل لتبقى على صلة دائمة بذكر الله تعالى.',icon:'fas fa-mosque',cat:'general',features:['تذكير يومي بالأذكار','أذكار الصباح والمساء','أدعية مأثورة','محتوى ديني موثوق','سهل المتابعة'],target:['جميع المسلمين','الراغبون في المحافظة على الأذكار'],steps:['تواصل معنا واشترك في الخدمة','ستصلك الأذكار يومياً','تابع وشارك مع أحبابك'],notes:['خدمة مجانية ومتاحة للجميع']}
-];
-
-// ===== CATEGORY LABELS =====
-const catLabels = {support:'دعم وبرامج',education:'تعليمية',employment:'توظيف',marketing:'تسويق وأعمال',digital:'تطوير رقمي',general:'عامة'};
-
-// ===== RENDER SERVICES =====
-let currentFilter = 'all';
-let searchTerm = '';
-
-function renderServices() {
-  const grid = document.getElementById('servicesGrid');
-  const empty = document.getElementById('emptyState');
-  let filtered = services.filter(s => {
-    const matchFilter = currentFilter === 'all' || s.cat === currentFilter;
-    const matchSearch = searchTerm === '' || s.title.includes(searchTerm) || s.short.includes(searchTerm);
-    return matchFilter && matchSearch;
-  });
-  if (filtered.length === 0) {
-    grid.style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  grid.style.display = 'grid';
-  empty.style.display = 'none';
-  grid.innerHTML = filtered.map((s, i) => `
-    <div class="service-card" style="animation:fadeInUp .5s ease ${i*0.05}s both">
-      <span class="service-category">${catLabels[s.cat]}</span>
-      <div class="service-icon"><i class="${s.icon}"></i></div>
-      <h3>${s.title}</h3>
-      <p>${s.short}</p>
-      <div class="service-btns">
-        <button class="btn btn-primary btn-sm" onclick="openService(${s.id})"><i class="fas fa-eye"></i> التفاصيل</button>
-        <a href="https://wa.me/966545888559?text=${encodeURIComponent('السلام عليكم، أرغب في طلب خدمة: ' + s.title)}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fab fa-whatsapp"></i> اطلب</a>
-      </div>
-    </div>
-  `).join('');
-}
-
-function setFilter(cat, btn) {
-  currentFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderServices();
-}
-
-function filterServices() {
-  searchTerm = document.getElementById('searchInput').value.trim();
-  renderServices();
-}
-
-// ===== OPEN SERVICE DETAIL =====
-function openService(id) {
-  const s = services.find(sv => sv.id === id);
-  if (!s) return;
-  const overlay = document.getElementById('serviceOverlay');
-  const detail = document.getElementById('serviceDetail');
-  const related = services.filter(r => r.cat === s.cat && r.id !== s.id).slice(0, 3);
-
-  detail.innerHTML = `
-    <button class="page-close" onclick="closeService()"><i class="fas fa-times"></i></button>
-    <div class="page-hero-inner">
-      <div class="service-icon"><i class="${s.icon}"></i></div>
-      <span class="service-category">${catLabels[s.cat]}</span>
-      <h2>${s.title}</h2>
-      <p>${s.full}</p>
-    </div>
-    <div class="page-section">
-      <h3><i class="fas fa-star"></i> مميزات الخدمة</h3>
-      <ul class="page-features">${s.features.map(f => '<li><i class="fas fa-check-circle"></i> '+f+'</li>').join('')}</ul>
-    </div>
-    <div class="page-section">
-      <h3><i class="fas fa-users"></i> الفئة المستهدفة</h3>
-      <ul>${s.target.map(t => '<li><i class="fas fa-user"></i> '+t+'</li>').join('')}</ul>
-    </div>
-    <div class="page-section">
-      <h3><i class="fas fa-list-ol"></i> خطوات التنفيذ</h3>
-      <ul>${s.steps.map((st,i) => '<li><i class="fas fa-arrow-left"></i> <strong>الخطوة '+(i+1)+':</strong> '+st+'</li>').join('')}</ul>
-    </div>
-    <div class="page-section">
-      <h3><i class="fas fa-exclamation-circle"></i> ملاحظات مهمة</h3>
-      <ul class="page-notes">${s.notes.map(n => '<li><i class="fas fa-info-circle"></i> '+n+'</li>').join('')}</ul>
-    </div>
-    <div class="page-section" style="text-align:center;padding:30px;background:var(--primary-50);border-radius:var(--radius-lg)">
-      <h3 style="justify-content:center;margin-bottom:20px"><i class="fas fa-paper-plane"></i> اطلب هذه الخدمة الآن</h3>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a href="https://wa.me/966545888559?text=${encodeURIComponent('السلام عليكم، أرغب في طلب خدمة: ' + s.title)}" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> طلب عبر واتساب</a>
-        <a href="#contact" class="btn btn-primary" onclick="closeService()"><i class="fas fa-edit"></i> نموذج الطلب</a>
-      </div>
-    </div>
-    ${related.length > 0 ? `
-    <div class="page-section" style="margin-top:30px">
-      <h3><i class="fas fa-th-large"></i> خدمات مشابهة</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
-        ${related.map(r => `
-          <div style="background:var(--dark-50);padding:15px;border-radius:var(--radius);cursor:pointer;transition:var(--transition)" onclick="openService(${r.id})" onmouseover="this.style.background='var(--primary-50)'" onmouseout="this.style.background='var(--dark-50)'">
-            <div class="service-icon" style="width:40px;height:40px;font-size:1rem;margin-bottom:8px"><i class="${r.icon}"></i></div>
-            <h4 style="font-size:.9rem;font-weight:700;margin-bottom:4px">${r.title}</h4>
-            <p style="font-size:.75rem;color:var(--dark-500);margin:0">${catLabels[r.cat]}</p>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-    ` : ''}
-  `;
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeService() {
-  document.getElementById('serviceOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// Close on overlay click
-document.getElementById('serviceOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeService();
-});
-
-// ===== MOBILE NAV =====
-function toggleMobileNav() {
-  document.getElementById('mobileNav').classList.toggle('open');
-  document.getElementById('mobileOverlay').classList.toggle('open');
-}
-
-// ===== FAQ =====
-function toggleFaq(el) {
-  const item = el.parentElement;
-  const answer = item.querySelector('.faq-a');
-  const isActive = item.classList.contains('active');
-  document.querySelectorAll('.faq-item').forEach(fi => {
-    fi.classList.remove('active');
-    fi.querySelector('.faq-a').style.maxHeight = null;
-  });
-  if (!isActive) {
-    item.classList.add('active');
-    answer.style.maxHeight = answer.scrollHeight + 'px';
-  }
-}
-
-// ===== COPY IBAN =====
-function copyIban(id, btn) {
-  const iban = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(iban).then(() => {
-    btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.innerHTML = '<i class="fas fa-copy"></i> نسخ رقم الحساب';
-      btn.classList.remove('copied');
-    }, 2000);
-  });
-}
-
-// ===== HEADER SCROLL =====
-window.addEventListener('scroll', () => {
-  const header = document.getElementById('header');
-  const scrollTop = document.getElementById('scrollTop');
-  if (window.scrollY > 50) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-  if (window.scrollY > 500) scrollTop.classList.add('visible');
-  else scrollTop.classList.remove('visible');
-});
-
-// ===== FORM SUBMIT =====
-function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const name = form.querySelector('input[type="text"]').value;
-  const phone = form.querySelector('input[type="tel"]').value;
-  const service = form.querySelector('select').value;
-  const details = form.querySelector('textarea').value;
-  const msg = `السلام عليكم، أرغب في طلب خدمة:\nالاسم: ${name}\nالجوال: ${phone}\nالخدمة: ${service}\nالتفاصيل: ${details}`;
-  window.open('https://wa.me/966545888559?text=' + encodeURIComponent(msg), '_blank');
-}
-
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded', renderServices);
-<\/script>
+const services=[{id:1,slug:"social-security",title:"الضمان الاجتماعي المطور",short:"مساعدة في التسجيل والمتابعة في برنامج الضمان الاجتماعي المطور.",full:"نقدم لك خدمة شاملة للمساعدة في التسجيل ومتابعة طلبك في برنامج الضمان الاجتماعي المطور مع متابعة حتى صدور النتيجة.",icon:"fas fa-shield-alt",cat:"support",features:["مساعدة في التسجيل","مراجعة البيانات","متابعة حالة الطلب","إرشادات الشروط","دعم فني مستمر"],target:["المواطنون المستحقون","الأسر ذات الدخل المحدود"],steps:["تواصل معنا","أرسل بياناتك","نراجع البيانات","نقدم الطلب","نُبلغك بالتحديثات"],notes:["خدمة مساندة وليست رسمية","القبول يعتمد على الشروط الرسمية"]},
+{id:2,slug:"hafiz",title:"حافز",short:"دعم كامل في التسجيل والمتابعة في برنامج حافز لدعم الباحثين عن عمل.",full:"نقدم خدمة متكاملة للتسجيل في برنامج حافز والمتابعة المستمرة حتى صرف الدعم.",icon:"fas fa-wallet",cat:"support",features:["تسجيل صحيح","متابعة البرامج التدريبية","تنبيهات بالمواعيد","دعم مستمر"],target:["الباحثون عن عمل","حديثو التخرج"],steps:["تواصل معنا","نسجلك","نتابع المتطلبات","تنبيهات دورية","دعم مستمر"],notes:["يجب أن يكون المتقدم سعودي","خدمة مساندة فقط"]},
+{id:3,slug:"citizen-account",title:"حساب المواطن",short:"خدمة التسجيل والمتابعة في حساب المواطن لضمان حصولك على الدعم.",full:"نساعدك في التسجيل الصحيح في حساب المواطن ومتابعة الأهلية وحل المشاكل.",icon:"fas fa-user-check",cat:"support",features:["تسجيل جديد","تحديث البيانات","إضافة التابعين","متابعة الأهلية","تقديم اعتراضات"],target:["المواطنون السعوديون","الأسر المحتاجة"],steps:["تواصل واتساب","أرسل البيانات","نسجل أو نحدث","نتابع الأهلية","نُبلغك بالنتائج"],notes:["خدمة مساندة","القبول حسب معايير البرنامج"]},
+{id:4,slug:"sanad",title:"ساند",short:"مساعدة في التسجيل في نظام ساند للتأمين ضد التعطل عن العمل.",full:"نوفر الدعم الكامل في التسجيل بنظام ساند ومتابعة صرف التعويض.",icon:"fas fa-life-ring",cat:"support",features:["التسجيل في ساند","متابعة الطلب","التأكد من الشروط","متابعة التعويض"],target:["المتعطلون عن العمل"],steps:["تواصل معنا","نتحقق من الشروط","نقدم الطلب","نتابع","نُبلغك"],notes:["يشترط الاشتراك في التأمينات"]},
+{id:5,slug:"qiyas",title:"قياس",short:"خدمات التسجيل في اختبارات قياس والقدرات والتحصيلي.",full:"نقدم خدمة شاملة للتسجيل في اختبارات هيئة تقويم التعليم والتدريب.",icon:"fas fa-file-alt",cat:"education",features:["التسجيل في القدرات","التسجيل في التحصيلي","اختبار STEP","اختيار المركز","إرشادات التحضير"],target:["طلاب الثانوية","المتقدمون للجامعات"],steps:["حدد الاختبار","أرسل بياناتك","نسجلك","نُرسل التأكيد","نصائح للتحضير"],notes:["رسوم الاختبارات تُدفع للجهة الرسمية"]},
+{id:6,slug:"jadarat",title:"جدارات",short:"مساعدة في إنشاء حساب وتحديث الملف على منصة جدارات للتوظيف.",full:"نساعدك في إنشاء ملف شخصي احترافي على جدارات يزيد فرصك الوظيفية.",icon:"fas fa-award",cat:"employment",features:["إنشاء حساب","بناء ملف احترافي","تحديث المؤهلات","التقديم على وظائف","متابعة الطلبات"],target:["الباحثون عن عمل"],steps:["حدد احتياجك","أرسل بياناتك","ننشئ ملفك","نبحث عن فرص","نقدم لك"],notes:["القبول حسب جهة التوظيف"]},
+{id:7,slug:"tamheer",title:"تمهير",short:"خدمة التسجيل في تمهير للتدريب على رأس العمل لحديثي التخرج.",full:"نساعدك في التسجيل ببرنامج تمهير واختيار الفرص التدريبية المناسبة.",icon:"fas fa-graduation-cap",cat:"employment",features:["التسجيل في تمهير","البحث عن فرص","التقديم","متابعة الطلبات"],target:["حديثو التخرج","حملة الدبلومات"],steps:["أرسل مؤهلاتك","نسجلك","نبحث عن فرص","نقدم لك","نتابع حتى القبول"],notes:["مخصص لحديثي التخرج"]},
+{id:8,slug:"tawteen",title:"توطين",short:"خدمات مساندة متعلقة ببرامج التوطين وتوظيف السعوديين.",full:"نقدم استشارات وخدمات مساندة في مجال التوطين وبرامج دعم التوظيف.",icon:"fas fa-users",cat:"employment",features:["إرشادات التوطين","التسجيل في برامج الدعم","البحث عن فرص","تجهيز الملف الوظيفي"],target:["الباحثون عن عمل بالقطاع الخاص"],steps:["تواصل معنا","نحدد البرامج المناسبة","نساعدك بالتسجيل","نتابع الطلبات","نقدم التوجيه"],notes:["القبول حسب شروط كل برنامج"]},
+{id:9,slug:"ecommerce-store",title:"إنشاء متجر إلكتروني",short:"تصميم وإنشاء متجر إلكتروني احترافي جاهز للبيع.",full:"نقوم بإنشاء متجرك الإلكتروني بشكل كامل واحترافي مع تدريب على الإدارة.",icon:"fas fa-store",cat:"digital",features:["تصميم احترافي","إضافة المنتجات","ربط الدفع","تفعيل الشحن","تهيئة SEO","تدريب على الإدارة"],target:["رواد الأعمال","أصحاب المشاريع"],steps:["حدد نوع متجرك","نتفق على التصميم","نبني المتجر","نربط الدفع والشحن","نسلمك مع تدريب"],notes:["يمكن البناء على سلة أو زد أو شوبيفاي"]},
+{id:10,slug:"ecommerce-course",title:"دورة التجارة الإلكترونية",short:"دورة تدريبية شاملة لدخول عالم التجارة الإلكترونية.",full:"دورة عملية متكاملة تشمل الأساسيات واختيار المنتجات والتسويق وإدارة المتجر.",icon:"fas fa-chalkboard-teacher",cat:"education",features:["أساسيات التجارة الإلكترونية","اختيار المنتجات","إنشاء المتجر","استراتيجيات التسويق","إدارة الطلبات"],target:["المبتدئون","الراغبون بدخل إضافي"],steps:["سجّل في الدورة","احضر الجلسات","طبّق عملياً","احصل على دعم","ابدأ متجرك"],notes:["الدورة عملية وليست نظرية فقط"]},
+{id:11,slug:"home-teaching",title:"التدريس من المنزل",short:"خدمة تساعدك في بدء مشروع التدريس من المنزل.",full:"نساعدك في تأسيس مشروع التدريس من المنزل من التخطيط حتى التسويق.",icon:"fas fa-home",cat:"education",features:["تخطيط المشروع","إنشاء منصة تعليمية","أدوات التدريس عن بُعد","استراتيجيات التسويق"],target:["المعلمون والمعلمات"],steps:["حدد تخصصك","نساعدك بالتخطيط","نجهز الأدوات","ندربك","نساعدك بالتسويق"],notes:["يتطلب خبرة في التدريس"]},
+{id:12,slug:"digital-marketing",title:"التسويق الرقمي",short:"خدمات التسويق الرقمي الاحترافي لتنمية مشروعك.",full:"حلول تسويق رقمي متكاملة تشمل إدارة حسابات التواصل والإعلانات وتحسين SEO.",icon:"fas fa-bullhorn",cat:"marketing",features:["إدارة حسابات التواصل","إعلانات مدفوعة","تحسين SEO","تصميم محتوى","تحليل الأداء"],target:["أصحاب المشاريع","المتاجر الإلكترونية"],steps:["حدد أهدافك","نضع خطة","ننفذ الحملات","نتابع الأداء","نقدم تقارير"],notes:["الميزانية الإعلانية منفصلة"]},
+{id:13,slug:"followers",title:"زيادة المتابعين",short:"زيادة المتابعين على منصات التواصل بطرق آمنة وفعالة.",full:"نساعدك في زيادة متابعينك على منصات التواصل باستراتيجيات فعالة وآمنة.",icon:"fas fa-chart-line",cat:"marketing",features:["متابعين حقيقيين","جميع المنصات","استراتيجيات آمنة","نتائج سريعة"],target:["الحسابات التجارية","صناع المحتوى"],steps:["حدد المنصة","نضع خطة","نبدأ التنفيذ","نتابع النتائج","نقدم تقرير"],notes:["النتائج تختلف حسب المنصة والمحتوى"]},
+{id:14,slug:"cv",title:"إعداد السيرة الذاتية",short:"تصميم سيرة ذاتية احترافية تزيد فرصك الوظيفية.",full:"نصمم سيرة ذاتية احترافية بتصميم عصري يبرز مؤهلاتك وخبراتك.",icon:"fas fa-file-invoice",cat:"employment",features:["تصميم احترافي","محتوى متميز","متوافقة مع ATS","نسخة عربية وإنجليزية","تنسيقات متعددة"],target:["الباحثون عن عمل"],steps:["أرسل بياناتك","نصمم السيرة","نُرسلها للمراجعة","نعدّل حسب ملاحظاتك","نسلمك النسخة النهائية"],notes:["يُفضل إرسال سيرتك الحالية"]},
+{id:15,slug:"job-follow",title:"متابعة التوظيف",short:"متابعة فرص التوظيف والتقديم عليها نيابة عنك.",full:"نتابع الفرص المناسبة لك ونقدم عليها نيابة عنك مع إبلاغك بالتحديثات.",icon:"fas fa-briefcase",cat:"employment",features:["البحث عن فرص","التقديم نيابة عنك","متابعة الطلبات","تنبيهات بالفرص","نصائح للمقابلات"],target:["الباحثون عن عمل بشكل فعال"],steps:["أرسل سيرتك","حدد تفضيلاتك","نبحث عن الفرص","نقدم نيابة عنك","نُبلغك"],notes:["القبول حسب جهة التوظيف"]},
+{id:16,slug:"new-jobs",title:"جديد الوظائف",short:"اطّلع على أحدث الفرص الوظيفية في مختلف القطاعات.",full:"نوفر لك قائمة محدثة بأحدث الفرص الوظيفية مع تفاصيل وروابط التقديم.",icon:"fas fa-newspaper",cat:"employment",features:["فرص محدثة يومياً","جميع القطاعات","تفاصيل كاملة","روابط التقديم","تنبيهات"],target:["الباحثون عن عمل"],steps:["تابعنا","اختر الوظيفة","اطلع على الشروط","قدّم","تابع طلبك"],notes:["من مصادر رسمية وموثوقة"]},
+{id:17,slug:"education-courses",title:"الدورات التعليمية لمنسوبي وزارة التعليم",short:"دورات تدريبية لمنسوبي وزارة التعليم.",full:"مساعدة في التسجيل في الدورات التدريبية المعتمدة لمنسوبي وزارة التعليم.",icon:"fas fa-user-graduate",cat:"education",features:["التسجيل في الدورات المعتمدة","متابعة الإتمام","الحصول على الشهادات","اختيار الدورات المناسبة"],target:["المعلمون والمعلمات","منسوبو وزارة التعليم"],steps:["حدد الدورات","نسجلك","نتابع","نساعدك بالشهادة"],notes:["بعض الدورات لها رسوم رسمية"]},
+{id:18,slug:"azkar",title:"أذكار الصباح والمساء",short:"تذكير يومي بأذكار الصباح والمساء.",full:"خدمة تذكير يومي بأذكار الصباح والمساء عبر واتساب.",icon:"fas fa-mosque",cat:"general",features:["تذكير يومي","أذكار الصباح والمساء","أدعية مأثورة","محتوى موثوق"],target:["جميع المسلمين"],steps:["اشترك بالخدمة","ستصلك الأذكار يومياً","شارك مع أحبابك"],notes:["خدمة مجانية"]}];
+const catLabels={support:"دعم وبرامج",education:"تعليمية",employment:"توظيف",marketing:"تسويق وأعمال",digital:"تطوير رقمي",general:"عامة"};
+let currentFilter="all",searchTerm="";
+function renderServices(){const g=document.getElementById("servicesGrid"),e=document.getElementById("emptyState");let f=services.filter(s=>{const mf=currentFilter==="all"||s.cat===currentFilter;const ms=searchTerm===""||s.title.includes(searchTerm)||s.short.includes(searchTerm);return mf&&ms});if(f.length===0){g.style.display="none";e.style.display="block";return}g.style.display="grid";e.style.display="none";g.innerHTML=f.map((s,i)=>'<div class="service-card" style="animation:fadeInUp .5s ease '+(i*0.05)+'s both"><span class="service-category">'+catLabels[s.cat]+'</span><div class="service-icon"><i class="'+s.icon+'"></i></div><h3>'+s.title+'</h3><p>'+s.short+'</p><div class="service-btns"><button class="btn btn-primary btn-sm" onclick="openService('+s.id+')"><i class="fas fa-eye"></i> التفاصيل</button><a href="https://wa.me/966545888559?text='+encodeURIComponent("السلام عليكم، أرغب في طلب خدمة: "+s.title)+'" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fab fa-whatsapp"></i> اطلب</a></div></div>').join("")}
+function setFilter(c,b){currentFilter=c;document.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderServices()}
+function filterServices(){searchTerm=document.getElementById("searchInput").value.trim();renderServices()}
+function openService(id){const s=services.find(x=>x.id===id);if(!s)return;const o=document.getElementById("serviceOverlay"),d=document.getElementById("serviceDetail");const rel=services.filter(r=>r.cat===s.cat&&r.id!==s.id).slice(0,3);d.innerHTML='<button class="page-close" onclick="closeService()"><i class="fas fa-times"></i></button><div class="page-hero-i"><div class="service-icon"><i class="'+s.icon+'"></i></div><span class="service-category">'+catLabels[s.cat]+'</span><h2>'+s.title+'</h2><p>'+s.full+'</p></div><div class="page-s"><h3><i class="fas fa-star"></i> مميزات الخدمة</h3><ul class="pf">'+s.features.map(f=>'<li><i class="fas fa-check-circle"></i> '+f+'</li>').join("")+'</ul></div><div class="page-s"><h3><i class="fas fa-users"></i> الفئة المستهدفة</h3><ul>'+s.target.map(t=>'<li><i class="fas fa-user"></i> '+t+'</li>').join("")+'</ul></div><div class="page-s"><h3><i class="fas fa-list-ol"></i> خطوات التنفيذ</h3><ul>'+s.steps.map((st,i)=>'<li><i class="fas fa-arrow-left"></i> <strong>الخطوة '+(i+1)+':</strong> '+st+'</li>').join("")+'</ul></div><div class="page-s"><h3><i class="fas fa-exclamation-circle"></i> ملاحظات مهمة</h3><ul class="pn">'+s.notes.map(n=>'<li><i class="fas fa-info-circle"></i> '+n+'</li>').join("")+'</ul></div><div style="text-align:center;padding:30px;background:var(--p50);border-radius:var(--rl);margin-top:20px"><h3 style="font-size:1.2rem;font-weight:700;margin-bottom:15px;color:var(--pd)"><i class="fas fa-paper-plane"></i> اطلب هذه الخدمة الآن</h3><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a href="https://wa.me/966545888559?text='+encodeURIComponent("السلام عليكم، أرغب في طلب خدمة: "+s.title)+'" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> طلب عبر واتساب</a><a href="#contact" class="btn btn-primary" onclick="closeService()"><i class="fas fa-edit"></i> نموذج الطلب</a></div></div>';o.classList.add("open");document.body.style.overflow="hidden"}
+function closeService(){document.getElementById("serviceOverlay").classList.remove("open");document.body.style.overflow=""}
+document.getElementById("serviceOverlay").addEventListener("click",function(e){if(e.target===this)closeService()});
+function toggleMobileNav(){document.getElementById("mobileNav").classList.toggle("open");document.getElementById("mobileOverlay").classList.toggle("open")}
+function toggleFaq(el){const item=el.parentElement,ans=item.querySelector(".faq-a"),active=item.classList.contains("active");document.querySelectorAll(".faq-item").forEach(fi=>{fi.classList.remove("active");fi.querySelector(".faq-a").style.maxHeight=null});if(!active){item.classList.add("active");ans.style.maxHeight=ans.scrollHeight+"px"}}
+function copyIban(id,btn){const iban=document.getElementById(id).textContent;navigator.clipboard.writeText(iban).then(()=>{btn.innerHTML='<i class="fas fa-check"></i> تم النسخ!';btn.classList.add("copied");setTimeout(()=>{btn.innerHTML='<i class="fas fa-copy"></i> نسخ رقم الحساب';btn.classList.remove("copied")},2000)})}
+window.addEventListener("scroll",()=>{const h=document.getElementById("header"),st=document.getElementById("scrollTop");if(window.scrollY>50)h.classList.add("scrolled");else h.classList.remove("scrolled");if(window.scrollY>500)st.classList.add("visible");else st.classList.remove("visible")});
+function handleSubmit(e){e.preventDefault();const f=e.target,n=f.querySelector('input[type="text"]').value,p=f.querySelector('input[type="tel"]').value,s=f.querySelector("select").value,d=f.querySelector("textarea").value;const m="السلام عليكم، أرغب في طلب خدمة:\nالاسم: "+n+"\nالجوال: "+p+"\nالخدمة: "+s+"\nالتفاصيل: "+d;window.open("https://wa.me/966545888559?text="+encodeURIComponent(m),"_blank")}
+document.addEventListener("DOMContentLoaded",renderServices);
+</script>
 </body>
 </html>
