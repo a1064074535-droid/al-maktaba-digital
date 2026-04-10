@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>بوت واتساب الذكي - لوحة التحكم</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+
+                :root {
+                              --primary: #1a472a;
+                              --secondary: #25a55f;
+                              --accent: #00d466;
+                              --danger: #e74c3c;
+                              --warning: #f39c12;
+                              --dark: #1a1a1a;
+                              --light: #f8f9fa;
+                              --border: #e0e0e0;
+                              --text: #333;
+                }
+
+                body {
+                              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                              min-height: 100vh;
+                              color: var(--text);
+                }
+
+                .container {
+                              max-width: 1400px;
+                              margin: 0 auto;
+                              padding: 20px;
+                }
+
+                header {
+                              background: white;
+                              padding: 20px;
+                              border-radius: 10px;
+                              margin-bottom: 30px;
+                              box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                }
+
+                header h1 {
+                              color: var(--primary);
+                              margin-bottom: 10px;
+                }
+
+                header p {
+                              color: #666;
+                              font-size: 14px;
+                }
+
+                .dashboard {
+                              display: grid;
+                              grid-template-columns: 1fr 2fr;
+                              gap: 20px;
+                }
+
+                .sidebar {
+                              background: white;
+                              border-radius: 10px;
+                              padding: 20px;
+                              box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                              height: fit-content;
+                              position: sticky;
+                              top: 20px;
+                }
+
+                .sidebar h2 {
+                              color: var(--primary);
+                              margin-bottom: 20px;
+                              font-size: 16px;
+                }
+
+                .stat {
+                              display: flex;
+                              align-items: center;
+                              justify-content: space-between;
+                              padding: 15px;
+                              background: var(--light);
+                              border-radius: 8px;
+                              margin-bottom: 10px;
+                              border-right: 4px solid var(--secondary);
+                }
+
+                .stat-label {
+                              font-size: 14px;
+                    color: #666;
+                }
+
+                .stat-value {
+                              font-size: 24px;
+                              font-weight: bold;
+                              color: var(--primary);
+                }
+
+                .main-content {
+                              background: white;
+                              border-radius: 10px;
+                              padding: 20px;
+                              box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                }
+
+                .tabs {
+                              display: flex;
+                              border-bottom: 2px solid var(--border);
+                              margin-bottom: 20px;
+                              gap: 10px;
+                }
+
+                .tab-btn {
+                              padding: 12px 24px;
+                              background: none;
+                              border: none;
+                              color: #999;
+                              cursor: pointer;
+                              font-size: 14px;
+                              font-weight: 500;
+                              transition: all 0.3s ease;
+                              border-bottom: 3px solid transparent;
+                }
+
+                .tab-btn.active {
+                              color: var(--primary);
+                              border-bottom-color: var(--primary);
+                }
+
+                .tab-content {
+                              display: none;
+                }
+
+                .tab-content.active {
+                              display: block;
+                }
+
+                .chat-box {
+                              background: var(--light);
+                              border-radius: 8px;
+                              padding: 20px;
+                              height: 500px;
+                              overflow-y: auto;
+                              margin-bottom: 15px;
+                              border: 1px solid var(--border);
+                }
+
+                .message {
+                              margin-bottom: 15px;
+                              display: flex;
+                              align-items: flex-start;
+                }
+
+                .message.user {
+                              justify-content: flex-end;
+                }
+
+                .message-content {
+                              max-width: 70%;
+                              padding: 12px 16px;
+                              border-radius: 8px;
+                              word-wrap: break-word;
+                }
+
+                .message.bot .message-content {
+                              background: white;
+                              border: 1px solid var(--border);
+                              color: var(--text);
+                }
+
+                .message.user .message-content {
+                              background: var(--primary);
+                              color: white;
+                }
+
+                .input-group {
+                              display: flex;
+                              gap: 10px;
+                }
+
+                .input-group input {
+                              flex: 1;
+                              padding: 12px;
+                              border: 1px solid var(--border);
+                              border-radius: 8px;
+                              font-size: 14px;
+                              font-family: inherit;
+                }
+
+                .input-group button {
+                              padding: 12px 24px;
+                              background: var(--primary);
+                              color: white;
+                              border: none;
+                              border-radius: 8px;
+                              cursor: pointer;
+                              font-weight: 500;
+                              transition: all 0.3s ease;
+                }
+
+                .input-group button:hover {
+                              background: var(--secondary);
+                }
+
+                .requests-table {
+                              width: 100%;
+                              border-collapse: collapse;
+                }
+
+                .requests-table th {
+                              background: var(--light);
+                              padding: 15px;
+                              text-align: right;
+                              font-weight: 600;
+                              border-bottom: 2px solid var(--border);
+                              color: var(--primary);
+                }
+
+                .requests-table td {
+                              padding: 15px;
+                              border-bottom: 1px solid var(--border);
+                }
+
+                .requests-table tr:hover {
+                              background: #f5f5f5;
+                }
+
+                .badge {
+                              display: inline-block;
+                              padding: 4px 12px;
+                              border-radius: 20px;
+                              font-size: 12px;
+                              font-weight: 600;
+                }
+
+                .badge.pending {
+                              background: #fff3cd;
+                              color: #856404;
+                }
+
+                .badge.completed {
+                              background: #d4edda;
+                              color: #155724;
+                }
+
+                .action-btn {
+                              padding: 6px 12px;
+                              margin-left: 5px;
+                              border: none;
+                              border-radius: 4px;
+                              cursor: pointer;
+                              font-size: 12px;
+                              transition: all 0.3s ease;
+                }
+
+                .action-btn.view {
+                              background: var(--primary);
+                              color: white;
+                }
+
+                .action-btn.delete {
+                              background: var(--danger);
+                              color: white;
+                }
+
+                .action-btn:hover {
+                              opacity: 0.8;
+                }
+
+                .modal {
+                              display: none;
+                              position: fixed;
+                              top: 0;
+                              left: 0;
+                              right: 0;
+                              bottom: 0;
+                              background: rgba(0,0,0,0.5);
+                              z-index: 1000;
+                              align-items: center;
+                              justify-content: center;
+                }
+
+                .modal.open {
+                              display: flex;
+                }
+
+                .modal-content {
+                              background: white;
+                              border-radius: 10px;
+                              padding: 30px;
+                              max-width: 500px;
+                              width: 90%;
+                              max-height: 90vh;
+                              overflow-y: auto;
+                }
+
+                .modal-header {
+                              display: flex;
+                              justify-content: space-between;
+                              align-items: center;
+                              margin-bottom: 20px;
+                }
+
+                .modal-header h2 {
+                              color: var(--primary);
+                }
+
+                .close-btn {
+                              background: none;
+                              border: none;
+                              font-size: 24px;
+                              cursor: pointer;
+                              color: #999;
+                }
+
+                .form-group {
+                              margin-bottom: 15px;
+                }
+
+                .form-group label {
+                              display: block;
+                              margin-bottom: 5px;
+                              color: var(--primary);
+                              font-weight: 500;
+                              font-size: 14px;
+                }
+
+                .form-group input,
+                .form-group textarea {
+                              width: 100%;
+                              padding: 10px;
+                              border: 1px solid var(--border);
+                              border-radius: 6px;
+                              font-family: inherit;
+                              font-size: 14px;
+                }
+
+                .form-group textarea {
+                              resize: vertical;
+                              min-height: 100px;
+                }
+
+                .empty-state {
+                              text-align: center;
+                              padding: 40px 20px;
+                              color: #999;
+                }
+
+                .empty-state i {
+                              font-size: 48px;
+                              margin-bottom: 15px;
+                              color: #ddd;
+                }
+
+                @media (max-width: 768px) {
+                              .dashboard {
+                                                grid-template-columns: 1fr;
+                              }
+
+                              .sidebar {
+                                                position: static;
+                              }
+
+                              .message-content {
+                                                max-width: 90%;
+                              }
+                }
+            </style>
+  </head>
+  <body>
+        <div class="container">
+                  <header>
+                                <h1><i class="fas fa-robot"></i>i> بوت واتساب الذكي</h1>
+                              <p>نظام آلي لاستقبال الطلبات ومعالجتها - لوحة التحكم والإدارة</p>
+                  </header>
+                
+                <div class="dashboard">
+                            <div class="sidebar">
+                                            <h2>احصائيات</h2>
+                                            <div class="stat">
+                                                                <span class="stat-label">إجمالي الطلبات</span>span>
+                                                                <span class="stat-value" id="totalRequests">0</span>span>
+                                            </div>div>
+                                            <div class="stat">
+                                                                <span class="stat-label">الطلبات المعلقة</span>span>
+                                                                <span class="stat-value" id="pendingRequests" style="color: var(--warning);">0</span>span>
+                                            </div>div>
+                                            <div class="stat">
+                                                                <span class="stat-label">الطلبات المكتملة</span>span>
+                                                                <span class="stat-value" id="completedRequests" style="color: var(--secondary);">0</span>span>
+                                            </div>div>
+                                            <div class="stat">
+                                                                <span class="stat-label">معدل الإنجاز</span>span>
+                                                                <span class="stat-value" id="completionRate" style="color: var(--secondary);">0%</span>span>
+                                            </div>div>
+                            </div>div>
+                            
+                            <div class="main-content">
+                                            <div class="tabs">
+                                                                <button class="tab-btn active" onclick="switchTab('chat')"><i class="fas fa-comments"></i>i> المحادثة</button>button>
+                                                                <button class="tab-btn" onclick="switchTab('requests')"><i class="fas fa-list"></i>i> الطلبات</button>button>
+                                                                <button class="tab-btn" onclick="switchTab('settings')"><i class="fas fa-cog"></i>i> الإعدادات</button>button>
+                                            </div>div>
+                                            
+                                            <!-- Chat Tab -->
+                                            <div id="chat" class="tab-content active">
+                                                                <div class="chat-box" id="chatBox">
+                                                                                        <div class="empty-state">
+                                                                                                                    <i class="fas fa-comments"></i>i>
+                                                                                                                    <p>ابدأ محادثة جديدة مع البوت</p>
+                                                                                          </div>div>
+                                                                </div>div>
+                                                                <div class="input-group">
+                                                                                        <input type="text" id="chatInput" placeholder="اكتب رسالتك..." onkeypress="handleKeyPress(event)">
+                                                                                        <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i>i> إرسال</button>button>
+                                                                </div>div>
+                                            </div>div>
+                                            
+                                            <!-- Requests Tab -->
+                                            <div id="requests" class="tab-content">
+                                                                <table class="requests-table" id="requestsTable">
+                                                                                        <thead>
+                                                                                                                      <tr>
+                                                                                                                                                        <th>الخدمة</th>
+                                                                                                                        <th>الاسم</th>
+                                                                                                                        <th>الجوال</th>
+                                                                                                                        <th>التاريخ</th>
+                                                                                                                        <th>الحالة</th>
+                                                                                                                        <th>الإجراء</th>
+                                                                                                                        </tr>
+                                                                                          </thead>
+                                                                                        <tbody id="requestsBody">
+                                                                                            <tr>
+                                                                                                                              <td colspan="6" style="text-align: center; color: #999;">لا توجد طلبات بعد</td>td>
+                                                                                              </tr>
+                                                                                          </tbody>tbody>
+                                                                </table>table>
+                                            </div>div>
+
+                                              <!-- Settings Tab -->
+                                              <div id="settings" class="tab-content">
+                                                                    <div class="form-group">
+                                                                                              <label>رقم واتساب الخاص بك</label>
+                                                                                            <input type="tel" id="whatsappNumber" placeholder="+966501234567">
+                                                                    </div>div>
+                                                                  <div class="form-group">
+                                                                                          <label>اسم المؤسسة</label>
+                                                                                          <input type="text" id="businessName" placeholder="المكتبة الرقمية">
+                                                                  </div>div>
+                                                                  <div class="form-group">
+                                                                                          <label>رسالة الترحيب</label>
+                                                                                          <textarea id="welcomeMessage" placeholder="السلام عليكم ورحمة الله وبركاته..."></textarea>
+                                                                  </div>div>
+                                                                  <button onclick="saveSettings()" style="background: var(--primary); color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                                                                          <i class="fas fa-save"></i>i> حفظ الإعدادات
+                                                                  </button>button>
+                                              </div>div>
+                            </div>div>
+                </div>div>
+        </div>div>
+      
+      <!-- Request Details Modal -->
+      <div id="requestModal" class="modal">
+              <div class="modal-content">
+                          <div class="modal-header">
+                                          <h2>تفاصيل الطلب</h2>
+                                          <button class="close-btn" onclick="closeModal()">&times;</button>button>
+                          </div>div>
+                          <div id="modalBody"></div>div>
+                          <div style="margin-top: 20px; display: flex; gap: 10px;">
+                                          <button onclick="markCompleted()" style="flex: 1; padding: 12px; background: var(--secondary); color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                                              <i class="fas fa-check"></i>i> وضع علامة مكتملة
+                                          </button>button>
+                                          <button onclick="deleteRequest()" style="flex: 1; padding: 12px; background: var(--danger); color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                                              <i class="fas fa-trash"></i>i> حذف
+                                          </button>button>
+                          </div>div>
+              </div>div>
+      </div>div>
+      
+      <script>
+                const services = [
+                  {id: 1, name: 'الضمان الاجتماعي المطور', fields: ['الاسم الكامل', 'رقم الهوية', 'الدخل الشهري']},
+                  {id: 2, name: 'حافز', fields: ['الاسم الكامل', 'رقم الهوية', 'المؤهل العلمي']},
+                  {id: 3, name: 'حساب المواطن', fields: ['الاسم الكامل', 'رقم الهوية', 'عدد أفراد الأسرة']},
+                  {id: 4, name: 'ساند', fields: ['الاسم الكامل', 'رقم الهوية', 'تاريخ التوقف عن العمل']},
+                  {id: 5, name: 'قياس', fields: ['الاسم الكامل', 'نوع الاختبار', 'تاريخ الاختبار']},
+                  {id: 6, name: 'جدارات', fields: ['الاسم الكامل', 'المؤهل', 'التخصص']},
+                  {id: 7, name: 'تمهير', fields: ['الاسم الكامل', 'تاريخ التخرج', 'التخصص']},
+                  {id: 8, name: 'توطين', fields: ['الاسم الكامل', 'الخبرة', 'المجال']},
+                  {id: 9, name: 'إنشاء متجر إلكتروني', fields: ['اسم المتجر', 'نوع المنتجات', 'الميزانية']},
+                  {id: 10, name: 'دورة التجارة الإلكترونية', fields: ['الاسم', 'المستوى', 'تاريخ البدء']},
+                  {id: 11, name: 'التدريس من المنزل', fields: ['الاسم', 'التخصص', 'الخبرة']},
+                  {id: 12, name: 'التسويق الرقمي', fields: ['اسم المشروع', 'نوع التسويق', 'الميزانية']},
+                  {id: 13, name: 'زيادة المتابعين', fields: ['المنصة', 'نوع الحساب', 'الهدف']},
+                  {id: 14, name: 'إعداد السيرة الذاتية', fields: ['الاسم', 'المؤهل', 'الخبرة']},
+                  {id: 15, name: 'متابعة التوظيف', fields: ['المجال المطلوب', 'الراتب المتوقع', 'المنطقة']},
+                  {id: 16, name: 'جديد الوظائف', fields: ['التخصص المطلوب', 'المستوى', 'المنطقة']},
+                  {id: 17, name: 'الدورات التعليمية', fields: ['الاسم', 'نوع الدورة', 'المستوى']},
+                  {id: 18, name: 'أذكار الصباح والمساء', fields: ['الاسم', 'البريد الإلكتروني', '']}
+                          ];
+
+                let requests = JSON.parse(localStorage.getItem('whatsappRequests')) || [];
+                let chatHistory = [];
+                let currentStep = 0;
+                let currentService = null;
+                let currentRequestData = {};
+                let selectedRequestId = null;
+
+                function initBot() {
+                              showWelcomeMessage();
+                              updateStats();
+                }
+
+                function showWelcomeMessage() {
+                              const welcome = document.querySelector('.empty-state');
+                              if (welcome) welcome.remove();
+
+                              addMessage('البوت', 'السلام عليكم ورحمة الله وبركاته! 👋\n\nأنا بوت المكتبة الرقمية الذكي، مساعدك في طلب أي خدمة.\n\nاختر الخدمة المطلوبة:\n\n' + services.map((s, i) => `${i + 1}️⃣ ${s.name}`).join('\n'));
+                }
+
+                function addMessage(sender, text) {
+                              const chatBox = document.getElementById('chatBox');
+                              if (chatBox.querySelector('.empty-state')) {
+                                                chatBox.querySelector('.empty-state').remove();
+                              }
+
+                              const msg = document.createElement('div');
+                              msg.className = 'message ' + (sender === 'البوت' ? 'bot' : 'user');
+                              msg.innerHTML = `<div class="message-content">${text}</div>`;
+                              chatBox.appendChild(msg);
+                              chatBox.scrollTop = chatBox.scrollHeight;
+                }
+
+                function sendMessage() {
+                              const input = document.getElementById('chatInput');
+                              const text = input.value.trim();
+                              if (!text) return;
+
+                              addMessage('أنت', text);
+                              input.value = '';
+
+                              processMessage(text);
+                }
+
+                function processMessage(text) {
+                              const num = parseInt(text);
+
+                              if (currentService === null) {
+                                                if (num > 0 && num <= services.length) {
+                                                                      currentService = services[num - 1];
+                                                                      currentRequestData = {service: currentService.name, phone: ''};
+                                                                      currentStep = 0;
+                                                                      askNextQuestion();
+                                                } else {
+                                                                      addMessage('البوت', '❌ اختيار غير صحيح. يرجى اختيار رقم من 1 إلى ' + services.length);
+                                                }
+                              } else {
+                                                if (currentStep < currentService.fields.length) {
+                                                                      currentRequestData[currentService.fields[currentStep]] = text;
+                                                                      currentStep++;
+
+                                                                      if (currentStep < currentService.fields.length) {
+                                                                                                askNextQuestion();
+                                                                      } else {
+                                                                                                completeRequest();
+                                                                      }
+                                                }
+                              }
+                }
+
+                function askNextQuestion() {
+                              const field = currentService.fields[currentStep];
+                              addMessage('البوت', '📝 ' + field + '؟');
+                }
+
+                function completeRequest() {
+                              const request = {
+                                                id: Date.now(),
+                                                ...currentRequestData,
+                                                date: new Date().toLocaleString('ar-SA'),
+                                                status: 'معلق'
+                              };
+
+                              requests.push(request);
+                              localStorage.setItem('whatsappRequests', JSON.stringify(requests));
+
+                              addMessage('البوت', '✅ تم استقبال طلبك بنجاح!\n\nتفاصيل طلبك:\n📋 الخدمة: ' + request.service + '\n⏰ الوقت: ' + request.date + '\n\nسنتواصل معك قريباً لتأكيد التفاصيل.');
+
+                              currentService = null;
+                              currentStep = 0;
+                              currentRequestData = {};
+
+                              setTimeout(() => {
+                                                showWelcomeMessage();
+                                                updateStats();
+                                                loadRequests();
+                              }, 2000);
+                }
+
+                function updateStats() {
+                              const total = requests.length;
+                              const pending = requests.filter(r => r.status === 'معلق').length;
+                              const completed = requests.filter(r => r.status === 'مكتمل').length;
+                              const rate = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+                              document.getElementById('totalRequests').textContent = total;
+                              document.getElementById('pendingRequests').textContent = pending;
+                              document.getElementById('completedRequests').textContent = completed;
+                              document.getElementById('completionRate').textContent = rate + '%';
+                }
+
+                function switchTab(tab) {
+                              document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                              document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+                              document.getElementById(tab).classList.add('active');
+                              event.target.classList.add('active');
+
+                              if (tab === 'requests') {
+                                                loadRequests();
+                              }
+                }
+
+                function loadRequests() {
+                              const tbody = document.getElementById('requestsBody');
+                              if (requests.length === 0) {
+                                                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">لا توجد طلبات بعد</td></tr>';
+                                                return;
+                              }
+
+                              tbody.innerHTML = requests.map(r => `
+                                              <tr>
+                                                                  <td>${r.service}</td>
+                                                                                      <td>${r['الاسم الكامل'] || r['الاسم'] || '-'}</td>
+                                                                                                          <td>${r['رقم الجوال'] || r['رقم الهوية'] || '-'}</td>
+                                                                                                                              <td>${r.date}</td>
+                                                                                                                                                  <td><span class="badge ${r.status === 'مكتمل' ? 'completed' : 'pending'}">${r.status}</span></td>
+                                                                                                                                                                      <td>
+                                                                                                                                                                                              <button class="action-btn view" onclick="viewRequest(${r.id})"><i class="fas fa-eye"></i> عرض</button>
+                                                                                                                                                                                                                      <button class="action-btn delete" onclick="deleteRequest(${r.id})"><i class="fas fa-trash"></i></button>
+                                                                                                                                                                                                                                          </td>
+                                                                                                                                                                                                                                                          </tr>
+                                                                                                                                                                                                                                                                      `).join('');
+                }
+
+                function viewRequest(id) {
+                              selectedRequestId = id;
+                              const req = requests.find(r => r.id === id);
+                              const modal = document.getElementById('requestModal');
+                              const body = document.getElementById('modalBody');
+
+                              let html = '<div class="form-group" style="margin-bottom: 20px;"><strong>' + req.service + '</strong></div>';
+                              for (let key in req) {
+                                                if (key !== 'id' && key !== 'service' && key !== 'status' && key !== 'date') {
+                                                                      html += `<div class="form-group"><label>${key}</label><input type="text" value="${req[key]}" readonly></div>`;
+                                                }
+                              }
+                              html += `<div class="form-group"><label>التاريخ</label><input type="text" value="${req.date}" readonly></div>`;
+
+                              body.innerHTML = html;
+                              modal.classList.add('open');
+                }
+
+                function closeModal() {
+                              document.getElementById('requestModal').classList.remove('open');
+                              selectedRequestId = null;
+                }
+
+                function deleteRequest(id = selectedRequestId) {
+                              requests = requests.filter(r => r.id !== id);
+                              localStorage.setItem('whatsappRequests', JSON.stringify(requests));
+                              closeModal();
+                              updateStats();
+                              loadRequests();
+                }
+
+                function markCompleted() {
+                              const req = requests.find(r => r.id === selectedRequestId);
+                              if (req) {
+                                                req.status = 'مكتمل';
+                                                localStorage.setItem('whatsappRequests', JSON.stringify(requests));
+                                                closeModal();
+                                                updateStats();
+                                                loadRequests();
+                              }
+                }
+
+                function handleKeyPress(e) {
+                              if (e.key === 'Enter') sendMessage();
+                }
+
+                function saveSettings() {
+                              const whatsapp = document.getElementById('whatsappNumber').value;
+                              const name = document.getElementById('businessName').value;
+                              const message = document.getElementById('welcomeMessage').value;
+
+                              localStorage.setItem('botSettings', JSON.stringify({
+                                                whatsappNumber: whatsapp,
+                                                businessName: name,
+                                                welcomeMessage: message
+                              }));
+
+                              alert('تم حفظ الإعدادات بنجاح!');
+                }
+
+                document.addEventListener('DOMContentLoaded', initBot);
+      </script>
+  </body>
+</html>html>
+      </script></label></label>
+                                                                                            </tr></th></th>
+                                                                                                                      </tr>
+                                                                                        </thead></p></p></h1>
+                  </header>
+  </body>
+      </style></title>
+  </head>
