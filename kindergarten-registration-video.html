@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>فيديو متطلبات التسجيل - الروضة والمرحلة الابتدائية</title>
+      <style>
+                * {
+                              margin: 0;
+                              padding: 0;
+                              box-sizing: border-box;
+                }
+
+                body {
+                              font-family: 'Arial', 'Segoe UI', sans-serif;
+                              background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                              padding: 20px;
+                              min-height: 100vh;
+                }
+
+                .container {
+                              max-width: 1200px;
+                              margin: 0 auto;
+                              background-color: white;
+                              border-radius: 20px;
+                              box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+                              overflow: hidden;
+                }
+
+                .header {
+                              background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #3d7a4d 100%);
+                              color: white;
+                              padding: 60px 40px;
+                              text-align: center;
+                              position: relative;
+                              overflow: hidden;
+                }
+
+                .header::before {
+                              content: '';
+                              position: absolute;
+                              top: -50%;
+                              right: -50%;
+                              width: 100%;
+                              height: 100%;
+                              background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+                }
+
+                .header h1 {
+                              font-size: 3em;
+                              margin-bottom: 10px;
+                              position: relative;
+                              z-index: 1;
+                              text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                }
+
+                .header p {
+                              font-size: 1.3em;
+                              opacity: 0.95;
+                              position: relative;
+                              z-index: 1;
+                }
+
+                .content {
+                              padding: 50px 40px;
+                }
+
+                .video-section {
+                              background: linear-gradient(135deg, #f0f8f5 0%, #e0f2f0 100%);
+                              border: 3px solid #1a472a;
+                              border-radius: 15px;
+                              padding: 40px;
+                              margin-bottom: 40px;
+                              text-align: center;
+                }
+
+                .video-placeholder {
+                              background-color: #1a1a1a;
+                              border-radius: 10px;
+                              padding: 20px;
+                              margin: 20px 0;
+                              display: flex;
+                              align-items: center;
+                              justify-content: center;
+                              min-height: 400px;
+                              position: relative;
+                              overflow: hidden;
+                }
+
+                .video-placeholder video {
+                              width: 100%;
+                              height: 100%;
+                              object-fit: contain;
+                              border-radius: 5px;
+                }
+
+                .play-button {
+                              position: absolute;
+                              width: 80px;
+                              height: 80px;
+                              background-color: rgba(29, 185, 84, 0.9);
+                              border-radius: 50%;
+                              display: flex;
+                              align-items: center;
+                              justify-content: center;
+                              font-size: 40px;
+                              color: white;
+                              cursor: pointer;
+                              transition: all 0.3s ease;
+                              z-index: 10;
+                }
+
+                .play-button:hover {
+                              background-color: rgba(29, 185, 84, 1);
+                              transform: scale(1.1);
+                }
+
+                .video-section h2 {
+                              color: #1a472a;
+                              font-size: 1.8em;
+                              margin-bottom: 10px;
+                }
+
+                .video-section p {
+                              color: #666;
+                              font-size: 1.05em;
+                              margin-bottom: 20px;
+                }
+
+                .requirements-grid {
+                              display: grid;
+                              grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                              gap: 25px;
+                              margin: 40px 0;
+                }
+
+                .requirement-card {
+                              background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+                              border-left: 6px solid #1a472a;
+                              padding: 30px;
+                              border-radius: 12px;
+                              transition: all 0.3s ease;
+                              box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                }
+
+                .requirement-card:hover {
+                              transform: translateY(-8px);
+                              box-shadow: 0 8px 25px rgba(26, 71, 42, 0.15);
+                              border-left-width: 8px;
+                }
+
+                .requirement-card h3 {
+                              color: #1a472a;
+                              margin-bottom: 15px;
+                              font-size: 1.3em;
+                              display: flex;
+                              align-items: center;
+                              gap: 10px;
+                }
+
+                .requirement-card .icon {
+                              font-size: 1.5em;
+                }
+
+                .requirement-card p {
+                              color: #555;
+                              line-height: 1.8;
+                              font-size: 1em;
+                }
+
+                .steps-section {
+                              background: linear-gradient(135deg, #f0f8f5 0%, #e0f2f0 100%);
+                              padding: 40px;
+                              border-radius: 15px;
+                              margin: 40px 0;
+                              border: 2px dashed #1a472a;
+                }
+
+                .steps-section h2 {
+                              color: #1a472a;
+                              margin-bottom: 30px;
+                              text-align: right;
+                              font-size: 1.8em;
+                }
+
+                .steps-list {
+                              list-style: none;
+                }
+
+                .steps-list li {
+                              background-color: white;
+                              margin: 15px 0;
+                              padding: 20px 25px;
+                              border-radius: 10px;
+                              color: #333;
+                              line-height: 1.8;
+                              font-size: 1.05em;
+                              border-right: 5px solid #1a472a;
+                              display: flex;
+                              align-items: center;
+                              gap: 20px;
+                              box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                              transition: all 0.3s ease;
+                }
+
+                .steps-list li:hover {
+                              box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                              transform: translateX(-5px);
+                }
+
+                .step-number {
+                              background-color: #1a472a;
+                              color: white;
+                              width: 40px;
+                              height: 40px;
+                              border-radius: 50%;
+                              display: flex;
+                              align-items: center;
+                              justify-content: center;
+                              font-weight: bold;
+                              flex-shrink: 0;
+                }
+
+                .contact-section {
+                              background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+                              color: white;
+                              padding: 50px;
+                              border-radius: 15px;
+                              text-align: center;
+                              margin-top: 40px;
+                              box-shadow: 0 10px 30px rgba(26, 71, 42, 0.2);
+                }
+
+                .contact-section h2 {
+                              margin-bottom: 15px;
+                              font-size: 1.8em;
+                }
+
+                .contact-section p {
+                              font-size: 1.1em;
+                              margin: 10px 0;
+                              opacity: 0.95;
+                }
+
+                .whatsapp-btn {
+                              display: inline-block;
+                              background-color: #25D366;
+                              color: white;
+                              padding: 15px 40px;
+                              border-radius: 50px;
+                              text-decoration: none;
+                              margin-top: 20px;
+                              font-weight: bold;
+                              font-size: 1.1em;
+                              transition: all 0.3s ease;
+                              border: 2px solid #25D366;
+                }
+
+                .whatsapp-btn:hover {
+                              background-color: #20BA5A;
+                              border-color: #20BA5A;
+                              transform: scale(1.05);
+                              box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+                }
+
+                .footer {
+                              background-color: #f5f5f5;
+                              padding: 25px;
+                              text-align: center;
+                              color: #666;
+                              border-top: 2px solid #1a472a;
+                              font-size: 0.95em;
+                }
+
+                @media (max-width: 768px) {
+                              .header h1 {
+                                                font-size: 2em;
+                              }
+
+                              .header {
+                                                padding: 40px 20px;
+                              }
+
+                              .content {
+                                                padding: 25px 15px;
+                              }
+
+                              .requirements-grid {
+                                                grid-template-columns: 1fr;
+                              }
+
+                              .video-section {
+                                                padding: 20px;
+                              }
+
+                              .contact-section {
+                                                padding: 30px 20px;
+                              }
+                }
+            </style>
+  </head>
+  <body>
+        <div class="container">
+                  <div class="header">
+                                <h1>🎓 متطلبات التسجيل</h1>
+                              <p>الروضة والمرحلة الابتدائية</p>
+                              <p>المملكة العربية السعودية</p>
+                  </div>div>
+                
+                <div class="content">
+                            <div class="video-section">
+                                            <h2>📹 فيديو تعليمي شامل</h2>
+                                            <p>شاهد هذا الفيديو لفهم جميع متطلبات التسجيل بطريقة سهلة وواضحة</p>
+                                            <div class="video-placeholder">
+                                                                <div class="play-button">▶</div>div>
+                                                                <p style="color: white; text-align: center;">
+                                                                                          تم إنشاء الفيديو باستخدام تقنية Remotion المتقدمة<br>
+                                                                                          <small>يمكنك التواصل معنا لمشاهدة الفيديو مباشرة</small>
+                                                                </p>
+                                            </div>div>
+                            </div>div>
+                            
+                            <div class="requirements-grid">
+                                            <div class="requirement-card">
+                                                                <h3><span class="icon">🎂</span>span>السن المؤهل للتسجيل</h3>
+                                                                <p>
+                                                                    <strong>رياض الأطفال:</strong> من 3 إلى 5 سنوات<br><br>
+                                                                    <strong>المرحلة الابتدائية:</strong> 6 سنوات فما فوق<br><br>
+                                                                    يجب أن يكون الطالب قد بلغ السن المحدد في تاريخ التسجيل.
+                                                                </p>
+                                            </div>div>
+                                            
+                                            <div class="requirement-card">
+                                                                <h3><span class="icon">🏥</span>span>فحص اللياقة الطبية</h3>
+                                                                <p>
+                                                                                          إجراء فحص صحي شامل والتأكد من سلامة صحة الطالب، مع الحصول على شهادة صحية معتمدة من وزارة الصحة.<br><br>
+                                                                                          الفحص يجب أن يكون حديثاً ومعتمداً من المراكز المصرح بها.
+                                                                </p>
+                                            </div>div>
+
+                                              <div class="requirement-card">
+                                                                    <h3><span class="icon">🆔</span>span>التحقق من العنوان الوطني</h3>
+                                                                    <p>
+                                                                                              التأكد من صحة بيانات الرقم الوطني واستخدام منصة أبشر للتحقق. العنوان الوطني يجب أن يكون صحيحاً وسارياً.<br><br>
+                                                                                              تأكد من عدم انتهاء صلاحية الرقم الوطني.
+                                                                    </p>
+                                              </div>div>
+                            </div>div>
+
+                              <div class="steps-section">
+                                                <h2>📋 خطوات التسجيل التفصيلية:</h2>
+                                                <ol class="steps-list">
+                                                                      <li>
+                                                                                                <span class="step-number">1</span>span>
+                                                                                                <div>
+                                                                                                                              <strong>تحضير المستندات المطلوبة</strong><br>
+                                                                                                                              جهز جميع الوثائق والمستندات الأساسية (بطاقة الهوية، شهادات التطعيم، إلخ)
+                                                                                                  </div>
+                                                                      </li>
+                                                                      <li>
+                                                                                                <span class="step-number">2</span>span>
+                                                                                                <div>
+                                                                                                                              <strong>التوجه للمدرسة أو التسجيل الإلكتروني</strong><br>
+                                                                                                                            اختر الطريقة المناسبة لك (مباشرة أو عبر المنصات الإلكترونية)
+                                                                                                  </div>
+                                                                      </li>
+                                                                    <li>
+                                                                                              <span class="step-number">3</span>span>
+                                                                                              <div>
+                                                                                                                            <strong>إجراء الفحص الطبي</strong><br>
+                                                                                                                            قم بفحص اللياقة الطبية للطالب في المركز المعتمد
+                                                                                                </div>
+                                                                    </li>
+                                                                      <li>
+                                                                                                <span class="step-number">4</span>span>
+                                                                                                <div>
+                                                                                                                              <strong>التحقق من البيانات والعنوان الوطني</strong><br>
+                                                                                                                              تأكد من صحة جميع البيانات المدخلة والرقم الوطني
+                                                                                                  </div>
+                                                                      </li>
+                                                                      <li>
+                                                                                                <span class="step-number">5</span>span>
+                                                                                                <div>
+                                                                                                                              <strong>استكمال إجراءات التسجيل</strong><br>
+                                                                                                                            أكمل جميع الخطوات الإدارية المتبقية
+                                                                                                  </div>
+                                                                      </li>
+                                                                    <li>
+                                                                                              <span class="step-number">6</span>span>
+                                                                                              <div>
+                                                                                                                            <strong>تأكيد التسجيل والحصول على رقم الطالب</strong><br>
+                                                                                                                            احصل على تأكيد التسجيل ورقم الطالب الخاص بك
+                                                                                                </div>
+                                                                    </li>
+                                                </ol>ol>
+                              </div>
+
+                              <div class="contact-section">
+                                                <h2>🤝 هل تحتاج إلى مساعدة في التسجيل؟</h2>
+                                              <p>نحن هنا لمساعدتك في كل خطوة من خطوات التسجيل</p>
+                                              <p>فريقنا المتخصص جاهز للإجابة على جميع استفساراتك</p>
+                                              <a href="https://wa.me/966545888559" class="whatsapp-btn" target="_blank">
+                                                                  💬 تواصل معنا عبر واتساب
+                                              </a>a>
+                                              <p style="margin-top: 20px; font-size: 1.2em;">
+                                                                    <strong>📱 966+ 545 888 559</strong>
+                                              </p>
+                              </div>
+                </div>
+                
+                <div class="footer">
+                            <p>جميع الحقوق محفوظة © 2024 المكتبة الرقمية | منصة خاصة مستقلة</p>
+                            <p>منصة عربية متخصصة في تقديم الخدمات الرقمية والمساندة الإلكترونية</p>
+                </div>
+        </div>
+  </body>
+</html>html></strong>
+                                              </p></p></h2>
+                                                                    </li></strong>
+                                                                                                </div>
+                                                                                                </div>
+                                                                      </li>
+                                                                    </li></strong>
+                                                                                                </div>
+                                                                                                </div>
+                                                                      </li>
+                                                                    </p>
+                                                                </p></strong></strong></small>
+                                                                </p></p></h1>
+  </body>
+      </style></title>
+  </head>
