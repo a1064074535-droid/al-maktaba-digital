@@ -1,0 +1,762 @@
+<title>رادار المكتبة الرقمية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F3F6F4; --surface:#FFFFFF; --sunk:#E9EFEB; --ink:#14201B; --muted:#5B6B64; --line:#D8E1DC;
+  --accent:#0B7A63; --accent-ink:#FFFFFF; --accent-soft:#D6EEE7; --gold:#C98A12; --gold-soft:#F7E9CB;
+  --good:#1D8A4E; --warn:#B7791F; --bad:#C0392B; --bad-soft:#F8DEDA;
+  --display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --body:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1512; --surface:#15201C; --sunk:#1B2823; --ink:#E6EEEA; --muted:#93A59D; --line:#27362F;
+    --accent:#38C7A4; --accent-ink:#06231B; --accent-soft:#143A30; --gold:#EDB443; --gold-soft:#3A2E14;
+    --good:#4CC883; --warn:#E3A844; --bad:#EE7A6C; --bad-soft:#3D1F1B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1512; --surface:#15201C; --sunk:#1B2823; --ink:#E6EEEA; --muted:#93A59D; --line:#27362F;
+  --accent:#38C7A4; --accent-ink:#06231B; --accent-soft:#143A30; --gold:#EDB443; --gold-soft:#3A2E14;
+  --good:#4CC883; --warn:#E3A844; --bad:#EE7A6C; --bad-soft:#3D1F1B;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.65;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:clamp(22px,3.4vw,30px);font-weight:700}
+h2{font-size:20px;font-weight:600}
+h3{font-size:16px;font-weight:600}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between;padding-block:24px 16px}
+.brand{display:flex;gap:14px;align-items:center}
+.mark{width:44px;height:44px;border-radius:12px;background:var(--accent);display:grid;place-items:center;flex:none}
+.mark svg{width:26px;height:26px}
+.status{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 11px;font-size:13px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dot.on{background:var(--good)} .dot.off{background:var(--bad)} .dot.wait{background:var(--warn)}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-bottom:22px}
+nav.tabs .in{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:12px 14px 10px;white-space:nowrap;color:var(--muted);font-weight:500}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+section.view{display:grid;gap:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.phead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:18px}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.kpi{padding:16px 18px;border-inline-start:1px solid var(--line)}
+.kpi:first-child{border-inline-start:0}
+.kpi .v{font-family:var(--display);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi .l{color:var(--muted);font-size:13px}
+.kpi .d{font-size:12px}
+.up{color:var(--good)} .down{color:var(--bad)}
+
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-family:var(--body);font-size:11px}
+.legend{display:flex;gap:14px;font-size:13px;color:var(--muted)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:5px;vertical-align:middle}
+
+table{width:100%;border-collapse:collapse}
+.tscroll{overflow-x:auto}
+th,td{text-align:start;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.02em}
+td.n,th.n{text-align:end;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cap{max-width:420px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+a{color:var(--accent)}
+
+.bar{height:8px;border-radius:4px;background:var(--sunk);overflow:hidden;min-width:60px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:6px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.tag.gold{background:var(--gold-soft);color:var(--gold)}
+.tag.acc{background:var(--accent-soft);color:var(--accent)}
+.tag.bad{background:var(--bad-soft);color:var(--bad)}
+
+/* heatmap */
+.heat{display:grid;grid-template-columns:64px repeat(24,minmax(14px,1fr));gap:2px;min-width:560px;font-size:11px}
+.heat .h{color:var(--muted);text-align:center}
+.heat .dn{color:var(--muted);align-self:center}
+.heat .c{aspect-ratio:1;border-radius:3px;background:var(--accent)}
+
+/* forms */
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.field{display:grid;gap:4px;flex:1 1 180px}
+.field label{font-size:13px;color:var(--muted)}
+input[type=text],input[type=url],input[type=datetime-local],select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+textarea{min-height:110px;resize:vertical;line-height:1.6}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 16px;font-weight:500}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.gold{background:var(--gold);color:#1B1203;border-color:var(--gold)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 12px;font-size:13px}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.chip:disabled{opacity:.5}
+
+.note{border-inline-start:3px solid var(--gold);background:var(--gold-soft);padding:10px 14px;border-radius:8px;font-size:14px}
+.note.err{border-color:var(--bad);background:var(--bad-soft)}
+.empty{color:var(--muted);padding:18px;text-align:center;border:1px dashed var(--line);border-radius:10px}
+
+/* services */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:12px}
+.svc{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:8px;background:var(--surface);align-content:start}
+.svc .no{font-family:var(--display);font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.svc dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:13px}
+.svc dt{color:var(--muted)}
+.svc dd{margin:0}
+
+/* plan cards */
+.plan{display:grid;gap:12px}
+.pcard{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:10px;background:var(--bg)}
+.pcard .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pcard.done{border-color:var(--good)}
+.pcard.fail{border-color:var(--bad)}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumbs button{padding:0;border:2px solid transparent;border-radius:8px;overflow:hidden;width:58px;height:58px;background:var(--sunk)}
+.thumbs button[aria-pressed="true"]{border-color:var(--accent)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.media-row{display:flex;gap:14px;align-items:flex-start}
+.media-prev{width:108px;flex:none;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:var(--sunk);display:grid;place-items:center;text-align:center;border:1px solid var(--line);max-width:100%}
+.media-prev img{width:100%;height:100%;object-fit:cover;display:block}
+.media-more summary{cursor:pointer;color:var(--accent);font-size:14px;width:fit-content}
+.media-more .thumbs{margin-top:8px}
+.media-more .thumbs button{width:44px;height:78px}
+.svc .thumb{width:100%;aspect-ratio:9/16;max-height:220px;object-fit:cover;object-position:top;border-radius:8px;display:block}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-inline-end-color:transparent;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;counter-reset:s}
+.steps div{padding:12px 14px;border-radius:10px;background:var(--sunk);font-size:14px}
+.steps b{display:block;font-family:var(--display);font-weight:600;margin-bottom:2px}
+</style>
+
+<div class="wrap" dir="rtl" lang="ar">
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity=".45"/><circle cx="12" cy="12" r="5" opacity=".75"/><path d="M12 12 19 6"/><circle cx="12" cy="12" r="1.6" fill="#fff"/></svg>
+      </div>
+      <div>
+        <h1>رادار المكتبة الرقمية</h1>
+        <div class="muted small">منصة التسويق الذكي لخدمات المكتبة الرقمية في المملكة · النتائج حيّة من حساباتك المربوطة</div>
+      </div>
+    </div>
+    <div class="status" id="status">
+      <span class="pill"><span class="dot wait" id="dotConn"></span><span id="txtConn">جارٍ الاتصال بـ Metricool…</span></span>
+      <span class="pill" id="netPills"></span>
+      <span class="pill"><span class="muted">آخر تحديث</span> <span class="num" id="txtUpdated">—</span></span>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="أقسام المنصة"><div class="in" role="tablist">
+    <button role="tab" data-tab="results" aria-selected="true">النتائج</button>
+    <button role="tab" data-tab="autopilot" aria-selected="false">الطيار الآلي</button>
+    <button role="tab" data-tab="studio" aria-selected="false">استوديو المحتوى</button>
+    <button role="tab" data-tab="targeting" aria-selected="false">الاستهداف</button>
+    <button role="tab" data-tab="queue" aria-selected="false">الجدولة والسجل</button>
+  </div></nav>
+
+  <div id="globalNote"></div>
+
+  <!-- RESULTS -->
+  <section class="view" id="v-results">
+    <div class="row" style="justify-content:space-between">
+      <div class="chips" id="rangeChips">
+        <button class="chip" data-days="7" aria-pressed="false">٧ أيام</button>
+        <button class="chip" data-days="30" aria-pressed="true">٣٠ يوماً</button>
+        <button class="chip" data-days="90" aria-pressed="false">٩٠ يوماً</button>
+      </div>
+      <button class="btn" id="btnRefresh">تحديث النتائج</button>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="panel">
+      <div class="phead"><h2>المشاهدات والتفاعل يومياً</h2>
+        <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>مشاهدات</span><span><i class="sw" style="background:var(--gold)"></i>تفاعلات</span></div></div>
+      <div id="chartBox"><div class="empty">جارٍ تحميل البيانات…</div></div>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="phead"><h2>أداء كل خدمة</h2><span class="muted small">مستنتج من الهاشتاقات والنص</span></div>
+        <div id="svcPerf"><div class="empty">جارٍ التحليل…</div></div>
+      </div>
+      <div class="panel">
+        <div class="phead"><h2>توصيات الرادار</h2><span class="muted small">تتحدث مع كل تحديث</span></div>
+        <div id="insights"><div class="empty">تظهر بعد تحميل النتائج.</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="phead"><h2>المنشورات المنشورة</h2><span class="muted small" id="postsCount"></span></div>
+      <div class="tscroll" id="postsTable"><div class="empty">جارٍ التحميل…</div></div>
+    </div>
+  </section>
+
+  <!-- AUTOPILOT -->
+  <section class="view" id="v-autopilot" hidden>
+    <div class="panel">
+      <div class="phead"><h2>الطيار الآلي: خطة أسبوع كاملة بضغطة</h2></div>
+      <div class="steps">
+        <div><b>يحلّل</b>أفضل أوقات جمهورك وأداء كل خدمة.</div>
+        <div><b>يكتب</b>منشورات باللهجة السعودية موجهة لجمهور كل خدمة.</div>
+        <div><b>تراجع</b>تعدّل النص والصورة قبل الاعتماد.</div>
+        <div><b>ينشر</b>يجدولها على منصاتك وتظهر نتائجها هنا.</div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="row">
+        <div class="field"><label for="apCount">عدد المنشورات</label>
+          <select id="apCount"><option value="5">٥ منشورات</option><option value="7" selected>٧ منشورات (يومياً)</option><option value="10">١٠ منشورات</option><option value="14">١٤ منشوراً (مرتين يومياً)</option></select></div>
+        <div class="field"><label for="apFocus">التركيز</label>
+          <select id="apFocus">
+            <option value="smart" selected>ذكي: حسب الأداء والموسم</option>
+            <option value="gov">البرامج الحكومية والدعم</option>
+            <option value="biz">التجارة والتسويق</option>
+            <option value="jobs">الوظائف والسيرة الذاتية</option>
+            <option value="tour">الرحلات السياحية بنجران</option>
+          </select></div>
+        <div class="field"><label for="apTone">الأسلوب</label>
+          <select id="apTone"><option value="friendly" selected>ودّي وقريب</option><option value="urgent">عاجل ومحفّز</option><option value="edu">تثقيفي (معلومة + دعوة)</option><option value="story">قصة عميل</option></select></div>
+      </div>
+      <div style="margin-top:14px">
+        <div class="small muted" style="margin-bottom:6px">المنصات (المربوطة فقط قابلة للاختيار)</div>
+        <div class="chips" id="apNets"></div>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn primary" id="btnPlan">ولّد خطة الأسبوع</button>
+        <span class="small muted" id="planState"></span>
+      </div>
+    </div>
+    <div id="planBox"></div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="view" id="v-studio" hidden>
+    <div class="grid2">
+      <div class="panel">
+        <div class="phead"><h2>منشور لخدمة محددة</h2></div>
+        <div style="display:grid;gap:12px">
+          <div class="field"><label for="stSvc">الخدمة</label><select id="stSvc"></select></div>
+          <div class="row">
+            <div class="field"><label for="stAngle">زاوية الرسالة</label>
+              <select id="stAngle"><option>حل مشكلة (رفض، تأخير، تعقيد)</option><option>خطوات مبسطة</option><option>عرض محدود</option><option>سؤال يثير التعليقات</option><option>معلومة جديدة أو تحديث</option></select></div>
+            <div class="field"><label for="stFormat">الصيغة</label>
+              <select id="stFormat"><option>وصف فيديو قصير</option><option>صورة ونص</option><option>سكربت فيديو ٢٠ ثانية + وصف</option></select></div>
+          </div>
+          <div class="field"><label for="stExtra">ملاحظة إضافية (اختياري)</label><input type="text" id="stExtra" placeholder="مثال: ركّز على نجران، أو اذكر أن الخدمة خلال ٢٤ ساعة"></div>
+          <div class="row"><button class="btn primary" id="btnGen">اكتب المنشور</button><span class="small muted" id="genState"></span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="phead"><h2>المسودة</h2><span class="small muted">عدّل بحرية قبل الجدولة</span></div>
+        <div id="stDraft"><div class="empty">اختر خدمة واضغط «اكتب المنشور».</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARGETING -->
+  <section class="view" id="v-targeting" hidden>
+    <div class="panel">
+      <div class="phead"><h2>أفضل أوقات النشر لجمهورك (توقيت الرياض)</h2><span class="small muted" id="heatNet">تيك توك</span></div>
+      <div class="tscroll" id="heatBox"><div class="empty">جارٍ التحميل…</div></div>
+      <div class="small muted" style="margin-top:8px" id="heatTop"></div>
+    </div>
+    <div class="panel">
+      <div class="phead"><h2>خريطة الجمهور لكل خدمة</h2>
+        <input type="text" id="svcSearch" placeholder="ابحث عن خدمة…" style="max-width:240px"></div>
+      <div class="svc-grid" id="svcGrid"></div>
+    </div>
+  </section>
+
+  <!-- QUEUE -->
+  <section class="view" id="v-queue" hidden>
+    <div class="panel">
+      <div class="phead"><h2>المنشورات المجدولة</h2><button class="btn" id="btnQueue">تحديث</button></div>
+      <div class="tscroll" id="queueBox"><div class="empty">جارٍ التحميل…</div></div>
+    </div>
+    <div class="panel">
+      <div class="phead"><h2>سجل الحملات من المنصة</h2><span class="small muted">كل ما جدولته من هنا محفوظ بشكل دائم</span></div>
+      <div class="tscroll" id="logBox"><div class="empty">لا يوجد سجل بعد.</div></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+'use strict';
+const SERVER = "Metricool Social Media Management";
+const TZ = "Asia/Riyadh";
+const STORE = "https://vip365.tjar.store/";
+
+/* ---------- knowledge base: 20 services + Saudi audience ---------- */
+const SERVICES = [
+ {id:1,name:"الضمان الاجتماعي المطور",g:"gov",aud:"الأسر محدودة الدخل، الأرامل والمطلقات، كبار السن وذووهم",age:"30–60",reg:"كل المناطق، أعلى طلب في الجنوب والشمال والقرى",pain:"رفض الطلب أو إيقاف الصرف أو تعقيد التحديث",tags:["الضمان_الاجتماعي_المطور","الضمان_الاجتماعي","الدعم_الحكومي"],kw:["الضمان"]},
+ {id:2,name:"حافز",g:"gov",aud:"الباحثون والباحثات عن عمل",age:"20–35",reg:"كل المناطق",pain:"شروط الأهلية والتحديث الأسبوعي",tags:["حافز","باحث_عن_عمل","دعم_الباحثين"],kw:["حافز"]},
+ {id:3,name:"حساب المواطن",g:"gov",aud:"أرباب الأسر والمستقلون",age:"25–55",reg:"كل المناطق",pain:"نقص الاستحقاق أو الاعتراض أو إضافة التابعين",tags:["حساب_المواطن","الدعم_السكني","دعم_الأسر"],kw:["حساب_المواطن","حساب المواطن"]},
+ {id:4,name:"ساند",g:"gov",aud:"موظفو القطاع الخاص ممن فقدوا عملهم",age:"25–50",reg:"المدن الكبرى: الرياض، جدة، الشرقية",pain:"المهلة القصيرة للتقديم ورفض المستندات",tags:["ساند","التأمينات_الاجتماعية","فقدان_العمل"],kw:["ساند"]},
+ {id:5,name:"قياس",g:"gov",aud:"خريجو الثانوية وأولياء الأمور والمتقدمون للجامعات",age:"أولياء أمور 35–55 · خريجون 18+",reg:"كل المناطق",pain:"التسجيل في القدرات والتحصيلي ومواعيد الاختبار",tags:["قياس","القدرات","التحصيلي"],kw:["قياس","القدرات","التحصيلي"]},
+ {id:6,name:"جدارات",g:"jobs",aud:"الباحثون عن وظائف حكومية والمعلمون والمعلمات",age:"22–40",reg:"كل المناطق",pain:"تعبئة الملف وإرفاق المؤهلات ومتابعة الإعلانات",tags:["جدارات","وظائف_حكومية","معلمات"],kw:["جدارات"]},
+ {id:7,name:"تمهير",g:"jobs",aud:"الخريجون الجدد",age:"20–30",reg:"المدن الكبرى",pain:"إيجاد جهة تدريب مناسبة ومكافأة شهرية",tags:["تمهير","تدريب_منتهي_بالتوظيف","خريجين"],kw:["تمهير"]},
+ {id:8,name:"توطين",g:"jobs",aud:"الباحثون عن وظائف القطاع الخاص",age:"20–40",reg:"كل المناطق",pain:"معرفة المهن الموطّنة وطريقة التقديم",tags:["توطين","وظائف_القطاع_الخاص","سعودة"],kw:["توطين"]},
+ {id:9,name:"إنشاء متجر إلكتروني",g:"biz",aud:"رواد الأعمال والأسر المنتجة وأصحاب المحلات",age:"22–45",reg:"كل المناطق",pain:"التكلفة والربط مع الدفع والشحن ومعروف",tags:["متجر_الكتروني","مشاريع_ناشئة","اسر_منتجة"],kw:["متجر"]},
+ {id:10,name:"دورة التجارة الإلكترونية",g:"biz",aud:"المبتدئون الراغبون في دخل إضافي",age:"20–40",reg:"كل المناطق",pain:"لا يعرف من أين يبدأ",tags:["تجارة_الكترونية","دخل_اضافي","دورة"],kw:["تجارة_الكترونية","تجارة إلكترونية","دورة"]},
+ {id:11,name:"التدريس من المنزل",g:"jobs",aud:"المعلمات والخريجات وربات البيوت",age:"22–40",reg:"كل المناطق",pain:"الحصول على طلاب ومنصة موثوقة",tags:["تدريس_عن_بعد","معلمات","دخل_من_البيت"],kw:["تدريس","معلم"]},
+ {id:12,name:"التسويق الرقمي",g:"biz",aud:"أصحاب المشاريع الصغيرة والمطاعم والمحلات",age:"25–50",reg:"كل المناطق، خصوصاً نجران وأبها وجازان",pain:"ضعف المبيعات وعدم الظهور",tags:["تسويق_الكتروني","تسويق_رقمي","مشاريع_صغيرة"],kw:["تسويق"]},
+ {id:13,name:"زيادة المتابعين",g:"biz",aud:"صناع المحتوى والمتاجر الناشئة",age:"18–35",reg:"كل المناطق",pain:"حساب لا ينمو",tags:["زيادة_متابعين","صناع_المحتوى","اكسبلور"],kw:["متابعين"]},
+ {id:14,name:"إعداد السيرة الذاتية",g:"jobs",aud:"الخريجون والباحثون عن عمل ومن يغيّر مساره",age:"21–40",reg:"كل المناطق",pain:"السيرة لا تجتاز أنظمة الفرز الآلي",tags:["سيرة_ذاتية","وظائف_السعودية","توظيف"],kw:["سيرة","cv"]},
+ {id:15,name:"إمارة الرياض لطلب مساعدات",g:"gov",aud:"الأسر المحتاجة في منطقة الرياض",age:"30–60",reg:"منطقة الرياض",pain:"صياغة الطلب والمستندات المطلوبة",tags:["امارة_الرياض","طلب_مساعدة","الرياض"],kw:["إمارة","امارة"]},
+ {id:16,name:"طلب مساعدة من الجمعيات",g:"gov",aud:"الأسر المتعففة والأرامل والأيتام",age:"25–60",reg:"كل المناطق",pain:"معرفة الجمعيات المناسبة وطريقة التسجيل",tags:["جمعيات_خيرية","طلب_مساعدة","دعم_الأسر"],kw:["جمعي"]},
+ {id:17,name:"دعم تذاكر ومبلغ مالي من وزارة الصحة",g:"gov",aud:"المرضى ومرافقوهم المحالون للعلاج خارج منطقتهم",age:"25–65",reg:"المناطق الطرفية: نجران، جازان، الحدود الشمالية",pain:"تكاليف السفر للعلاج",tags:["وزارة_الصحة","تذاكر_علاج","المرضى"],kw:["وزارة_الصحة","تذاكر"]},
+ {id:18,name:"جمعية الجفالي الخيرية",g:"gov",aud:"الأسر المحتاجة",age:"25–60",reg:"كل المناطق",pain:"خطوات التقديم وقبول الطلب",tags:["جمعية_الجفالي","طلب_مساعدة","جمعيات_خيرية"],kw:["الجفالي"]},
+ {id:19,name:"رحلات سياحية بنجران",g:"tour",aud:"العائلات والشباب وهواة الصحراء والتراث",age:"20–45",reg:"نجران، الرياض، الشرقية، أبها",pain:"تنظيم رحلة آمنة لمواقع يصعب الوصول لها",tags:["عروق_بني_معارض","قرية_الفاو","العين_الحارة","نجران"],kw:["عروق","الفاو","العين_الحارة","نجران"]},
+ {id:20,name:"وظائف عن بُعد (٤٠٠٠–٧٠٠٠ ريال)",g:"jobs",aud:"النساء والشباب الباحثون عن دخل مرن",age:"20–40",reg:"كل المناطق",pain:"وظائف وهمية وعدم الثقة",tags:["وظائف_عن_بعد","عمل_من_المنزل","توظيف"],kw:["عن_بعد","وظائف","توظيف","وظيفة"]}
+];
+const GROUP_LABEL={gov:"برامج حكومية ودعم",jobs:"وظائف ومهارات",biz:"تجارة وتسويق",tour:"سياحة"};
+const NETS = {tiktok:"تيك توك",instagram:"إنستقرام",facebook:"فيسبوك",twitter:"إكس",youtube:"يوتيوب",threads:"ثريدز",linkedin:"لينكدإن"};
+const DAYS = {1:"الاثنين",2:"الثلاثاء",3:"الأربعاء",4:"الخميس",5:"الجمعة",6:"السبت",7:"الأحد"};
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = n => n==null||isNaN(n) ? "—" : Math.round(n).toLocaleString("ar-SA");
+const pad = n => String(n).padStart(2,"0");
+function riyadhNow(){ return new Date(Date.now()+3*3600e3); } // UTC getters = Riyadh wall clock
+function isoDay(d){ return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`; }
+function metricoolDow(d){ const x=d.getUTCDay(); return x===0?7:x; }
+function parseYmd(s){ s=String(s); return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`; }
+function arDate(ymd,withTime){
+  const [y,m,d]=ymd.slice(0,10).split("-").map(Number);
+  const dt=new Date(Date.UTC(y,m-1,d));
+  let t=dt.toLocaleDateString("ar-SA-u-ca-gregory",{weekday:"short",day:"numeric",month:"short",timeZone:"UTC"});
+  if(withTime && ymd.length>10) t+=" · "+ymd.slice(11,16);
+  return t;
+}
+function attribute(text){
+  const t=String(text||"").toLowerCase();
+  const hits=SERVICES.filter(s=>s.kw.some(k=>t.includes(k.toLowerCase())));
+  return hits.length? hits[0].id : 0;
+}
+function errText(e){
+  const c=e&&e.code;
+  const map={
+    needs_reauth:"انتهت صلاحية ربط Metricool. أعد ربطه من إعدادات claude.ai ← الموصلات.",
+    server_not_connected:"موصل Metricool غير مضاف لحسابك. أضفه من إعدادات claude.ai ← الموصلات.",
+    selection_required:"لديك أكثر من موصل Metricool. اختر واحداً من النافذة التي ظهرت.",
+    not_in_manifest:"لم تسمح لهذه الصفحة باستخدام Metricool. أعد فتح الصفحة واسمح بالوصول.",
+    blocked_by_policy:"سياسة مؤسستك تمنع هذه العملية.",
+    approval_required:"هذه العملية تحتاج موافقة من مسؤول المؤسسة.",
+    server_unavailable:"Metricool لا يستجيب الآن. حاول بعد دقيقة.",
+    not_granted:"الصفحة لا تملك صلاحية الموصلات في هذا العرض.",
+    capability_disabled:"الموصلات غير متاحة في هذا العرض. افتح الصفحة من claude.ai.",
+    tool_error:"رد Metricool بخطأ: "+(e&&e.message||"")
+  };
+  return map[c] || ("تعذّر التنفيذ: "+(e&&e.message||c||"خطأ غير معروف"));
+}
+function payloadOf(r){ let p=r&&r.payload; if(typeof p==="string"){try{p=JSON.parse(p)}catch{}} return p; }
+
+/* ---------- state ---------- */
+const S = { mcp:null, db:null, sample:null, brand:null, nets:[], days:30, evo:[], posts:[], best:null, queue:[], log:[], plan:[], selNets:new Set(["tiktok"]) };
+
+/* ---------- tabs ---------- */
+function showTab(name){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected", String(b.dataset.tab===name)));
+  document.querySelectorAll("section.view").forEach(v=>v.hidden = v.id!=="v-"+name);
+  try{ localStorage.setItem("radar.tab",name) }catch{}
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+{ let t=(location.hash||"").slice(1); if(!t){ try{t=localStorage.getItem("radar.tab")||""}catch{} }
+  if(["results","autopilot","studio","targeting","queue"].includes(t)) showTab(t); }
+
+/* ---------- static render: services ---------- */
+function renderServices(filter=""){
+  const f=filter.trim();
+  const list=SERVICES.filter(s=>!f||s.name.includes(f)||s.aud.includes(f)||s.reg.includes(f));
+  $("#svcGrid").innerHTML = list.map(s=>`
+    <article class="svc">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline">
+        <h3><span class="no">${s.id}</span> · ${esc(s.name)}</h3><span class="tag">${GROUP_LABEL[s.g]}</span></div>
+      <img class="thumb" src="cards/svc-${pad(s.id)}.jpg" alt="بطاقة ${esc(s.name)}" loading="lazy">
+      <dl><dt>الجمهور</dt><dd>${esc(s.aud)}</dd><dt>العمر</dt><dd class="num">${esc(s.age)}</dd>
+      <dt>المناطق</dt><dd>${esc(s.reg)}</dd><dt>الألم</dt><dd>${esc(s.pain)}</dd></dl>
+      <div class="chips">${s.tags.map(t=>`<span class="tag acc">#${esc(t)}</span>`).join("")}</div>
+      <div><button class="btn" data-write="${s.id}" style="padding:6px 12px;font-size:13px">اكتب منشوراً لهذه الخدمة</button></div>
+    </article>`).join("") || `<div class="empty">لا توجد خدمة بهذا الاسم.</div>`;
+}
+$("#svcSearch").addEventListener("input",e=>renderServices(e.target.value));
+$("#svcGrid").addEventListener("click",e=>{const b=e.target.closest("[data-write]"); if(!b)return; $("#stSvc").value=b.dataset.write; showTab("studio"); $("#btnGen").click();});
+$("#stSvc").innerHTML = SERVICES.map(s=>`<option value="${s.id}">${s.id} · ${esc(s.name)}</option>`).join("");
+renderServices();
+
+/* ---------- connection ---------- */
+function setConn(state,text){ $("#dotConn").className="dot "+state; $("#txtConn").textContent=text; }
+function note(html,err){ $("#globalNote").innerHTML = html? `<div class="note ${err?"err":""}" style="margin-bottom:16px">${html}</div>`:""; }
+
+async function call(tool,input){ const r=await S.mcp.callTool(SERVER,tool,input); return payloadOf(r); }
+
+async function boot(){
+  S.mcp = await claude.use("mcp").catch(()=>null);
+  S.db  = await claude.use("db").catch(()=>null);
+  S.sample = await claude.use("sample").catch(()=>null);
+  if(!S.sample){ ["#btnPlan","#btnGen"].forEach(s=>{$(s).disabled=true}); $("#planState").textContent="الكتابة الذكية غير متاحة في هذا العرض."; $("#genState").textContent="الكتابة الذكية غير متاحة في هذا العرض."; }
+  if(S.db) watchLog();
+  if(!S.mcp){ setConn("off","Metricool غير متاح في هذا العرض"); note("افتح المنصة من حسابك في claude.ai لعرض النتائج الحية والنشر.",true); renderNets(); return; }
+  try{
+    const b = await call("getBrandSettings",{});
+    const brands = (b&&b.data)||[];
+    if(!brands.length) throw {code:"tool_error",message:"لا توجد علامة تجارية في Metricool"};
+    S.brand = brands[0];
+    S.nets = Object.keys(S.brand.networksData||{}).map(k=>k.replace(/Data$/,"")).filter(k=>NETS[k]);
+    setConn("on","متصل: @"+(S.brand.label||""));
+    renderNets();
+    loadAll();
+  }catch(e){ setConn("off","تعذّر الاتصال"); note(esc(errText(e)),true); renderNets(); }
+}
+function renderNets(){
+  const on=S.nets;
+  $("#netPills").innerHTML = Object.keys(NETS).filter(k=>["tiktok","instagram","twitter","facebook","youtube"].includes(k))
+    .map(k=>`<span title="${on.includes(k)?"مربوط":"غير مربوط"}"><span class="dot ${on.includes(k)?"on":""}" style="display:inline-block"></span> ${NETS[k]}</span>`).join(" &nbsp;");
+  $("#apNets").innerHTML = Object.keys(NETS).map(k=>{
+    const ok=on.includes(k);
+    return `<button class="chip" data-net="${k}" aria-pressed="${ok&&S.selNets.has(k)}" ${ok?"":"disabled"}>${NETS[k]}${ok?"":" · غير مربوط"}</button>`;}).join("");
+}
+$("#apNets").addEventListener("click",e=>{const b=e.target.closest("[data-net]"); if(!b||b.disabled)return; const k=b.dataset.net;
+  S.selNets.has(k)?S.selNets.delete(k):S.selNets.add(k); if(!S.selNets.size) S.selNets.add(k); renderNets();});
+
+/* ---------- results ---------- */
+function range(days){ const now=riyadhNow(); const from=new Date(now.getTime()-(days-1)*864e5);
+  return {from:isoDay(from)+"T00:00:00+03:00", to:isoDay(now)+"T23:59:59+03:00"}; }
+async function loadAll(){ loadResults(); loadBest(); loadQueue(); }
+async function loadResults(){
+  if(!S.brand) return;
+  $("#btnRefresh").disabled=true; $("#btnRefresh").innerHTML='<span class="spin"></span> جارٍ التحديث';
+  const r=range(S.days), prev=range(S.days*2);
+  const id=String(S.brand.id);
+  const EV=["TKEV02","TKEV06","TKEV07","TKEV08","TKEV09","TKEV11","TKEV01"];
+  const PO=["TKPO02","TKPO03","TKPO05","TKPO07","TKPO08","TKPO09","TKPO10","TKPO11"];
+  const [ev,po,evPrev] = await Promise.allSettled([
+    call("getAnalyticsDataByMetrics",{brandId:id,from:r.from,to:r.to,metrics:EV}),
+    call("getAnalyticsDataByMetrics",{brandId:id,from:r.from,to:r.to,metrics:PO}),
+    call("getAnalyticsDataByMetrics",{brandId:id,from:prev.from,to:r.from,metrics:["TKEV02","TKEV06"]})
+  ]);
+  $("#btnRefresh").disabled=false; $("#btnRefresh").textContent="تحديث النتائج";
+  const num=v=>v==null||v===""?null:Number(v);
+  if(ev.status==="fulfilled"){
+    S.evo=((ev.value&&ev.value.rows)||[]).map(x=>({d:parseYmd(x[7]),views:num(x[0]),inter:num(x[1]),followers:num(x[2]),newF:num(x[3]),profile:num(x[4]),reach:num(x[5]),videos:num(x[6])})).sort((a,b)=>a.d<b.d?-1:1);
+  } else { $("#chartBox").innerHTML=`<div class="note err">${esc(errText(ev.reason))}</div>`; }
+  let prevT=null;
+  if(evPrev.status==="fulfilled"){ const rows=(evPrev.value&&evPrev.value.rows)||[]; prevT={views:rows.reduce((a,x)=>a+(num(x[0])||0),0),inter:rows.reduce((a,x)=>a+(num(x[1])||0),0)}; }
+  if(po.status==="fulfilled"){
+    S.posts=((po.value&&po.value.rows)||[]).map(x=>{const t=String(x[0]);return{when:`${t.slice(0,4)}-${t.slice(4,6)}-${t.slice(6,8)}T${t.slice(8,10)}:${t.slice(10,12)}`,url:x[1],text:x[2],views:num(x[3])||0,likes:num(x[4])||0,comments:num(x[5])||0,shares:num(x[6])||0,reach:num(x[7])}}).sort((a,b)=>b.when<a.when?-1:1);
+    S.posts.forEach(p=>p.svc=attribute(p.text));
+  } else { $("#postsTable").innerHTML=`<div class="note err">${esc(errText(po.reason))}</div>`; }
+  renderKpis(prevT); renderChart(); renderPosts(); renderSvcPerf(); renderInsights();
+  $("#txtUpdated").textContent = new Date().toLocaleTimeString("ar-SA",{hour:"2-digit",minute:"2-digit",timeZone:TZ});
+}
+function sum(k){ return S.evo.reduce((a,x)=>a+(x[k]||0),0); }
+function renderKpis(prevT){
+  const views=sum("views"), inter=sum("inter");
+  const lastF=[...S.evo].reverse().find(x=>x.followers!=null);
+  const eng = views? inter/views*100 : 0;
+  const delta=(cur,old)=>{ if(!old) return ""; const p=(cur-old)/old*100; return `<div class="d ${p>=0?"up":"down"}">${p>=0?"▲":"▼"} ${fmt(Math.abs(p))}% عن الفترة السابقة</div>`; };
+  const cards=[
+    ["المشاهدات",fmt(views),prevT?delta(views,prevT.views):""],
+    ["التفاعلات",fmt(inter),prevT?delta(inter,prevT.inter):""],
+    ["معدل التفاعل",views?eng.toLocaleString("ar-SA",{maximumFractionDigits:1})+"٪":"—",""],
+    ["المتابعون",lastF?fmt(lastF.followers):"—",`<div class="d muted">صافي جديد: ${fmt(sum("newF"))}</div>`],
+    ["منشورات الفترة",fmt(S.posts.length),`<div class="d muted">متوسط ${fmt(S.posts.length?views/S.posts.length:0)} مشاهدة</div>`]
+  ];
+  $("#kpis").innerHTML=cards.map(c=>`<div class="kpi"><div class="l">${c[0]}</div><div class="v">${c[1]}</div>${c[2]}</div>`).join("");
+}
+function renderChart(){
+  const pts=S.evo.filter(x=>x.views!=null||x.inter!=null);
+  if(!pts.length){ $("#chartBox").innerHTML='<div class="empty">لا توجد بيانات في هذه الفترة.</div>'; return; }
+  // fill every day in range
+  const r=range(S.days); const start=new Date(r.from.slice(0,10)+"T00:00:00Z");
+  const byD=Object.fromEntries(S.evo.map(x=>[x.d,x]));
+  const days=[]; for(let i=0;i<S.days;i++){const d=isoDay(new Date(start.getTime()+i*864e5)); days.push({d,v:(byD[d]&&byD[d].views)||0,i:(byD[d]&&byD[d].inter)||0});}
+  const W=900,H=260,L=46,R=12,T=14,B=30, iw=W-L-R, ih=H-T-B;
+  const max=Math.max(10,...days.map(x=>x.v)); const step=niceStep(max); const top=Math.ceil(max/step)*step;
+  const maxI=Math.max(1,...days.map(x=>x.i));
+  const x=i=> W-R - (i+.5)*iw/days.length;   // RTL: time flows right→left
+  const y=v=> T+ih - v/top*ih;
+  const bw=Math.max(2,iw/days.length*0.62);
+  let g="";
+  for(let v=0;v<=top;v+=step){ g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${fmt(v)}</text>`; }
+  const bars=days.map((p,i)=>`<rect x="${x(i)-bw/2}" y="${y(p.v)}" width="${bw}" height="${T+ih-y(p.v)}" rx="2" fill="var(--accent)" opacity=".85"><title>${p.d}: ${p.v} مشاهدة، ${p.i} تفاعل</title></rect>`).join("");
+  const yi=v=> T+ih - v/maxI*ih*0.9;
+  const line=days.map((p,i)=>`${i?"L":"M"}${x(i).toFixed(1)},${yi(p.i).toFixed(1)}`).join(" ");
+  const every=Math.ceil(days.length/7);
+  const labels=days.map((p,i)=> i%every===0||i===days.length-1 ? `<text x="${x(i)}" y="${H-8}" text-anchor="middle">${arDate(p.d)}</text>`:"").join("");
+  const last=days.length-1;
+  $("#chartBox").innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="مخطط المشاهدات والتفاعلات اليومية">${g}${bars}
+    <path d="${line}" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="${x(last)}" cy="${yi(days[last].i)}" r="4" fill="var(--gold)"/>${labels}</svg>`;
+}
+function niceStep(max){ const raw=max/4; const p=Math.pow(10,Math.floor(Math.log10(raw))); const m=raw/p; return (m<=1?1:m<=2?2:m<=5?5:10)*p; }
+function svcName(id){ const s=SERVICES.find(x=>x.id===id); return s? s.name : "محتوى عام"; }
+function renderPosts(){
+  $("#postsCount").textContent = S.posts.length? `${fmt(S.posts.length)} منشور في الفترة`:"";
+  if(!S.posts.length){ $("#postsTable").innerHTML='<div class="empty">لا توجد منشورات في هذه الفترة.</div>'; return; }
+  const maxV=Math.max(...S.posts.map(p=>p.views),1);
+  $("#postsTable").innerHTML=`<table><thead><tr><th>التاريخ</th><th>المحتوى</th><th>الخدمة</th><th class="n">مشاهدات</th><th></th><th class="n">إعجاب</th><th class="n">تعليق</th><th class="n">مشاركة</th></tr></thead><tbody>${
+    S.posts.map(p=>`<tr><td class="num" style="white-space:nowrap">${arDate(p.when,true)}</td>
+      <td><a href="${esc(String(p.url).split("?")[0])}" target="_blank" rel="noopener" class="cap">${esc(p.text||"بدون وصف")}</a></td>
+      <td>${p.svc?`<span class="tag acc">${esc(svcName(p.svc))}</span>`:'<span class="tag">عام</span>'}</td>
+      <td class="n">${fmt(p.views)}</td><td style="width:90px"><div class="bar"><i style="width:${p.views/maxV*100}%"></i></div></td>
+      <td class="n">${fmt(p.likes)}</td><td class="n">${fmt(p.comments)}</td><td class="n">${fmt(p.shares)}</td></tr>`).join("")}</tbody></table>`;
+}
+function svcStats(){
+  const m={};
+  S.posts.forEach(p=>{ const k=p.svc; m[k]=m[k]||{id:k,n:0,views:0,inter:0}; m[k].n++; m[k].views+=p.views; m[k].inter+=p.likes+p.comments+p.shares; });
+  return Object.values(m).map(s=>({...s,avg:s.views/s.n})).sort((a,b)=>b.avg-a.avg);
+}
+function renderSvcPerf(){
+  const st=svcStats();
+  if(!st.length){ $("#svcPerf").innerHTML='<div class="empty">لا توجد بيانات كافية.</div>'; return; }
+  const max=Math.max(...st.map(s=>s.avg),1);
+  $("#svcPerf").innerHTML=`<table><thead><tr><th>الخدمة</th><th class="n">منشورات</th><th class="n">متوسط المشاهدة</th><th></th></tr></thead><tbody>${
+    st.map(s=>`<tr><td>${esc(svcName(s.id))}</td><td class="n">${fmt(s.n)}</td><td class="n">${fmt(s.avg)}</td><td style="width:35%"><div class="bar"><i style="width:${s.avg/max*100}%;${s.id?"":"background:var(--muted)"}"></i></div></td></tr>`).join("")}</tbody></table>
+    <div class="small muted" style="margin-top:8px">لم تُروَّج بعد: ${SERVICES.filter(s=>!st.some(x=>x.id===s.id)).length} خدمة من ٢٠.</div>`;
+}
+function bestSlots(n=3){
+  if(!S.best) return [];
+  const all=[]; S.best.forEach(d=>d.bestTimesByHour.forEach(h=>all.push({day:d.dayOfWeek,h:h.hourOfDay,v:h.value})));
+  return all.sort((a,b)=>b.v-a.v).slice(0,n);
+}
+function renderInsights(){
+  const out=[]; const st=svcStats();
+  const topSvc=st.find(s=>s.id);
+  if(topSvc) out.push(["acc",`<b>${esc(svcName(topSvc.id))}</b> أعلى خدمة في متوسط المشاهدات (${fmt(topSvc.avg)}). خصّص لها منشورين إضافيين هذا الأسبوع.`]);
+  const gen=st.find(s=>!s.id); if(gen && gen.n>=3) out.push(["gold",`${fmt(gen.n)} منشورات لا ترتبط بأي خدمة. كل منشور بلا دعوة لخدمة محددة يضيع فرصة طلب؛ أضف رقم الخدمة ورابط الطلب.`]);
+  const promoted=new Set(st.map(s=>s.id)); const missing=SERVICES.filter(s=>!promoted.has(s.id));
+  if(missing.length) out.push(["",`خدمات بلا ترويج في الفترة: ${missing.slice(0,5).map(s=>esc(s.name)).join("، ")}${missing.length>5?"…":""}. الطيار الآلي يوزّع عليها تلقائياً.`]);
+  const bs=bestSlots(3); if(bs.length) out.push(["acc",`أقوى أوقات جمهورك: ${bs.map(b=>`${DAYS[b.day]} ${pad(b.h)}:00`).join("، ")}.`]);
+  const shares=S.posts.reduce((a,p)=>a+p.shares,0), comments=S.posts.reduce((a,p)=>a+p.comments,0);
+  if(S.posts.length && comments<S.posts.length*0.5) out.push(["gold","التعليقات قليلة مقارنة بعدد المنشورات. اختم كل منشور بسؤال مباشر (مثال: «وش أكثر شي معطلك في طلبك؟»)."]);
+  if(shares>0) out.push(["",`جمهورك شارك المحتوى ${fmt(shares)} مرة. المحتوى النافع (خطوات، تحديثات) هو الأكثر مشاركة.`]);
+  $("#insights").innerHTML = out.length? `<div style="display:grid;gap:10px">${out.map(o=>`<div style="display:flex;gap:10px"><span class="tag ${o[0]}" style="height:fit-content">●</span><div>${o[1]}</div></div>`).join("")}</div>` : '<div class="empty">لا توصيات بعد.</div>';
+}
+$("#rangeChips").addEventListener("click",e=>{const b=e.target.closest("[data-days]"); if(!b)return; S.days=+b.dataset.days;
+  document.querySelectorAll("#rangeChips .chip").forEach(c=>c.setAttribute("aria-pressed",String(c===b))); loadResults();});
+$("#btnRefresh").addEventListener("click",loadResults);
+
+/* ---------- best times heatmap ---------- */
+async function loadBest(){
+  const now=riyadhNow(); const to=new Date(now.getTime()+6*864e5);
+  try{
+    const r=await call("getBestTimeToPostByNetwork",{brandId:String(S.brand.id),fromDate:isoDay(now)+"T00:00:00+03:00",toDate:isoDay(to)+"T23:59:59+03:00",timezone:TZ,socialNetwork:"tiktok"});
+    S.best=(r&&r.data)||[]; renderHeat(); renderInsights();
+  }catch(e){ $("#heatBox").innerHTML=`<div class="note err">${esc(errText(e))}</div>`; }
+}
+function renderHeat(){
+  const max=Math.max(1,...S.best.flatMap(d=>d.bestTimesByHour.map(h=>h.value)));
+  let h='<div class="heat"><div></div>'+Array.from({length:24},(_,i)=>`<div class="h num">${i%3===0?i:""}</div>`).join("");
+  [7,1,2,3,4,5,6].forEach(dw=>{ const d=S.best.find(x=>x.dayOfWeek===dw); if(!d) return;
+    h+=`<div class="dn">${DAYS[dw]}</div>`+Array.from({length:24},(_,i)=>{const v=(d.bestTimesByHour.find(x=>x.hourOfDay===i)||{}).value||0;
+      return `<div class="c" style="opacity:${(0.08+0.92*v/max).toFixed(2)}" title="${DAYS[dw]} ${pad(i)}:00 · ${v}"></div>`}).join(""); });
+  $("#heatBox").innerHTML=h+"</div>";
+  const bs=bestSlots(5); $("#heatTop").textContent="الأعلى: "+bs.map(b=>`${DAYS[b.day]} ${pad(b.h)}:00`).join(" · ")+" · كلما كان المربع أغمق كان جمهورك أنشط.";
+}
+function bestHoursFor(dow){
+  const d=S.best&&S.best.find(x=>x.dayOfWeek===dow);
+  if(!d) return [18,12,10,21];
+  return [...d.bestTimesByHour].sort((a,b)=>b.value-a.value).map(h=>h.hourOfDay).filter(h=>h>=8&&h<=23);
+}
+
+/* ---------- queue + log ---------- */
+async function loadQueue(){
+  if(!S.brand) return;
+  const now=riyadhNow(); const to=new Date(now.getTime()+60*864e5);
+  try{
+    const r=await call("getScheduledPosts",{brandId:String(S.brand.id),fromDate:isoDay(now)+"T00:00:00+03:00",toDate:isoDay(to)+"T23:59:59+03:00",timezone:TZ});
+    S.queue=((r&&r.data)||[]).sort((a,b)=>a.publicationDate.dateTime<b.publicationDate.dateTime?-1:1);
+    renderQueue();
+  }catch(e){ $("#queueBox").innerHTML=`<div class="note err">${esc(errText(e))}</div>`; }
+}
+function statusTag(p){ const st=(p.providers||[]).map(x=>x.status); if(st.includes("ERROR")) return '<span class="tag bad">خطأ</span>'; if(st.every(s=>s==="PUBLISHED")) return '<span class="tag acc">منشور</span>'; return '<span class="tag gold">بانتظار النشر</span>'; }
+function renderQueue(){
+  if(!S.queue.length){ $("#queueBox").innerHTML='<div class="empty">لا توجد منشورات مجدولة. استخدم الطيار الآلي لملء الأسبوع.</div>'; return; }
+  $("#queueBox").innerHTML=`<table><thead><tr><th>الموعد</th><th>النص</th><th>الخدمة</th><th>المنصات</th><th>الحالة</th></tr></thead><tbody>${
+    S.queue.map(p=>{ const svc=attribute(p.text); return `<tr><td class="num" style="white-space:nowrap">${arDate(p.publicationDate.dateTime,true)}</td>
+      <td><div class="cap">${esc(p.text)}</div></td><td>${svc?`<span class="tag acc">${esc(svcName(svc))}</span>`:'<span class="tag">عام</span>'}</td>
+      <td>${(p.providers||[]).map(x=>NETS[x.network]||x.network).join("، ")}</td><td>${statusTag(p)}</td></tr>`}).join("")}</tbody></table>`;
+}
+$("#btnQueue").addEventListener("click",loadQueue);
+function watchLog(){
+  try{ S.db.collection("campaign_log").orderBy("createdAt","desc").limit(200).onSnapshot(snap=>{
+      S.log=(snap.docs||snap||[]).map(d=>d.data?d.data():d); renderLog(); }, ()=>{}); }catch{}
+}
+function renderLog(){
+  if(!S.log.length){ $("#logBox").innerHTML='<div class="empty">لا يوجد سجل بعد. كل منشور تجدوله من المنصة يُحفظ هنا.</div>'; return; }
+  $("#logBox").innerHTML=`<table><thead><tr><th>الموعد</th><th>الخدمة</th><th>المنصات</th><th>النص</th><th>المصدر</th></tr></thead><tbody>${
+    S.log.map(l=>`<tr><td class="num" style="white-space:nowrap">${arDate(l.date||"",true)}</td><td><span class="tag acc">${esc(svcName(l.service))}</span></td>
+    <td>${(l.networks||[]).map(n=>NETS[n]||n).join("، ")}</td><td><div class="cap">${esc(l.text)}</div></td><td>${l.source==="autopilot"?"الطيار الآلي":"الاستوديو"}</td></tr>`).join("")}</tbody></table>`;
+}
+
+/* ---------- service cards: public link for publishing, local copy for preview ---------- */
+const CARD_BASE="https://raw.githubusercontent.com/a1064074535-droid/al-maktaba-digital/marketing-assets/cards/";
+const CARD = id => CARD_BASE+"svc-"+pad(id)+".jpg";
+const LOCAL = id => "cards/svc-"+pad(id)+".jpg";
+function cardIdOf(url){ const m=String(url||"").match(/marketing-assets\/cards\/svc-(\d\d)\.jpg$/); return m? +m[1] : 0; }
+function mediaPicker(idx,cur){
+  const cid=cardIdOf(cur);
+  const prev = cid? `<img src="${LOCAL(cid)}" alt="بطاقة خدمة ${cid}">` : (cur? `<span class="small muted" style="padding:8px">رابط خارجي</span>` : `<span class="small muted" style="padding:8px">بدون صورة</span>`);
+  return `<div class="media-row">
+    <div class="media-prev">${prev}</div>
+    <div style="display:grid;gap:8px;flex:1;min-width:0">
+      <details class="media-more"><summary>تغيير الصورة</summary>
+        <div class="thumbs" data-pick="${idx}">${SERVICES.map(s=>`<button type="button" data-url="${CARD(s.id)}" aria-pressed="${cid===s.id}" title="${esc(s.name)}"><img src="${LOCAL(s.id)}" alt="${esc(s.name)}" loading="lazy"></button>`).join("")}</div>
+        <div class="field" style="margin-top:8px"><label for="m-${idx}">أو ضع رابط صورة أو فيديو عام</label>
+        <input type="url" id="m-${idx}" data-media="${idx}" value="${esc(cur||"")}" placeholder="https://…"></div>
+      </details>
+    </div></div>`;
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".thumbs [data-url]"); if(!b)return; const idx=b.closest("[data-pick]").dataset.pick;
+  const inp=document.querySelector(`[data-media="${idx}"]`); inp.value=b.dataset.url; inp.dispatchEvent(new Event("input",{bubbles:true}));
+  const row=b.closest(".media-row"); const cid=cardIdOf(b.dataset.url);
+  row.querySelector(".media-prev").innerHTML=`<img src="${LOCAL(cid)}" alt="بطاقة خدمة ${cid}">`;
+  b.parentElement.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));});
+document.addEventListener("input",e=>{const t=e.target; if(t.dataset.media==null) return; const row=t.closest(".media-row"); if(!row) return;
+  const cid=cardIdOf(t.value); row.querySelector(".media-prev").innerHTML = cid? `<img src="${LOCAL(cid)}" alt="">` : `<span class="small muted" style="padding:8px">${t.value?"رابط خارجي":"بدون صورة"}</span>`;});
+
+/* ---------- AI writing ---------- */
+const BRAND_BRIEF = `العلامة: «المكتبة الرقمية» — مكتب خدمات رقمية سعودي من منطقة نجران يخدم كل مناطق المملكة.
+قناة الطلب: واتساب 0545888559 بإرسال رقم الخدمة. المتجر: ${STORE}
+قائمة الخدمات بأرقامها الحالية: ${SERVICES.map(s=>s.id+"- "+s.name).join("، ")}.
+قواعد الكتابة: لهجة سعودية بيضاء مفهومة، جملة افتتاحية تشد خلال ثانيتين، بدون وعود بقبول مضمون أو مبالغ حكومية محددة، لا تنتحل صفة جهة حكومية، اختم بدعوة: «أرسل رقم X على واتساب 0545888559» حيث X رقم الخدمة، ولخدمات البرامج الحكومية والجمعيات (1–8 و15–18) أضف سطر: «خدمة مستقلة غير تابعة لأي جهة حكومية، لا نضمن القبول.»، ٣–٥ هاشتاقات عربية مناسبة للبحث في السعودية، إيموجي معتدل.`;
+
+async function genOne(){
+  const s=SERVICES.find(x=>x.id==$("#stSvc").value);
+  $("#btnGen").disabled=true; $("#genState").innerHTML='<span class="spin"></span> يكتب…';
+  try{
+    const out=await S.sample.json(`${BRAND_BRIEF}
+اكتب منشوراً تسويقياً واحداً لخدمة رقم ${s.id}: ${s.name}.
+الجمهور المستهدف: ${s.aud}، العمر ${s.age}، المناطق: ${s.reg}. نقطة الألم: ${s.pain}. هاشتاقات مقترحة: ${s.tags.map(t=>"#"+t).join(" ")}.
+زاوية الرسالة: ${$("#stAngle").value}. الصيغة: ${$("#stFormat").value}. ${$("#stExtra").value?("ملاحظة: "+$("#stExtra").value):""}
+أعد JSON فقط بالشكل: {"title":"عنوان قصير حتى ٤٠ حرفاً","text":"نص المنشور كاملاً مع الهاشتاقات","script":"سكربت الفيديو إن طُلب وإلا نص فارغ","imageIdea":"فكرة الصورة أو المشهد في سطر"}`,{modelTier:"default"});
+    renderDraft(s,out);
+    $("#genState").textContent="";
+  }catch(e){ $("#genState").textContent = e&&e.code==="not_granted"?"لم تُمنح صلاحية الكتابة الذكية.":"تعذّرت الكتابة: "+(e&&e.message||""); }
+  $("#btnGen").disabled=false;
+}
+function tomorrowAt(h){ const d=new Date(riyadhNow().getTime()+864e5); return isoDay(d)+"T"+pad(h)+":00"; }
+function renderDraft(s,o){
+  const dow=metricoolDow(new Date(riyadhNow().getTime()+864e5)); const h=bestHoursFor(dow)[0];
+  $("#stDraft").innerHTML=`<div style="display:grid;gap:12px">
+    <div class="meta"><span class="tag acc">${esc(s.name)}</span></div>
+    <div class="field"><label for="d-title">العنوان</label><input type="text" id="d-title" value="${esc(o.title||"")}"></div>
+    <div class="field"><label for="d-text">النص</label><textarea id="d-text">${esc(o.text||"")}</textarea></div>
+    ${o.script?`<div class="field"><label for="d-script">سكربت الفيديو</label><textarea id="d-script">${esc(o.script)}</textarea></div>`:""}
+    ${o.imageIdea?`<div class="small"><span class="muted">فكرة الصورة:</span> ${esc(o.imageIdea)}</div>`:""}
+    ${mediaPicker("d",CARD(s.id))}
+    <div class="row"><div class="field"><label for="d-date">موعد النشر (أفضل وقت مقترح)</label><input type="datetime-local" id="d-date" value="${tomorrowAt(h)}"></div>
+    <button class="btn primary" id="btnSchedOne">جدولة على ${[...S.selNets].map(n=>NETS[n]).join(" + ")}</button></div>
+    <div id="d-res"></div></div>`;
+  $("#btnSchedOne").onclick=async()=>{
+    const btn=$("#btnSchedOne"); btn.disabled=true; btn.innerHTML='<span class="spin"></span> يجدول…';
+    const res=await schedule({service:s.id,title:$("#d-title").value,text:$("#d-text").value,media:$("#m-d").value.trim(),date:$("#d-date").value,source:"studio"});
+    $("#d-res").innerHTML = res.ok? `<div class="note">تمت الجدولة. ستظهر في «الجدولة والسجل» ونتائجها في «النتائج» بعد النشر.</div>` : `<div class="note err">${esc(res.msg)}</div>`;
+    btn.disabled=res.ok; btn.textContent=res.ok?"تمت الجدولة":"أعد المحاولة";
+  };
+}
+$("#btnGen").addEventListener("click",genOne);
+
+/* ---------- autopilot ---------- */
+async function genPlan(){
+  const n=+$("#apCount").value, focus=$("#apFocus").value, tone=$("#apTone").selectedOptions[0].text;
+  $("#btnPlan").disabled=true; $("#planState").innerHTML='<span class="spin"></span> يحلل الأداء ويكتب الخطة…';
+  // choose slots: next days, best hours
+  const slots=[]; const perDay=n>7?2:1; let i=1;
+  while(slots.length<n){ const d=new Date(riyadhNow().getTime()+i*864e5); const hs=bestHoursFor(metricoolDow(d));
+    const used=[]; for(const h of hs){ if(used.length>=perDay) break; if(used.every(u=>Math.abs(u-h)>=4)) used.push(h); }
+    used.sort((a,b)=>a-b).forEach(h=>{ if(slots.length<n) slots.push({date:isoDay(d)+"T"+pad(h)+":00",day:DAYS[metricoolDow(d)]}); }); i++; }
+  const st=svcStats().filter(s=>s.id).map(s=>`${svcName(s.id)}: ${s.n} منشور، متوسط ${Math.round(s.avg)} مشاهدة`).join("؛ ")||"لا بيانات";
+  const pool = focus==="smart"? SERVICES : SERVICES.filter(s=>s.g===focus);
+  try{
+    const out=await S.sample.json(`${BRAND_BRIEF}
+أنت مدير تسويق. ضع خطة نشر من ${n} منشورات على ${[...S.selNets].map(x=>NETS[x]).join(" و")} تستهدف الجمهور السعودي بدقة.
+الخدمات المتاحة للخطة مع جمهورها:
+${pool.map(s=>`${s.id}) ${s.name} | الجمهور: ${s.aud} | العمر ${s.age} | ${s.reg} | الألم: ${s.pain} | ${s.tags.map(t=>"#"+t).join(" ")}`).join("\n")}
+أداء آخر ${S.days} يوماً حسب الخدمة: ${st}.
+${focus==="smart"?"وزّع بذكاء: كرر الخدمة الأعلى أداءً مرتين، وأعط فرصة لخدمات لم تُروَّج، ولا تكرر نفس الخدمة في يومين متتاليين، وراعِ الموسم الحالي (بداية الربع الأخير من السنة، العودة للدراسة، صرف الدعم الشهري).":""}
+الأسلوب: ${tone}. نوّع الزوايا (حل مشكلة، خطوات، سؤال للتعليقات، قصة، عرض).
+المواعيد مرتبة: ${slots.map((s,k)=>`${k+1}) ${s.day} ${s.date}`).join("، ")}.
+أعد JSON فقط: {"posts":[{"slot":1,"serviceId":رقم,"angle":"الزاوية بكلمتين","title":"عنوان حتى ٤٠ حرفاً","text":"النص الكامل مع الهاشتاقات","why":"سبب الاختيار في جملة قصيرة"}]}`,{modelTier:"complex"});
+    const posts=(out&&out.posts)||[];
+    S.plan=posts.slice(0,n).map((p,k)=>({...p,date:(slots[(p.slot||k+1)-1]||slots[k]).date,media:SERVICES.some(s=>s.id===+p.serviceId)?CARD(+p.serviceId):"",state:"draft"}));
+    renderPlan(); $("#planState").textContent=`خطة من ${fmt(S.plan.length)} منشورات جاهزة للمراجعة.`;
+  }catch(e){ $("#planState").textContent = e&&e.code==="not_granted"?"لم تُمنح صلاحية الكتابة الذكية.":"تعذّر توليد الخطة: "+(e&&e.message||""); }
+  $("#btnPlan").disabled=false;
+}
+function renderPlan(){
+  if(!S.plan.length){ $("#planBox").innerHTML=""; return; }
+  const needsMedia=[...S.selNets].some(n=>["tiktok","instagram","youtube"].includes(n));
+  $("#planBox").innerHTML=`<div class="panel"><div class="phead"><h2>خطة الأسبوع</h2>
+    <div class="row"><button class="btn gold" id="btnSchedAll">اعتمد وجدول الكل</button></div></div>
+    <div class="small muted" style="margin-bottom:12px">أُرفقت بكل منشور بطاقة خدمته تلقائياً. اضغط «تغيير الصورة» لاختيار بطاقة أخرى أو وضع رابطك.</div>
+    <div class="plan">${S.plan.map((p,k)=>`<div class="pcard ${p.state==="done"?"done":p.state==="fail"?"fail":""}" id="pc-${k}">
+      <div class="meta"><b class="num">${arDate(p.date,true)}</b><span class="tag acc">${esc(svcName(+p.serviceId))}</span>${p.angle?`<span class="tag">${esc(p.angle)}</span>`:""}
+      ${p.state==="done"?'<span class="tag acc">✓ مجدول</span>':p.state==="fail"?`<span class="tag bad">فشل: ${esc(p.err||"")}</span>`:""}</div>
+      ${p.why?`<div class="small muted">${esc(p.why)}</div>`:""}
+      <div class="field"><label for="pt-${k}">النص</label><textarea id="pt-${k}" data-k="${k}" data-f="text">${esc(p.text)}</textarea></div>
+      <div class="row"><div class="field"><label for="pd-${k}">الموعد</label><input type="datetime-local" id="pd-${k}" data-k="${k}" data-f="date" value="${esc(p.date)}"></div>
+      <div class="field"><label for="ph-${k}">العنوان</label><input type="text" id="ph-${k}" data-k="${k}" data-f="title" value="${esc(p.title||"")}"></div></div>
+      ${mediaPicker(k,p.media)}
+      <div><button class="btn" data-drop="${k}" style="padding:5px 12px;font-size:13px">حذف من الخطة</button></div></div>`).join("")}</div></div>`;
+  $("#btnSchedAll").onclick=scheduleAll;
+}
+$("#planBox").addEventListener("input",e=>{const t=e.target; if(t.dataset.k!=null&&t.dataset.f) S.plan[+t.dataset.k][t.dataset.f]=t.value; if(t.dataset.media!=null&&S.plan[+t.dataset.media]) S.plan[+t.dataset.media].media=t.value.trim();});
+$("#planBox").addEventListener("click",e=>{const b=e.target.closest("[data-drop]"); if(!b)return; S.plan.splice(+b.dataset.drop,1); renderPlan();});
+$("#btnPlan").addEventListener("click",genPlan);
+async function scheduleAll(){
+  const btn=$("#btnSchedAll"); btn.disabled=true;
+  let ok=0;
+  for(let k=0;k<S.plan.length;k++){ const p=S.plan[k]; if(p.state==="done") { ok++; continue; }
+    btn.innerHTML=`<span class="spin"></span> ${fmt(k+1)} من ${fmt(S.plan.length)}`;
+    const r=await schedule({service:+p.serviceId,title:p.title,text:p.text,media:p.media,date:p.date,source:"autopilot"});
+    p.state=r.ok?"done":"fail"; p.err=r.msg; if(r.ok) ok++;
+  }
+  renderPlan(); $("#planState").textContent=`جُدول ${fmt(ok)} من ${fmt(S.plan.length)}.`;
+  loadQueue();
+}
+
+/* ---------- schedule via Metricool ---------- */
+async function schedule({service,title,text,media,date,source}){
+  if(!S.mcp||!S.brand) return {ok:false,msg:"Metricool غير متصل."};
+  if(!text||!date) return {ok:false,msg:"النص والموعد مطلوبان."};
+  const nets=[...S.selNets];
+  if(!media && nets.some(n=>["tiktok","instagram","youtube"].includes(n))) return {ok:false,msg:"أضف صورة أو فيديو، فهي مطلوبة لتيك توك."};
+  const dt=date.length===16?date+":00":date;
+  const info={autoPublish:true,descendants:[],draft:false,firstCommentText:"",hasNotReadNotes:false,media:media?[media]:[],mediaAltText:[],
+    providers:nets.map(n=>({network:n})),publicationDate:{dateTime:dt,timezone:TZ},shortener:false,smartLinkData:{ids:[]},text};
+  if(nets.includes("tiktok")) info.tiktokData={disableComment:false,disableDuet:false,disableStitch:false,privacyOption:"PUBLIC_TO_EVERYONE",commercialContentThirdParty:false,commercialContentOwnBrand:true,title:(title||"").slice(0,90),autoAddMusic:true,photoCoverIndex:0,isAigc:false};
+  if(nets.includes("instagram")) info.instagramData={type:"POST"};
+  if(nets.includes("facebook")) info.facebookData={type:"POST"};
+  if(nets.includes("twitter")) info.twitterData={tags:[]};
+  if(nets.includes("threads")) info.threadsData={};
+  if(nets.includes("linkedin")) info.linkedinData={};
+  if(nets.includes("youtube")) info.youtubeData={title:(title||"المكتبة الرقمية").slice(0,90),type:"short",privacy:"public",madeForKids:false};
+  try{
+    await S.mcp.callTool(SERVER,"createScheduledPost",{blogId:String(S.brand.id),date:dt+"+03:00",info:JSON.stringify(info)});
+    if(S.db){ try{ await S.db.collection("campaign_log").add ? await S.db.collection("campaign_log").add({service,title,text,media,date:dt,networks:nets,source,createdAt:Date.now()})
+      : await S.db.doc("campaign_log/"+Date.now()+"-"+Math.random().toString(36).slice(2,7)).set({service,title,text,media,date:dt,networks:nets,source,createdAt:Date.now()}); }catch{} }
+    return {ok:true};
+  }catch(e){ return {ok:false,msg:errText(e)}; }
+}
+
+boot();
+})();
+</script>
